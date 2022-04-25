@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
+import Footer from '@/components/Footer';
 import { Icon } from '@iconify/react';
 
 const productData = [
@@ -128,6 +129,7 @@ const ProductDetail: NextPage = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };
