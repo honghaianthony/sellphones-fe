@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 
 const Card = () => {
 	return (
-		<div className="max-w-7xl absolute my-5 bg-orange-200">
+		<div className="max-w-7xl my-5 bg-orange-200 rounded-xl">
 			<div className="pt-5 flex flex-col pb-10">
 				<Image
 					src="/images/home/oppo.png"
@@ -20,11 +20,7 @@ const Card = () => {
 					{[...Array(5)].map((star, i) => {
 						return (
 							<label key={i}>
-								<input
-									type="radio"
-									name="rating"
-									className="hidden"
-								/>
+								<input type="radio" name="rating" className="hidden" />
 								<Icon icon="emojione:star" className="mx-1" />
 							</label>
 						);

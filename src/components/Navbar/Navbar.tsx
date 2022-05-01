@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 
 const Navbar = () => {
 	return (
-		<nav className="top-0 z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-orange-400">
+		<nav className="top-0 z-50 w-full sticky flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-orange-400">
 			<div className="container px-4 mx-auto flex items-center justify-between">
 				<div className="relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
 					<Link href="/">
@@ -39,9 +39,7 @@ const Navbar = () => {
 										icon="ant-design:shopping-cart-outlined"
 										className="text-white text-lg"
 									/>
-									<h5 className="text-lg text-white">
-										Giỏ hàng
-									</h5>
+									<h5 className="text-lg text-white">Giỏ hàng</h5>
 								</a>
 							</Link>
 						</li>

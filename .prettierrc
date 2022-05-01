@@ -15,5 +15,5 @@
     "trailingComma": "es5",
     "useTabs": true,
     "vueIndentScriptAndStyle": false,
-    "tabWidth": 4
+    "tabWidth": 2
 }

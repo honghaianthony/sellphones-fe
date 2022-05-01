@@ -22,72 +22,52 @@ const SubNavbar = () => {
 				>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Apple
-							</h5>
+							<h5 className="text-lg font-medium text-white">Apple</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Samsung
-							</h5>
+							<h5 className="text-lg font-medium text-white">Samsung</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Oppo
-							</h5>
+							<h5 className="text-lg font-medium text-white">Oppo</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Vivo
-							</h5>
+							<h5 className="text-lg font-medium text-white">Vivo</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Xiaomi
-							</h5>
+							<h5 className="text-lg font-medium text-white">Xiaomi</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Nokia
-							</h5>
+							<h5 className="text-lg font-medium text-white">Nokia</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Realme
-							</h5>
+							<h5 className="text-lg font-medium text-white">Realme</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Vsmart
-							</h5>
+							<h5 className="text-lg font-medium text-white">Vsmart</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								ASUS
-							</h5>
+							<h5 className="text-lg font-medium text-white">ASUS</h5>
 						</a>
 					</Link>
 					<Link href="/">
 						<a className="flex space-x-3 items-center">
-							<h5 className="text-lg font-medium text-white">
-								Hãng khác
-							</h5>
+							<h5 className="text-lg font-medium text-white">Hãng khác</h5>
 						</a>
 					</Link>
 				</div>

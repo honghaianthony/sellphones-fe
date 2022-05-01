@@ -30,21 +30,12 @@ const ProductDetail: NextPage = () => {
 			<div className="container mx-auto px-4 my-8 flex flex-row">
 				<div className="flex flex-col">
 					<div className="flex flex-row my-5 items-center">
-						<h3 className="font-bold mx-5">
-							Điện thoại OPPO Reno7 Z 5G
-						</h3>
+						<h3 className="font-bold mx-5">Điện thoại OPPO Reno7 Z 5G</h3>
 						{[...Array(5)].map((star, i) => {
 							return (
 								<label key={i}>
-									<input
-										type="radio"
-										name="rating"
-										className="hidden"
-									/>
-									<Icon
-										icon="emojione:star"
-										className="mx-1"
-									/>
+									<input type="radio" name="rating" className="hidden" />
+									<Icon icon="emojione:star" className="mx-1" />
 								</label>
 							);
 						})}
@@ -66,9 +57,7 @@ const ProductDetail: NextPage = () => {
 									<div className="mr-4" key={index}>
 										<Image
 											src={i.images}
-											alt={
-												'Handmade bag number 5-' + index
-											}
+											alt={'Handmade bag number 5-' + index}
 											className="w-1/5 mr-auto cursor-pointer md:mb-4"
 											width={155}
 											height={120}
@@ -88,8 +77,7 @@ const ProductDetail: NextPage = () => {
 								className="text-2xl text-blue-500 mx-3"
 							/>
 							<p>
-								Hư gì đổi nấy{' '}
-								<span className="font-bold">12 tháng</span> tại
+								Hư gì đổi nấy <span className="font-bold">12 tháng</span> tại
 								3091 siêu thị toàn quốc (miễn phí tháng đầu){' '}
 								<a href="/" className="text-blue-500">
 									Xem chi tiết
@@ -118,9 +106,8 @@ const ProductDetail: NextPage = () => {
 								className="text-2xl text-blue-500 mx-3"
 							/>
 							<p>
-								Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy
-								sim, Ốp lưng, Cáp Type C, Củ sạc nhanh rời đầu
-								Type A{' '}
+								Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy sim, Ốp lưng, Cáp
+								Type C, Củ sạc nhanh rời đầu Type A{' '}
 								<a href="/" className="text-blue-500">
 									Xem hình
 								</a>
