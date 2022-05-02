@@ -8,16 +8,14 @@ const Footer = () => {
 			<div className="container px-4 mx-auto flex flex-col md:flex-row justify-between">
 				<ul className="flex flex-col py-3 list-none">
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
+						<Link href="/support/introduction">
 							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Giới thiệu về SellPhone
-								</h5>
+								<h5 className="text-sm text-black">Giới thiệu về SellPhone</h5>
 							</a>
 						</Link>
 					</li>
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
+						<Link href="/support/common-questions">
 							<a className="flex space-x-3 items-center">
 								<h5 className="text-sm text-black">
 									Câu hỏi thường gặp mua hàng
@@ -26,28 +24,56 @@ const Footer = () => {
 						</Link>
 					</li>
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
+						<Link href="/support/security-policy">
+							<a className="flex space-x-3 items-center">
+								<h5 className="text-sm text-black">Chính sách bảo mật</h5>
+							</a>
+						</Link>
+					</li>
+					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
+						<Link href="/support/installment-policy">
+							<a className="flex space-x-3 items-center">
+								<h5 className="text-sm text-black">Chính sách trả góp</h5>
+							</a>
+						</Link>
+					</li>
+					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
+						<Link href="/support/exchange-policy">
+							<a className="flex space-x-3 items-center">
+								<h5 className="text-sm text-black">Chính sách đổi trả</h5>
+							</a>
+						</Link>
+					</li>
+				</ul>
+				<ul className="flex flex-col py-3 list-none">
+					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
+						<Link href="/support/warranty-policy">
+							<a className="flex space-x-3 items-center">
+								<h5 className="text-sm text-black">Hệ thống bảo hành</h5>
+							</a>
+						</Link>
+					</li>
+					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
+						<Link href="/support/apple-questions">
 							<a className="flex space-x-3 items-center">
 								<h5 className="text-sm text-black">
-									Chính sách bảo mật
+									Câu hỏi thường gặp về Apple
 								</h5>
 							</a>
 						</Link>
 					</li>
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
+						<Link href="/support/exchange-machine">
 							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Quy chế hoạt động
-								</h5>
+								<h5 className="text-sm text-black">Giới thiệu máy đổi trả</h5>
 							</a>
 						</Link>
 					</li>
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
+						<Link href="/support/unboxing-policy">
 							<a className="flex space-x-3 items-center">
 								<h5 className="text-sm text-black">
-									Chính sách đổi trả
+									Chính sách khui hộp sản phẩm
 								</h5>
 							</a>
 						</Link>
@@ -57,47 +83,7 @@ const Footer = () => {
 					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
 						<Link href="/">
 							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Hệ thống bảo hành
-								</h5>
-							</a>
-						</Link>
-					</li>
-					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
-							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Bán hàng doanh nghiệp
-								</h5>
-							</a>
-						</Link>
-					</li>
-					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
-							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Giới thiệu máy đổi trả
-								</h5>
-							</a>
-						</Link>
-					</li>
-					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
-							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Chính sách đổi trả
-								</h5>
-							</a>
-						</Link>
-					</li>
-				</ul>
-				<ul className="flex flex-col py-3 list-none">
-					<li className="flex items-center px-3 pb-3 lg:text-white cursor-pointer">
-						<Link href="/">
-							<a className="flex space-x-3 items-center">
-								<h5 className="text-sm text-black">
-									Trang chủ
-								</h5>
+								<h5 className="text-sm text-black">Trang chủ</h5>
 							</a>
 						</Link>
 					</li>
