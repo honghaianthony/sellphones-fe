@@ -11,7 +11,7 @@ const Home: NextPage = () => {
 	return (
 		<MainLayout>
 			<Slider />
-			<div className="container my-20 mx-auto items-center justify-between bg-gray-100">
+			<div className="container py-20 mx-auto items-center justify-between bg-gray-100">
 				<span className="font-bold text-2xl ml-8">Hàng nổi bật</span>
 				<div className="grid grid-cols-1 gap-8 px-8 md:grid-cols-2 lg:grid-cols-4">
 					<Card />

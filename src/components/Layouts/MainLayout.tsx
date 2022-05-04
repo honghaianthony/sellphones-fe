@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import React from 'react';
 import SubNavbar from '../SubNavbar';
 
@@ -12,6 +13,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 			<Navbar />
 			<SubNavbar />
 			{children}
+			<Footer/>
 		</div>
 	);
 };
