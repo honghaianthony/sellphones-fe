@@ -24,15 +24,11 @@ const Slider = () => {
 	let intervalTime = 5000;
 
 	const nextSlide = () => {
-		setCurrentSlide(
-			currentSlide === slideLength - 1 ? 0 : currentSlide + 1
-		);
+		setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1);
 	};
 
 	const prevSlide = () => {
-		setCurrentSlide(
-			currentSlide === 0 ? slideLength - 1 : currentSlide - 1
-		);
+		setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1);
 	};
 
 	function autoSlide() {
@@ -50,43 +46,44 @@ const Slider = () => {
 		return () => clearInterval(slideInterval);
 	}, [currentSlide]);
 	return (
-		<div className="w-1/2 h-80 relative">
-			<div className="flex">
+		<div className="h-40 space-y-0.5 md:space-y-2">
+			<div className="group relative md:-ml-2">
 				<Icon
-					icon="ooui:previous-ltr"
-					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer z-50 top-1/2 left-44 invisible lg:visible hover:bg-black hover:text-white"
+					icon="akar-icons:chevron-left"
+					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-20 ml-4 z-10 m-auto mt-40 invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0 "
 					onClick={prevSlide}
 				/>
+				<div className="flex items-center space-x-0.5 md:space-x-2.5 md:p-2">
+					{sliderData.map((slide, index) => {
+						return (
+							<div
+								className={
+									index === currentSlide
+										? 'absolute top-0 my-10 px-5 items-center w-full h-full ease-in-out duration-500 opacity-100 translate-x-0'
+										: 'absolute top-0 my-10 px-5 md:mx-32 items-center w-full h-full opacity-0 -translate-x-1/2 ease-in-out duration-500'
+								}
+								key={index}
+							>
+								{index === currentSlide && (
+									<>
+										<Image
+											src={slide.image}
+											alt="Slider"
+											width={830}
+											height={300}
+										/>
+									</>
+								)}
+							</div>
+						);
+					})}
+				</div>
 				<Icon
-					icon="ooui:previous-rtl"
-					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer z-50 top-1/2 right-0 invisible lg:visible hover:bg-black hover:text-white"
+					icon="akar-icons:chevron-right"
+					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-96 ml-96 z-10 mt-40 m-auto invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0"
 					onClick={nextSlide}
 				/>
 			</div>
-
-			{sliderData.map((slide, index) => {
-				return (
-					<div
-						className={
-							index === currentSlide
-								? 'absolute top-0 my-10 px-5 md:mx-32 items-center w-full h-full ease-in-out duration-500 opacity-100 translate-x-0'
-								: 'absolute top-0 my-10 px-5 md:mx-32 items-center w-full h-full opacity-0 -translate-x-1/2 ease-in-out duration-500'
-						}
-						key={index}
-					>
-						{index === currentSlide && (
-							<>
-								<Image
-									src={slide.image}
-									alt="Slider"
-									width={830}
-									height={300}
-								/>
-							</>
-						)}
-					</div>
-				);
-			})}
 		</div>
 	);
 };
