@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 
-const CardDetail = () => {
+const CardVivo = () => {
 	return (
 		<div className="my-6 bg-white">
 			<div className="mx-auto py-3 text-center">
@@ -19,7 +19,7 @@ const CardDetail = () => {
 				<span className="font-bold text-xl text-red-500 mx-5">
 					10.490.000<sup>đ</sup>
 				</span>
-				<div className="flex flex-row">
+				<div className="flex flex-col">
 					<div className="mt-3 mx-5 flex flex-row items-center">
 						{[...Array(5)].map((star, i) => {
 							return (
@@ -30,11 +30,11 @@ const CardDetail = () => {
 							);
 						})}
 					</div>
-					<span className="text-gray-10 mx-3 mt-2">(100 đánh giá)</span>
+					<span className="text-gray-10 mx-3 mt-2 px-3">(100 đánh giá)</span>
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default CardDetail;
+export default CardVivo;

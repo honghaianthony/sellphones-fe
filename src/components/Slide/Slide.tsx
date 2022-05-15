@@ -1,8 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
+import Slider from 'react-slick';
 
-const Slider = () => {
+function SampleNextArrow(props: any) {
+	const { className, style, onClick } = props;
+	return (
+		<div
+			className={className}
+			style={{
+				...style,
+				display: 'block',
+			}}
+			onClick={onClick}
+		>
+			<Icon
+				icon="akar-icons:chevron-right"
+				className="bg-zinc-50 text-black w-8 h-14 absolute cursor-pointer hover:bg-black hover:text-white top-0 bottom-0 -ml-9"
+			/>
+		</div>
+	);
+}
+
+function SamplePrevArrow(props: any) {
+	const { className, style, onClick } = props;
+	return (
+		<div
+			className={className}
+			style={{
+				...style,
+				display: 'block',
+				zIndex: '10',
+			}}
+			onClick={onClick}
+		>
+			<Icon
+				icon="akar-icons:chevron-left"
+				className="bg-zinc-50 text-black w-8 h-14 absolute cursor-pointer hover:bg-black hover:text-white top-0 bottom-0 ml-6"
+			/>
+		</div>
+	);
+}
+
+const Slide = () => {
 	const sliderData = [
 		{
 			image: '/images/slider/slide1.png',
@@ -47,12 +87,12 @@ const Slider = () => {
 	}, [currentSlide]);
 	return (
 		<div className="h-40 space-y-0.5 md:space-y-2">
-			<div className="group relative md:-ml-2">
-				<Icon
+			<div className="group relative">
+				{/* <Icon
 					icon="akar-icons:chevron-left"
-					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-20 ml-4 z-10 m-auto mt-40 invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0 "
+					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-20 z-10 ml-4 mt-40 invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0 "
 					onClick={prevSlide}
-				/>
+				/> */}
 				<div className="flex items-center space-x-0.5 md:space-x-2.5 md:p-2">
 					{sliderData.map((slide, index) => {
 						return (
@@ -60,7 +100,7 @@ const Slider = () => {
 								className={
 									index === currentSlide
 										? 'absolute top-0 my-10 px-5 items-center w-full h-full ease-in-out duration-500 opacity-100 translate-x-0'
-										: 'absolute top-0 my-10 px-5 md:mx-32 items-center w-full h-full opacity-0 -translate-x-1/2 ease-in-out duration-500'
+										: 'absolute top-0 my-10 px-5 md:mx-16 items-center w-full h-full opacity-0 -translate-x-1/2 ease-in-out duration-500'
 								}
 								key={index}
 							>
@@ -78,14 +118,14 @@ const Slider = () => {
 						);
 					})}
 				</div>
-				<Icon
+				{/* <Icon
 					icon="akar-icons:chevron-right"
 					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-96 ml-96 z-10 mt-40 m-auto invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0"
 					onClick={nextSlide}
-				/>
+				/> */}
 			</div>
 		</div>
 	);
 };
 
-export default Slider;
+export default Slide;
