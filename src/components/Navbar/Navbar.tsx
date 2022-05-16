@@ -43,6 +43,17 @@ const Navbar = () => {
 								</a>
 							</Link>
 						</li>
+						<li className="flex items-center px-3 lg:text-white cursor-pointer">
+							<Link href="/">
+								<a className="flex space-x-3 items-center">
+									<Icon
+										icon="akar-icons:chat-question"
+										className="text-white text-lg"
+									/>
+									<h5 className="text-lg text-white">Hỏi đáp</h5>
+								</a>
+							</Link>
+						</li>
 					</ul>
 				</div>
 			</div>

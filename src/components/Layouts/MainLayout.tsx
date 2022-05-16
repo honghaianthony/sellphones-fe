@@ -9,11 +9,11 @@ type MainLayoutProps = {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
 	return (
-		<div className="bg-gray-100 h-screen">
+		<div className="bg-gray-100 h-full">
 			<Navbar />
 			<SubNavbar />
 			{children}
-			<Footer/>
+			<Footer />
 		</div>
 	);
 };
