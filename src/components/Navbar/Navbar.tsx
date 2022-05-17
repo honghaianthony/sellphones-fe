@@ -33,7 +33,7 @@ const Navbar = () => {
 				<div className="flex">
 					<ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
 						<li className="flex items-center px-3 lg:text-white cursor-pointer">
-							<Link href="/">
+							<Link href="/cart">
 								<a className="flex space-x-3 items-center">
 									<Icon
 										icon="ant-design:shopping-cart-outlined"
@@ -44,7 +44,7 @@ const Navbar = () => {
 							</Link>
 						</li>
 						<li className="flex items-center px-3 lg:text-white cursor-pointer">
-							<Link href="/">
+							<Link href="/support">
 								<a className="flex space-x-3 items-center">
 									<Icon
 										icon="akar-icons:chat-question"

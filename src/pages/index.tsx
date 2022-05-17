@@ -275,7 +275,7 @@ const Home: NextPage = () => {
 					</Slider>
 				</div>
 				<div className="mx-auto text-center">
-					<Link href="/">
+					<Link href="/product">
 						<a className="px-16 py-3 rounded items-center bg-white text-black">
 							Xem tất cả các sản phẩm
 						</a>
@@ -342,7 +342,7 @@ const Home: NextPage = () => {
 					</Slider>
 				</div>
 				<div className="mx-auto text-center">
-					<Link href="/">
+					<Link href="/product">
 						<a className="px-16 py-3 rounded items-center bg-white text-black">
 							Xem tất cả các sản phẩm
 						</a>

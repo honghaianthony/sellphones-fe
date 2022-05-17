@@ -185,7 +185,7 @@ const ProductList: NextPage = () => {
 										<CardDetail />
 										<Specifications />
 										<div className="my-8">
-											<Link href="/">
+											<Link href="/product/oppo-reno7z">
 												<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
 													Mua ngay
 												</a>
@@ -196,7 +196,7 @@ const ProductList: NextPage = () => {
 										<CardDetail />
 										<Specifications />
 										<div className="my-8">
-											<Link href="/">
+											<Link href="/product/oppo-reno7z">
 												<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
 													Mua ngay
 												</a>
@@ -207,7 +207,7 @@ const ProductList: NextPage = () => {
 										<CardDetail />
 										<Specifications />
 										<div className="my-8">
-											<Link href="/">
+											<Link href="/product/oppo-reno7z">
 												<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
 													Mua ngay
 												</a>
