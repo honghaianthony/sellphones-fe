@@ -14,7 +14,7 @@ const CardDetail = () => {
 				/>
 			</div>
 
-			<div className="flex flex-col pb-10">
+			<div className="flex flex-col pb-5">
 				<span className="font-bold text-xl mx-5 mt-5 mb-2">Oppo Reno 7z</span>
 				<span className="font-bold text-xl text-red-500 mx-5">
 					10.490.000<sup>đ</sup>
