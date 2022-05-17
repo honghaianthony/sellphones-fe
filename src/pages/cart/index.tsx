@@ -4,6 +4,7 @@ import MainLayout from '@/components/Layouts/MainLayout';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { Icon } from '@iconify/react';
 
 const Cart: NextPage = () => {
 	return (
@@ -12,17 +13,17 @@ const Cart: NextPage = () => {
 				<title>Giỏ hàng</title>
 			</Head>
 			<MainLayout>
-				<div className="flex flex-row pt-12 pl-4 lg:pl-40 md:px-10 mb-4">
+				<div className="flex flex-row pt-12 pl-4 lg:pl-40 md:px-10 mb-4 items-center">
 					<Link href="/">
 						<a className="hover:text-lightBlue-600">Trang chủ</a>
 					</Link>
-					{' - '}
+					<Icon icon="ant-design:arrow-right-outlined" className="mx-3" />
 					<Link href="/cart">
 						<a className="hover:text-lightBlue-600">Giỏ hàng</a>
 					</Link>
 				</div>
 
-        <BuyModal/>
+				<BuyModal />
 				{/* <div className="container px-32">
 					<div className='bg-white rounded-2xl'>
             <div className='p-4 font-bold text-xl'>Đặt mua sản phẩm</div>
