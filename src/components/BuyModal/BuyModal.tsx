@@ -138,7 +138,17 @@ const BuyModal = () => {
 					</div>
 				</div>
 			) : (
-				<div>Không có sản phẩm trong giỏ hàng</div>
+				<div className="container max-w-7xl mx-auto h-96 bg-white rounded-2xl my-16 relative">
+					<div className="flex items-center mx-auto relative align-middle justify-center top-1/2">
+						<Icon
+							icon="bi:cart-fill"
+							className="text-red-500 mx-3 text-2xl font-bold"
+						/>
+						<span className="text-2xl font-bold">
+							Không có sản phẩm trong giỏ hàng
+						</span>
+					</div>
+				</div>
 			)}
 		</>
 	);
