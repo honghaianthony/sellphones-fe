@@ -1,3 +1,2 @@
-import Sidebar from './Sidebar';
-
-export default Sidebar;
+export { default as Sidebar } from './Sidebar';
+export { default as SidebarAdmin } from './SidebarAdmin';

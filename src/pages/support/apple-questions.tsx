@@ -1,6 +1,6 @@
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
+import { Footer } from '@/components/Footer';
+import { Navbar } from '@/components/Navbar';
+import { Sidebar } from '@/components/Sidebar';
 import React from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import { Icon } from '@iconify/react';
