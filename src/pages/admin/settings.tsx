@@ -11,8 +11,8 @@ import Admin from '@/components/Layouts/AdminLayout';
 
 export default function Settings() {
 	return (
-		<>
-			<div className="flex flex-wrap">
+		<Admin>
+			<div className="flex flex-wrap mt-32">
 				<div className="w-full lg:w-8/12 px-4">
 					<CardSettings />
 				</div>
@@ -20,7 +20,7 @@ export default function Settings() {
 					<CardProfile />
 				</div>
 			</div>
-		</>
+		</Admin>
 	);
 }
 

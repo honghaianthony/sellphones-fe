@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image';
 
 import { TableDropdown } from '@/components/Dropdowns';
 
@@ -13,7 +14,7 @@ export default function CardTable({ color }: CardTableProps) {
 			<div
 				className={
 					'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded ' +
-					(color === 'light' ? 'bg-white' : 'bg-blueGray-700 text-white')
+					(color === 'light' ? 'bg-white' : 'bg-slate-700 text-white')
 				}
 			>
 				<div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -22,7 +23,7 @@ export default function CardTable({ color }: CardTableProps) {
 							<h3
 								className={
 									'font-semibold text-lg ' +
-									(color === 'light' ? 'text-blueGray-700' : 'text-white')
+									(color === 'light' ? 'text-slate-700' : 'text-white')
 								}
 							>
 								Card Tables
@@ -39,8 +40,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								>
 									Project
@@ -49,8 +50,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								>
 									Budget
@@ -59,8 +60,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								>
 									Status
@@ -69,8 +70,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								>
 									Users
@@ -79,8 +80,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								>
 									Completion
@@ -89,8 +90,8 @@ export default function CardTable({ color }: CardTableProps) {
 									className={
 										'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
 										(color === 'light'
-											? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-											: 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+											? 'bg-slate-50 text-slate-500 border-slate-100'
+											: 'bg-slate-600 text-slate-200 border-slate-500')
 									}
 								></th>
 							</tr>
@@ -98,15 +99,17 @@ export default function CardTable({ color }: CardTableProps) {
 						<tbody>
 							<tr>
 								<th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-									<img
+									<Image
 										src="/img/bootstrap.jpg"
 										className="h-12 w-12 bg-white rounded-full border"
-										alt="..."
-									></img>{' '}
+										alt="Bootstrap"
+										width={12}
+										height={12}
+									/>
 									<span
 										className={
 											'ml-3 font-bold ' +
-											+(color === 'light' ? 'text-blueGray-600' : 'text-white')
+											+(color === 'light' ? 'text-slate-600' : 'text-white')
 										}
 									>
 										Argon Design System
@@ -120,26 +123,34 @@ export default function CardTable({ color }: CardTableProps) {
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 									<div className="flex">
-										<img
+										<Image
 											src="/img/team-1-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-										></img>
-										<img
+											alt="Team1"
+											width={800}
+											height={800}
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
+										/>
+										<Image
 											src="/img/team-2-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											alt="Team2"
+											width={800}
+											height={800}
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-3-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											alt="Team3"
+											width={800}
+											height={800}
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-4-470x470.png"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
+											alt="Team3"
+											width={470}
+											height={470}
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
 									</div>
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -161,15 +172,17 @@ export default function CardTable({ color }: CardTableProps) {
 							</tr>
 							<tr>
 								<th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-									<img
+									<Image
 										src="/img/angular.jpg"
 										className="h-12 w-12 bg-white rounded-full border"
-										alt="..."
-									></img>{' '}
+										width={12}
+										height={12}
+										alt="Angular"
+									/>{' '}
 									<span
 										className={
 											'ml-3 font-bold ' +
-											+(color === 'light' ? 'text-blueGray-600' : 'text-white')
+											+(color === 'light' ? 'text-slate-600' : 'text-white')
 										}
 									>
 										Angular Now UI Kit PRO
@@ -184,26 +197,34 @@ export default function CardTable({ color }: CardTableProps) {
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 									<div className="flex">
-										<img
+										<Image
 											src="/img/team-1-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
+										/>
+										<Image
 											src="/img/team-2-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team2"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-3-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team3"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-4-470x470.png"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
+											width={470}
+											height={470}
+											alt="Team4"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
 									</div>
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -225,15 +246,17 @@ export default function CardTable({ color }: CardTableProps) {
 							</tr>
 							<tr>
 								<th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-									<img
+									<Image
 										src="/img/sketch.jpg"
 										className="h-12 w-12 bg-white rounded-full border"
-										alt="..."
-									></img>{' '}
+										width={12}
+										height={12}
+										alt="Sketch"
+									/>{' '}
 									<span
 										className={
 											'ml-3 font-bold ' +
-											+(color === 'light' ? 'text-blueGray-600' : 'text-white')
+											+(color === 'light' ? 'text-slate-600' : 'text-white')
 										}
 									>
 										Black Dashboard Sketch
@@ -247,26 +270,34 @@ export default function CardTable({ color }: CardTableProps) {
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 									<div className="flex">
-										<img
+										<Image
 											src="/img/team-1-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
+										/>
+										<Image
 											src="/img/team-2-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team2"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-3-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team3"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-4-470x470.png"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
+											width={470}
+											height={470}
+											alt="Team4"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
 									</div>
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -288,15 +319,17 @@ export default function CardTable({ color }: CardTableProps) {
 							</tr>
 							<tr>
 								<th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-									<img
+									<Image
 										src="/img/react.jpg"
 										className="h-12 w-12 bg-white rounded-full border"
-										alt="..."
-									></img>{' '}
+										width={12}
+										height={12}
+										alt="React"
+									/>{' '}
 									<span
 										className={
 											'ml-3 font-bold ' +
-											+(color === 'light' ? 'text-blueGray-600' : 'text-white')
+											+(color === 'light' ? 'text-slate-600' : 'text-white')
 										}
 									>
 										React Material Dashboard
@@ -311,26 +344,34 @@ export default function CardTable({ color }: CardTableProps) {
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 									<div className="flex">
-										<img
+										<Image
 											src="/img/team-1-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
+										/>
+										<Image
 											src="/img/team-2-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-3-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-4-470x470.png"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
+											width={470}
+											height={470}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
 									</div>
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -352,15 +393,17 @@ export default function CardTable({ color }: CardTableProps) {
 							</tr>
 							<tr>
 								<th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-									<img
+									<Image
 										src="/img/vue.jpg"
 										className="h-12 w-12 bg-white rounded-full border"
-										alt="..."
-									></img>{' '}
+										alt="Vue"
+										width={12}
+										height={12}
+									/>{' '}
 									<span
 										className={
 											'ml-3 font-bold ' +
-											+(color === 'light' ? 'text-blueGray-600' : 'text-white')
+											+(color === 'light' ? 'text-slate-600' : 'text-white')
 										}
 									>
 										React Material Dashboard
@@ -375,26 +418,34 @@ export default function CardTable({ color }: CardTableProps) {
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
 									<div className="flex">
-										<img
+										<Image
 											src="/img/team-1-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
+										/>
+										<Image
 											src="/img/team-2-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-3-800x800.jpg"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
-										<img
+											width={800}
+											height={800}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
+										<Image
 											src="/img/team-4-470x470.png"
-											alt="..."
-											className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-										></img>
+											width={470}
+											height={470}
+											alt="Team1"
+											className="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
+										/>
 									</div>
 								</td>
 								<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
