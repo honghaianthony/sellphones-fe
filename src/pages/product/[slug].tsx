@@ -3,9 +3,11 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
+import BuyModal from '@/components/BuyModal/BuyModal';
+import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Icon } from '@iconify/react';
-import { Radio } from '@nextui-org/react';
+import { Radio, Modal } from '@nextui-org/react';
 import Slider from 'react-slick';
 import CardVivo from '@/components/CardDetail/CardVivo';
 import Rating from '@/components/Rating';
@@ -102,6 +104,11 @@ const ProductDetail: NextPage = () => {
 		],
 	};
 	const [mainImage, setMainImage] = useState(productData[0]);
+	const [visible, setVisible] = useState(false);
+	const handler = () => setVisible(true);
+	const closeHandler = () => {
+		setVisible(false);
+	};
 	return (
 		<div className="bg-gray-100 h-full">
 			<Navbar />
@@ -158,9 +165,9 @@ const ProductDetail: NextPage = () => {
 							<p>
 								Hư gì đổi nấy <span className="font-bold">12 tháng</span> tại
 								3091 siêu thị toàn quốc (miễn phí tháng đầu){' '}
-								<a href="/" className="text-blue-500">
-									Xem chi tiết
-								</a>
+								<Link href="/">
+									<a className="text-blue-500">Xem chi tiết</a>
+								</Link>
 							</p>
 						</div>
 						<div className="flex flex-row w-9/12">
@@ -175,9 +182,9 @@ const ProductDetail: NextPage = () => {
 									chính hãng điện thoại 1 năm
 								</span>{' '}
 								tại 3091 siêu thị toàn quốc (miễn phí tháng đầu){' '}
-								<a href="/" className="text-blue-500">
-									Xem địa chỉ bảo hành
-								</a>
+								<Link href="/">
+									<a className="text-blue-500">Xem địa chỉ bảo hành</a>
+								</Link>
 							</p>
 						</div>
 						<div className="flex flex-row w-9/12">
@@ -188,9 +195,9 @@ const ProductDetail: NextPage = () => {
 							<p>
 								Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy sim, Ốp lưng, Cáp
 								Type C, Củ sạc nhanh rời đầu Type A{' '}
-								<a href="/" className="text-blue-500">
-									Xem hình
-								</a>
+								<Link href="/">
+									<a className="text-blue-500">Xem hình</a>
+								</Link>
 							</p>
 						</div>
 					</div>
@@ -513,8 +520,20 @@ const ProductDetail: NextPage = () => {
 
 					<div className="my-3 grid grid-cols-2 gap-3">
 						<div className="col-span-2 max-w-3xl bg-[#CA2A2A] py-3 items-center text-center cursor-pointer">
-							<h3 className="uppercase text-white text-center text-2xl font-bold">
+							<h3
+								className="uppercase text-white text-center text-2xl font-bold"
+								onClick={handler}
+							>
 								MUA NGAY
+								<Modal
+									closeButton
+									width="1280px"
+									aria-labelledby="modal-title"
+									open={visible}
+									onClose={closeHandler}
+								>
+									<BuyModal />
+								</Modal>
 							</h3>
 							<span className="text-white text-center text-sm font-semibold justify-center">
 								Giao hàng miễn phí hoặc giao tại shop
