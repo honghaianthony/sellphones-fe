@@ -23,9 +23,11 @@ const BuyModal = () => {
 			{counter > 0 ? (
 				<div className="container max-w-7xl mx-auto my-5">
 					<div className="bg-white rounded-2xl">
-						<div className="p-6 font-bold text-xl">Đặt mua sản phẩm</div>
+						<div className="p-6 font-bold text-xl flex justify-between">
+							<span>Đặt mua sản phẩm</span>
+						</div>
 						<hr />
-						<div className="my-6 bg-white flex justify-between">
+						<div className="my-6 bg-white flex flex-col md:flex-row justify-between">
 							<div className="mx-8 py-3 flex flex-col md:flex-row">
 								<div>
 									<Image
