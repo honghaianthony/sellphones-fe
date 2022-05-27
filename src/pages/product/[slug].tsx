@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import Navbar from '@/components/Navbar';
+import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
-import Footer from '@/components/Footer';
+import { Footer } from '@/components/Footer';
 import { Icon } from '@iconify/react';
 import { Radio } from '@nextui-org/react';
 import Slider from 'react-slick';

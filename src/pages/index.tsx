@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import Navbar from '@/components/Navbar';
+import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
 import Slide from '@/components/Slide';
 import CardDetail from '@/components/CardDetail/CardDetail';
