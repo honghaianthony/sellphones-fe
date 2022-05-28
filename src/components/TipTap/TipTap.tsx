@@ -241,7 +241,7 @@ const Tiptap = ({ setContent }: any) => {
 			</div>
 
 			<div className="border rounded border-solid border-slate-300">
-				<EditorContent editor={editor} />
+				<EditorContent editor={editor} className="mx-5 my-5" />
 			</div>
 		</div>
 	);

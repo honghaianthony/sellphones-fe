@@ -27,7 +27,7 @@ export default function CardAccessory() {
 						</h6>
 						<div className="flex flex-wrap">
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -38,7 +38,7 @@ export default function CardAccessory() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -49,7 +49,7 @@ export default function CardAccessory() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -60,7 +60,7 @@ export default function CardAccessory() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -71,7 +71,7 @@ export default function CardAccessory() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -90,7 +90,7 @@ export default function CardAccessory() {
 						</h6>
 						<div className="flex flex-wrap">
 							<div className="w-full px-4 my-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -102,7 +102,7 @@ export default function CardAccessory() {
 							</div>
 
 							<div className="w-full px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -113,7 +113,7 @@ export default function CardAccessory() {
 								</div>
 							</div>
 							<div className="w-full px-4">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
