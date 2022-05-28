@@ -13,6 +13,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
+import Tiptap from '@/components/TipTap';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
