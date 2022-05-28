@@ -119,27 +119,30 @@ export default function Sidebar() {
 							</li>
 
 							<li className="items-center">
-								<Link href="/admin/settings">
+								<Link href="/admin/product-management">
 									<a
 										href="#pablo"
 										className={
 											'text-xs uppercase py-3 font-bold block ' +
-											(router.pathname.indexOf('/admin/settings') !== -1
+											(router.pathname.indexOf('/admin/product-management') !==
+											-1
 												? 'text-lightBlue-500 hover:text-lightBlue-600'
 												: 'text-slate-700 hover:text-slate-500')
 										}
 									>
 										<div className="flex">
 											<Icon
-												icon="fa-solid:tools"
+												icon="eos-icons:product-classes-outlined"
 												className={
 													'fas fa-tools mr-2 text-sm ' +
-													(router.pathname.indexOf('/admin/settings') !== -1
+													(router.pathname.indexOf(
+														'/admin/product-management'
+													) !== -1
 														? 'opacity-75'
 														: 'text-slate-300')
 												}
 											/>{' '}
-											Settings
+											Quản lý sản phẩm
 										</div>
 									</a>
 								</Link>
@@ -158,7 +161,7 @@ export default function Sidebar() {
 									>
 										<div className="flex">
 											<Icon
-												icon="fa:table"
+												icon="carbon:order-details"
 												className={
 													' mr-2 text-sm ' +
 													(router.pathname.indexOf('/admin/tables') !== -1
@@ -166,34 +169,38 @@ export default function Sidebar() {
 														: 'text-slate-300')
 												}
 											/>{' '}
-											Tables
+											Đơn đặt hàng
 										</div>
 									</a>
 								</Link>
 							</li>
 
 							<li className="items-center">
-								<Link href="/admin/maps">
+								<Link href="/admin/accessory-management">
 									<a
 										href="#pablo"
 										className={
 											'text-xs uppercase py-3 font-bold block ' +
-											(router.pathname.indexOf('/admin/maps') !== -1
+											(router.pathname.indexOf(
+												'/admin/accessory-management'
+											) !== -1
 												? 'text-lightBlue-500 hover:text-lightBlue-600'
 												: 'text-slate-700 hover:text-slate-500')
 										}
 									>
 										<div className="flex">
 											<Icon
-												icon="fa:map-marker"
+												icon="simple-line-icons:earphones"
 												className={
 													'mr-2 text-sm ' +
-													(router.pathname.indexOf('/admin/maps') !== -1
+													(router.pathname.indexOf(
+														'/admin/accessory-management'
+													) !== -1
 														? 'opacity-75'
 														: 'text-slate-300')
 												}
 											/>{' '}
-											Maps
+											Quản lý phụ kiện
 										</div>
 									</a>
 								</Link>
