@@ -27,18 +27,19 @@ export default function CardSettings() {
 						</h6>
 						<div className="flex flex-wrap">
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
 										bordered
 										color="default"
 										labelPlaceholder="Tên sản phẩm"
+										className="z-5"
 									/>
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -49,7 +50,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -60,7 +61,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-6/12 px-4">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -79,7 +80,7 @@ export default function CardSettings() {
 						</h6>
 						<div className="flex flex-wrap">
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -90,7 +91,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -101,7 +102,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -112,7 +113,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -123,7 +124,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -134,7 +135,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -145,7 +146,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -156,7 +157,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -173,7 +174,7 @@ export default function CardSettings() {
 										clearable
 										bordered
 										color="default"
-										labelPlaceholder="Hệ điều hành"
+										labelPlaceholder="Hệ điều hành z-0"
 									/>
 								</div>
 							</div>
@@ -186,7 +187,7 @@ export default function CardSettings() {
 						</h6>
 						<div className="flex flex-wrap">
 							<div className="w-full px-4 my-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -198,7 +199,7 @@ export default function CardSettings() {
 							</div>
 
 							<div className="w-full px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
@@ -209,7 +210,7 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full px-4">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable

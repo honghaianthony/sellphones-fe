@@ -48,7 +48,7 @@ export default function Sidebar() {
 						}
 					>
 						{/* Collapse header */}
-						<div className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-slate-200">
+						<div className="md:min-w-full md:hidden block pb-4 border-b border-solid border-slate-200 mb-10">
 							<div className="flex flex-wrap">
 								<div className="w-6/12">
 									<Link href="/">
@@ -66,7 +66,7 @@ export default function Sidebar() {
 										className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
 										onClick={() => setCollapseShow('hidden')}
 									>
-										<i className="fas fa-times"></i>
+										<Icon icon="fa:close" />
 									</button>
 								</div>
 							</div>
