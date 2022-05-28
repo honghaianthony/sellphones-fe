@@ -37,7 +37,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-6/12 px-4">
+							<div className="w-full lg:w-6/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -48,7 +48,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-6/12 px-4">
+							<div className="w-full lg:w-6/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -78,7 +78,7 @@ export default function CardSettings() {
 							Thông tin phần cứng
 						</h6>
 						<div className="flex flex-wrap">
-							<div className="w-full lg:w-4/12 px-4 my-8">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -89,7 +89,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-4/12 px-4 my-8">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -100,7 +100,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-4/12 px-4 my-8">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -144,7 +144,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-4/12 px-4">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -155,7 +155,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-4/12 px-4">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -166,7 +166,7 @@ export default function CardSettings() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-4/12 px-4">
+							<div className="w-full lg:w-4/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth

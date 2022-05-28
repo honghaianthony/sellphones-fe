@@ -37,7 +37,7 @@ export default function CardAccessory() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-6/12 px-4">
+							<div className="w-full lg:w-6/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
@@ -59,7 +59,7 @@ export default function CardAccessory() {
 									/>
 								</div>
 							</div>
-							<div className="w-full lg:w-6/12 px-4">
+							<div className="w-full lg:w-6/12 px-4 mb-8">
 								<div className="relative w-full mb-3">
 									<Input
 										fullWidth
