@@ -168,13 +168,13 @@ export default function CardSettings() {
 								</div>
 							</div>
 							<div className="w-full lg:w-4/12 px-4 mb-8">
-								<div className="relative w-full mb-3">
+								<div className="relative w-full mb-3 z-0">
 									<Input
 										fullWidth
 										clearable
 										bordered
 										color="default"
-										labelPlaceholder="Hệ điều hành z-0"
+										labelPlaceholder="Hệ điều hành"
 									/>
 								</div>
 							</div>
