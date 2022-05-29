@@ -7,3 +7,4 @@ export { default as CardProfile } from './CardProfile';
 export { default as CardSocialTraffic } from './CardSocialTraffic';
 export { default as CardTable } from './CardTable';
 export { default as CardAccessory } from './CardAccessory';
+export { default as CardOrder } from './CardOrder';
