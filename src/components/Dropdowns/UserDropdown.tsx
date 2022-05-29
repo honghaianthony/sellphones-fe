@@ -36,35 +36,32 @@ const UserDropdown = () => {
 							'bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48'
 						}
 					>
-						<a
-							href="#pablo"
+						<button
 							className={
-								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700'
+								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
 							}
 							onClick={(e) => e.preventDefault()}
 						>
 							Quản lý tài khoản
-						</a>
-						<a
-							href="#pablo"
+						</button>
+						<button
 							className={
-								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700'
+								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
 							}
 							onClick={(e) => e.preventDefault()}
 						>
 							Thông tin tài khoản
-						</a>
+						</button>
 
 						<div className="h-0 my-2 border border-solid border-slate-100" />
-						<a
-							href="#pablo"
+						<button
 							className={
-								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700'
+								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
 							}
 							onClick={(e) => e.preventDefault()}
 						>
 							Đăng xuất
-						</a>
+						</button>
 					</div>
 				</div>
 			</a>
