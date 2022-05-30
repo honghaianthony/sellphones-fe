@@ -12,6 +12,8 @@ import Slider from 'react-slick';
 import CardVivo from '@/components/CardDetail/CardVivo';
 import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -67,6 +69,13 @@ const productData = [
 	},
 ];
 
+const images = [
+	'/images/product/hinh1.png',
+	'/images/product/hinh2.jpg',
+	'/images/product/hinh3.jpg',
+	'/images/product/hinh4.jpg',
+];
+
 const ProductDetail: NextPage = () => {
 	const settings = {
 		dots: false,
@@ -103,6 +112,8 @@ const ProductDetail: NextPage = () => {
 			},
 		],
 	};
+	const [photoIndex, setPhotoIndex] = useState(0);
+	const [isOpen, setIsOpen] = useState(false);
 	const [mainImage, setMainImage] = useState(productData[0]);
 	const [visible, setVisible] = useState(false);
 	const handler = () => setVisible(true);
@@ -155,6 +166,37 @@ const ProductDetail: NextPage = () => {
 								);
 							})}
 						</div>
+					</div>
+					<div className="w-full px-4 my-5">
+						<div className="flex flex-col items-center">
+							<button type="button" onClick={() => setIsOpen(true)}>
+								<Icon icon="bi:images" className="text-5xl" />
+							</button>
+							<span>Xem thêm {productData.length} ảnh</span>
+						</div>
+
+						{isOpen && (
+							<Lightbox
+								mainSrc={productData[photoIndex].images}
+								nextSrc={
+									productData[(photoIndex + 1) % productData.length].images
+								}
+								prevSrc={
+									productData[
+										(photoIndex + productData.length - 1) % productData.length
+									].images
+								}
+								onCloseRequest={() => setIsOpen(false)}
+								onMovePrevRequest={() =>
+									setPhotoIndex(
+										(photoIndex + productData.length - 1) % productData.length
+									)
+								}
+								onMoveNextRequest={() =>
+									setPhotoIndex((photoIndex + 1) % productData.length)
+								}
+							/>
+						)}
 					</div>
 					<div className="container max-w-3xl grid grid-cols-2 my-4 auto-cols-min">
 						<div className="flex flex-row w-9/12 pb-3">
