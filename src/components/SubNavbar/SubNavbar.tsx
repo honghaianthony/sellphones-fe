@@ -20,52 +20,52 @@ const SubNavbar = () => {
 						(navbarOpen ? ' block rounded shadow-lg' : ' hidden')
 					}
 				>
-					<Link href="/">
+					<Link href="/apple">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Apple</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/samsung">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Samsung</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/oppo">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Oppo</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/vivo">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Vivo</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/xiaomi">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Xiaomi</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/nokia">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Nokia</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/realme">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Realme</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/vsmart">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Vsmart</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/asus">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">ASUS</h5>
 						</a>
 					</Link>
-					<Link href="/">
+					<Link href="/product">
 						<a className="flex space-x-3 items-center">
 							<h5 className="text-lg font-medium text-white">Hãng khác</h5>
 						</a>
