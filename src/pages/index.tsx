@@ -167,7 +167,7 @@ const Home: NextPage = () => {
 			>
 				<Image
 					alt="Banner"
-					src="/images/slider/banner.png"
+					src="/images/banner/banner2.png"
 					layout="fill"
 					objectFit="cover"
 				/>
