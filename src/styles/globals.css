@@ -8,3 +8,8 @@
 		list-style: revert;
 	}
 }
+
+.slick-prev:before,
+.slick-next:before {
+	display: none;
+}

@@ -45,7 +45,7 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
-const Samsung = () => {
+const Xiaomi = () => {
 	const settings = {
 		infinite: true,
 		speed: 500,
@@ -92,20 +92,12 @@ const Samsung = () => {
 
 	return (
 		<MainLayout>
-			<div className="pb-32 bg-[#DFB8C1] justify-center text-center align-middle">
-				<Image
-					alt="Banner"
-					src="/images/banner/banner_samsung.png"
-					width={1001}
-					height={168}
-				/>
-			</div>
-			<div className="w-[1200px] justify-center text-center align-middle mx-auto -mt-16">
+			<div className="container max-w-[1200px] justify-center text-center align-middle mx-auto">
 				<Slider {...settings}>
 					<div>
 						<Image
 							alt="Banner"
-							src="/images/slider/slider_samsung.webp"
+							src="/images/slider/slider_xiaomi.webp"
 							width={1200}
 							height={300}
 						/>
@@ -113,23 +105,7 @@ const Samsung = () => {
 					<div>
 						<Image
 							alt="Banner"
-							src="/images/slider/slider_samsung_2.webp"
-							width={1200}
-							height={300}
-						/>
-					</div>
-					<div>
-						<Image
-							alt="Banner"
-							src="/images/slider/slider_samsung_3.webp"
-							width={1200}
-							height={300}
-						/>
-					</div>
-					<div>
-						<Image
-							alt="Banner"
-							src="/images/slider/slider_samsung_4.webp"
+							src="/images/slider/slider_xiaomi2.jpg"
 							width={1200}
 							height={300}
 						/>
@@ -492,4 +468,4 @@ const Samsung = () => {
 	);
 };
 
-export default Samsung;
+export default Xiaomi;
