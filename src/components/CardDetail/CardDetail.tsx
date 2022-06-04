@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 
-const CardDetail = () => {
+const CardDetail = (props: any) => {
 	return (
 		<div className="my-6 bg-white">
 			<div className="mx-auto py-3 text-center">
 				<Image
-					src="/images/home/oppo.png"
+					src={props.img ? props.img : '/images/product/oppo_1.jpg'}
 					width={206}
 					height={206}
-					alt="Oppo"
+					alt={props.name}
 				/>
 			</div>
 
 			<div className="flex flex-col pb-5">
-				<span className="font-bold text-xl mx-5 mt-5 mb-2">Oppo Reno 7z</span>
+				<span className="font-bold text-xl mx-5 mt-5 mb-2">{props.name}</span>
 				<span className="font-bold text-xl text-red-500 mx-5">
-					10.490.000<sup>đ</sup>
+					{props.price}
+					<sup>đ</sup>
 				</span>
 				<div className="flex flex-row">
 					<div className="mt-3 mx-5 flex flex-row items-center">

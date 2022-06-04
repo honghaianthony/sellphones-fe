@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
@@ -14,6 +14,7 @@ import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import { getProductById } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -54,6 +55,15 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const product = await getProductById('6298bd463ab70e3d305d5a8c');
+	return {
+		props: {
+			product,
+		},
+	};
+};
+
 const productData = [
 	{
 		images: '/images/product/hinh1.png',
@@ -76,7 +86,11 @@ const images = [
 	'/images/product/hinh4.jpg',
 ];
 
-const ProductDetail: NextPage = () => {
+interface ProductDetailProps {
+	product: [];
+}
+
+const ProductDetail: NextPage<ProductDetailProps> = (product) => {
 	const settings = {
 		dots: false,
 		infinite: false,
@@ -120,6 +134,7 @@ const ProductDetail: NextPage = () => {
 	const closeHandler = () => {
 		setVisible(false);
 	};
+
 	return (
 		<div className="bg-gray-100 h-full">
 			<Navbar />
@@ -127,7 +142,7 @@ const ProductDetail: NextPage = () => {
 			<div className="container mx-auto px-4 my-8 flex flex-col lg:flex-row ">
 				<div className="flex flex-col mr-7">
 					<div className="flex flex-row my-5 items-center">
-						<h3 className="font-bold mx-5">Điện thoại OPPO Reno7 Z 5G</h3>
+						<h3 className="font-bold mx-5">Oppo Reno 7z 5G</h3>
 						{[...Array(5)].map((star, i) => {
 							return (
 								<label key={i}>
@@ -603,44 +618,49 @@ const ProductDetail: NextPage = () => {
 						<div className="m-5 font-semibold">Thông số kỹ thuật</div>
 						<div className="my-8">
 							<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
-								<tbody>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Màn hình: </td>
-										<td>AMOLED, 6.43", Full HD+</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Hệ điều hành: </td>
-										<td>Android 11</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Camera sau: </td>
-										<td>Chính 64 MP & Phụ 2 MP, 2 MP</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Camera trước: </td>
-										<td>16 MP</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Chip: </td>
-										<td>Snapdragon 695 5G 8 nhân</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Ram: </td>
-										<td>8 GB</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Bộ nhớ trong: </td>
-										<td>128 GB</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>SIM: </td>
-										<td>2 Nano SIM (SIM 2 chung khe thẻ nhớ), Hỗ trợ 5G</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Pin, Sạc: </td>
-										<td>4500 mAh, 33 W</td>
-									</tr>
-								</tbody>
+								{console.log(product)}
+								{product.product.map((item: any, index) => {
+									return (
+										<tbody key={index}>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Màn hình: </td>
+												<td>{item.screen}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Hệ điều hành: </td>
+												<td>{item.operatingSystem}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Camera sau: </td>
+												<td>{item.camera}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Camera trước: </td>
+												<td>{item.camera}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Chip: </td>
+												<td>{item.processor}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Ram: </td>
+												<td>{item.ram}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Bộ nhớ trong: </td>
+												<td>{item.storage}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>SIM: </td>
+												<td>{item.connect}</td>
+											</tr>
+											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+												<td>Pin, Sạc: </td>
+												<td>{item.battery}</td>
+											</tr>
+										</tbody>
+									);
+								})}
 							</table>
 						</div>
 					</div>
