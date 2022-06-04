@@ -15,7 +15,7 @@ import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
 import loginGoogle from '@/pages/api/authApi';
 import GoogleLogin from 'react-google-login';
-import getAllProducts from '@/pages/api/productApi';
+import { getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -176,8 +176,9 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 	};
 	const handleLoginGG = async (googleData: any) => {
 		const res = await loginGoogle(googleData);
+		console.log(res);
 	};
-	console.log(allProducts);
+
 	return (
 		<MainLayout>
 			<GoogleLogin

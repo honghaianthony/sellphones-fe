@@ -1,7 +1,7 @@
 import axiosInstance from './axiosInstance';
 
 const loginGoogle = async (data: any) => {
-	return await axiosInstance.get('/api/v2/user', data);
+	return await axiosInstance.get('/', data);
 };
 
 //export default above function
