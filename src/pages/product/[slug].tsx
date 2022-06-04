@@ -14,7 +14,7 @@ import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { getProductById } from '@/pages/api/productApi';
+import { getProductById, getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -55,11 +55,59 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const product = await getProductById('6298bd463ab70e3d305d5a8c');
+function ChangeToSlug(str) {
+	// Chuyển hết sang chữ thường
+	str = str.toLowerCase();
+
+	// xóa dấu
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+
+	// Xóa ký tự đặc biệt
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+
+	// Xóa khoảng trắng thay bằng ký tự -
+	str = str.replace(/(\s+)/g, '-');
+
+	// xóa phần dự - ở đầu
+	str = str.replace(/^-+/g, '');
+
+	// xóa phần dư - ở cuối
+	str = str.replace(/-+$/g, '');
+
+	// return
+	return str;
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
+	const allProducts = await getAllProducts();
+	const { slug } = context.params;
+
+	const productId = allProducts.find(
+		(product) =>
+			ChangeToSlug(product.name) + '.' + product._id + '.html' === slug
+	);
+	if (!productId) {
+		return {
+			redirect: {
+				destination: '/404',
+			},
+			props: {},
+		};
+	}
+
+	const product = await getProductById(productId._id);
+
 	return {
 		props: {
 			product,
+			productId,
 		},
 	};
 };
@@ -88,9 +136,14 @@ const images = [
 
 interface ProductDetailProps {
 	product: [];
+	productId: any;
 }
 
-const ProductDetail: NextPage<ProductDetailProps> = (product) => {
+const ProductDetail: NextPage<ProductDetailProps> = ({
+	product,
+	productId,
+}) => {
+	console.log('1', productId);
 	const settings = {
 		dots: false,
 		infinite: false,
@@ -142,7 +195,7 @@ const ProductDetail: NextPage<ProductDetailProps> = (product) => {
 			<div className="container mx-auto px-4 my-8 flex flex-col lg:flex-row ">
 				<div className="flex flex-col mr-7">
 					<div className="flex flex-row my-5 items-center">
-						<h3 className="font-bold mx-5">Oppo Reno 7z 5G</h3>
+						<h3 className="font-bold mx-5">{productId.name}</h3>
 						{[...Array(5)].map((star, i) => {
 							return (
 								<label key={i}>
@@ -484,10 +537,12 @@ const ProductDetail: NextPage<ProductDetailProps> = (product) => {
 					<div className="flex justify-between items-center container">
 						<div className="mx-3 flex items-center mr-5">
 							<h1 className="text-red-500 mx-3 text-2xl font-bold">
-								10.490.000<sup>đ</sup>
+								{productId.price}
+								<sup>đ</sup>
 							</h1>
 							<h1 className="text-[#AAAAAA] line-through">
-								11.490.000<sup>đ</sup>
+								{productId.price}
+								<sup>đ</sup>
 							</h1>
 						</div>
 
@@ -619,7 +674,7 @@ const ProductDetail: NextPage<ProductDetailProps> = (product) => {
 						<div className="my-8">
 							<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
 								{console.log(product)}
-								{product.product.map((item: any, index) => {
+								{product.map((item: any, index) => {
 									return (
 										<tbody key={index}>
 											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">

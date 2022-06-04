@@ -56,6 +56,35 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
+function ChangeToSlug(str) {
+	// Chuyển hết sang chữ thường
+	str = str.toLowerCase();
+
+	// xóa dấu
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+
+	// Xóa ký tự đặc biệt
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+
+	// Xóa khoảng trắng thay bằng ký tự -
+	str = str.replace(/(\s+)/g, '-');
+
+	// xóa phần dự - ở đầu
+	str = str.replace(/^-+/g, '');
+
+	// xóa phần dư - ở cuối
+	str = str.replace(/-+$/g, '');
+
+	// return
+	return str;
+}
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const allProducts = await getAllProducts();
 	return {
@@ -245,12 +274,15 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				<span className="font-bold text-2xl ml-8 text-white">Hàng nổi bật</span>
 				<div className="grid grid-cols-1 gap-8 px-32 md:grid-cols-2 lg:grid-cols-4">
 					{allProducts.map((item: any, index) => {
+						console.log(item);
 						return (
 							<CardDetail
 								key={index}
 								name={item.name}
 								price={item.price}
 								img={item.image}
+								slug={ChangeToSlug(item.name)}
+								id={item._id}
 							/>
 						);
 					})}
