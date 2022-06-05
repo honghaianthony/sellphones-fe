@@ -3,16 +3,14 @@ import { Icon } from '@iconify/react';
 import { Tooltip, Button, Grid, Avatar } from '@nextui-org/react';
 import UserCard from '@/components/UserCard';
 
-const Comment = () => {
+const Comment = (props: any) => {
 	const [showInput, setShowInput] = useState(false);
 	const handleClickReply = () => {
 		setShowInput(!showInput);
 	};
 	return (
 		<div className="max-w-7xl bg-white rounded-lg pb-16">
-			<h1 className="p-7 font-bold text-xl">
-				Hỏi & Đáp về OPPO Reno 7 Z 5G 8GB - 128GB
-			</h1>
+			<h1 className="p-7 font-bold text-xl">Hỏi & Đáp về {props.name}</h1>
 
 			<div className="flex items-center mx-7 px-4 border justify-between">
 				<input

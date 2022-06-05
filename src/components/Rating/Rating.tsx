@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import RatingBar from './RatingBar';
 
-const Rating = () => {
+const Rating = (props: any) => {
 	const [rating, setRating] = useState<any | null>();
 	const [hover, setHover] = useState<any | null>(null);
 	return (
 		<div className="max-w-7xl bg-white rounded-lg">
 			<h1 className="p-7 font-bold text-xl">
-				Đánh giá & Nhận xét OPPO Reno7 Z 5G 8GB - 128GB
+				Đánh giá & Nhận xét {props.name}
 			</h1>
 
 			<div className="items-center justify-between mx-5 flex flex-col lg:flex-row">

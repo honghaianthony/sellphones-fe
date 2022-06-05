@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
@@ -14,6 +14,7 @@ import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
+import { getProductById, getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -54,6 +55,64 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
+function ChangeToSlug(str) {
+	// Chuyển hết sang chữ thường
+	str = str.toLowerCase();
+
+	// xóa dấu
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+
+	// Xóa ký tự đặc biệt
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+
+	// Xóa khoảng trắng thay bằng ký tự -
+	str = str.replace(/(\s+)/g, '-');
+
+	// xóa phần dự - ở đầu
+	str = str.replace(/^-+/g, '');
+
+	// xóa phần dư - ở cuối
+	str = str.replace(/-+$/g, '');
+
+	// return
+	return str;
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
+	const allProducts = await getAllProducts();
+	const { slug } = context.params;
+
+	const productId = allProducts.find(
+		(product) =>
+			ChangeToSlug(product.name) + '.' + product._id + '.html' === slug
+	);
+	if (!productId) {
+		return {
+			redirect: {
+				destination: '/404',
+			},
+			props: {},
+		};
+	}
+
+	const product = await getProductById(productId._id);
+
+	return {
+		props: {
+			product,
+			productId,
+			allProducts,
+		},
+	};
+};
+
 const productData = [
 	{
 		images: '/images/product/hinh1.png',
@@ -76,7 +135,22 @@ const images = [
 	'/images/product/hinh4.jpg',
 ];
 
-const ProductDetail: NextPage = () => {
+interface ProductDetailProps {
+	product: [];
+	productId: any;
+	allProducts: [];
+}
+
+const ProductDetail: NextPage<ProductDetailProps> = ({
+	product,
+	productId,
+	allProducts,
+}) => {
+	console.log('1', productId);
+	console.log('2', product);
+	console.log('3', allProducts);
+	const [color, setColor] = useState('');
+	const [version, setVersion] = useState('');
 	const settings = {
 		dots: false,
 		infinite: false,
@@ -120,6 +194,7 @@ const ProductDetail: NextPage = () => {
 	const closeHandler = () => {
 		setVisible(false);
 	};
+
 	return (
 		<div className="bg-gray-100 h-full">
 			<Navbar />
@@ -127,7 +202,7 @@ const ProductDetail: NextPage = () => {
 			<div className="container mx-auto px-4 my-8 flex flex-col lg:flex-row ">
 				<div className="flex flex-col mr-7">
 					<div className="flex flex-row my-5 items-center">
-						<h3 className="font-bold mx-5">Điện thoại OPPO Reno7 Z 5G</h3>
+						<h3 className="font-bold mx-5">{productId.name}</h3>
 						{[...Array(5)].map((star, i) => {
 							return (
 								<label key={i}>
@@ -154,7 +229,7 @@ const ProductDetail: NextPage = () => {
 									<div className="mr-4" key={index}>
 										<Image
 											src={i.images}
-											alt={'Handmade bag number 5-' + index}
+											alt={'CellPhone number 5-' + index}
 											className="w-1/5 mr-auto cursor-pointer md:mb-4"
 											width={155}
 											height={120}
@@ -469,57 +544,55 @@ const ProductDetail: NextPage = () => {
 					<div className="flex justify-between items-center container">
 						<div className="mx-3 flex items-center mr-5">
 							<h1 className="text-red-500 mx-3 text-2xl font-bold">
-								10.490.000<sup>đ</sup>
+								{product.map((item: any, index) => {
+									return (
+										<div key={index}>
+											{color === item.color && version === item.storage && (
+												<span>
+													{productId.price ? productId.price : item.price}
+													<sup>đ</sup>
+												</span>
+											)}
+										</div>
+									);
+								})}
 							</h1>
 							<h1 className="text-[#AAAAAA] line-through">
-								11.490.000<sup>đ</sup>
+								{productId.price}
+								<sup>đ</sup>
 							</h1>
 						</div>
 
 						<span className="text-[#AAAAAA] ">Trả góp 0%</span>
 					</div>
 
-					<div className="my-8 text-center cursor-pointer">
-						<Radio.Group value="1" row>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center ">
-								<Radio value="1" className="items-center text-center">
-									Reno7z
-									<Radio.Description>10.490.000đ</Radio.Description>
-								</Radio>
-							</div>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="2" className="items-center text-center">
-									Reno7z 5G
-									<Radio.Description>11.490.000đ</Radio.Description>
-								</Radio>
-							</div>
-						</Radio.Group>
-					</div>
-					<div className="my-8 text-center cursor-pointer">
-						<Radio.Group value="1" row>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="1" className="items-center text-center">
-									<Image
-										src="/images/product/oppo-den.webp"
-										width={40}
-										height={40}
-										alt="Color"
-									/>
-									<Radio.Description>Đen</Radio.Description>
-								</Radio>
-							</div>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="2" className="items-center text-center">
-									<Image
-										src="/images/product/oppo-cam.webp"
-										width={40}
-										height={40}
-										alt="Color"
-									/>
-									<Radio.Description>Cam</Radio.Description>
-								</Radio>
-							</div>
-						</Radio.Group>
+					<div className="my-8 text-center cursor-pointer grid grid-cols-2 gap-3">
+						{product.map((item: any, index) => {
+							return (
+								<div
+									className="bg-white rounded py-5 px-5 mx-3 text-center items-center w-64"
+									key={index}
+								>
+									<Radio
+										value={index}
+										className="items-center text-center"
+										checked={version === item.storage && color === item.color}
+										onChange={() => {
+											setVersion(item.storage), setColor(item.color);
+										}}
+									>
+										<div className="flex flex-col">
+											<span>
+												{productId.name} {item.storage}
+											</span>
+											<span>{item.color}</span>
+										</div>
+
+										<Radio.Description>{productId.price}</Radio.Description>
+									</Radio>
+								</div>
+							);
+						})}
 					</div>
 
 					<div className="max-w-3xl bg-white my-5 flex flex-col">
@@ -574,7 +647,22 @@ const ProductDetail: NextPage = () => {
 									open={visible}
 									onClose={closeHandler}
 								>
-									<BuyModal />
+									{product.map((item: any, index) => {
+										return (
+											<div key={index}>
+												{color === item.color && version === item.storage && (
+													<BuyModal
+														id={item._id}
+														name={productId.name}
+														storage={item.storage}
+														color={item.color}
+														img={productId.image}
+														price={item.price}
+													/>
+												)}
+											</div>
+										);
+									})}
 								</Modal>
 							</h3>
 							<span className="text-white text-center text-sm font-semibold justify-center">
@@ -603,44 +691,52 @@ const ProductDetail: NextPage = () => {
 						<div className="m-5 font-semibold">Thông số kỹ thuật</div>
 						<div className="my-8">
 							<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
-								<tbody>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Màn hình: </td>
-										<td>AMOLED, 6.43", Full HD+</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Hệ điều hành: </td>
-										<td>Android 11</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Camera sau: </td>
-										<td>Chính 64 MP & Phụ 2 MP, 2 MP</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Camera trước: </td>
-										<td>16 MP</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Chip: </td>
-										<td>Snapdragon 695 5G 8 nhân</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Ram: </td>
-										<td>8 GB</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Bộ nhớ trong: </td>
-										<td>128 GB</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>SIM: </td>
-										<td>2 Nano SIM (SIM 2 chung khe thẻ nhớ), Hỗ trợ 5G</td>
-									</tr>
-									<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-										<td>Pin, Sạc: </td>
-										<td>4500 mAh, 33 W</td>
-									</tr>
-								</tbody>
+								{product.map((item: any, index) => {
+									return (
+										<tbody key={index}>
+											{color === item.color && version === item.storage && (
+												<>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Màn hình: </td>
+														<td>{item.screen}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Hệ điều hành: </td>
+														<td>{item.operatingSystem}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Camera: </td>
+														<td>{item.camera}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Màu sắc: </td>
+														<td>{item.color}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Chip: </td>
+														<td>{item.processor}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Ram: </td>
+														<td>{item.ram}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Bộ nhớ trong: </td>
+														<td>{item.storage}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>SIM: </td>
+														<td>{item.connect}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Pin, Sạc: </td>
+														<td>{item.battery}</td>
+													</tr>
+												</>
+											)}
+										</tbody>
+									);
+								})}
 							</table>
 						</div>
 					</div>
@@ -652,33 +748,31 @@ const ProductDetail: NextPage = () => {
 				</h1>
 				<div>
 					<Slider {...settings}>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
+						{allProducts.map((item: any, index) => {
+							return (
+								<div
+									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
+									key={index}
+								>
+									<CardVivo
+										name={item.name}
+										price={item.price}
+										img={item.image}
+										slug={ChangeToSlug(item.name)}
+										id={item._id}
+									/>
+								</div>
+							);
+						})}
 					</Slider>
 				</div>
 			</div>
 
 			<div className="container max-w-7xl mx-auto px-4 my-16">
-				<Rating />
+				<Rating name={productId.name} />
 			</div>
 			<div className="container max-w-7xl mx-auto px-4 my-16">
-				<Comment />
+				<Comment name={productId.name} />
 			</div>
 
 			<Footer />

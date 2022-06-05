@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import { Navbar } from '@/components/Navbar';
 import SubNavbar from '@/components/SubNavbar';
 import Slide from '@/components/Slide';
@@ -13,6 +13,9 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
+import loginGoogle from '@/pages/api/authApi';
+import GoogleLogin from 'react-google-login';
+import { getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -53,7 +56,49 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
-const Home: NextPage = () => {
+function ChangeToSlug(str) {
+	// Chuyển hết sang chữ thường
+	str = str.toLowerCase();
+
+	// xóa dấu
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+
+	// Xóa ký tự đặc biệt
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+
+	// Xóa khoảng trắng thay bằng ký tự -
+	str = str.replace(/(\s+)/g, '-');
+
+	// xóa phần dự - ở đầu
+	str = str.replace(/^-+/g, '');
+
+	// xóa phần dư - ở cuối
+	str = str.replace(/-+$/g, '');
+
+	// return
+	return str;
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const allProducts = await getAllProducts();
+	return {
+		props: {
+			allProducts,
+		},
+	};
+};
+
+interface HomeProps {
+	allProducts: [];
+}
+
+const Home: NextPage<HomeProps> = ({ allProducts }) => {
 	const menuList = [
 		{
 			id: 1,
@@ -158,8 +203,20 @@ const Home: NextPage = () => {
 			},
 		],
 	};
+	const handleLoginGG = async (googleData: any) => {
+		const res = await loginGoogle(googleData);
+		console.log(res);
+	};
+
 	return (
 		<MainLayout>
+			<GoogleLogin
+				clientId="347597560668-h78esfd9sgo5krqvgs2ee35el2u9fr4m.apps.googleusercontent.com"
+				buttonText="Log in with Google"
+				onSuccess={handleLoginGG}
+				onFailure={handleLoginGG}
+				cookiePolicy={'single_host_origin'}
+			/>
 			<div
 				style={{ width: '100%', height: '446px', position: 'relative' }}
 				className="mb-8"
@@ -216,11 +273,19 @@ const Home: NextPage = () => {
 			<div className="container py-8 mx-auto items-center justify-between bg-gradient-to-r from-green-400 to-blue-500 mt-32 mb-5">
 				<span className="font-bold text-2xl ml-8 text-white">Hàng nổi bật</span>
 				<div className="grid grid-cols-1 gap-8 px-32 md:grid-cols-2 lg:grid-cols-4">
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
+					{allProducts.map((item: any, index) => {
+						console.log(item);
+						return (
+							<CardDetail
+								key={index}
+								name={item.name}
+								price={item.price}
+								img={item.image}
+								slug={ChangeToSlug(item.name)}
+								id={item._id}
+							/>
+						);
+					})}
 				</div>
 			</div>
 			<div className="container max-w-7xl rounded mx-auto bg-[#FEC603] py-3 my-5">
