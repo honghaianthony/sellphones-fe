@@ -108,6 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		props: {
 			product,
 			productId,
+			allProducts,
 		},
 	};
 };
@@ -137,13 +138,19 @@ const images = [
 interface ProductDetailProps {
 	product: [];
 	productId: any;
+	allProducts: [];
 }
 
 const ProductDetail: NextPage<ProductDetailProps> = ({
 	product,
 	productId,
+	allProducts,
 }) => {
 	console.log('1', productId);
+	console.log('2', product);
+	console.log('3', allProducts);
+	const [color, setColor] = useState('');
+	const [version, setVersion] = useState('');
 	const settings = {
 		dots: false,
 		infinite: false,
@@ -222,7 +229,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									<div className="mr-4" key={index}>
 										<Image
 											src={i.images}
-											alt={'Handmade bag number 5-' + index}
+											alt={'CellPhone number 5-' + index}
 											className="w-1/5 mr-auto cursor-pointer md:mb-4"
 											width={155}
 											height={120}
@@ -537,8 +544,18 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 					<div className="flex justify-between items-center container">
 						<div className="mx-3 flex items-center mr-5">
 							<h1 className="text-red-500 mx-3 text-2xl font-bold">
-								{productId.price}
-								<sup>đ</sup>
+								{product.map((item: any, index) => {
+									return (
+										<div key={index}>
+											{color === item.color && version === item.storage && (
+												<span>
+													{productId.price ? productId.price : item.price}
+													<sup>đ</sup>
+												</span>
+											)}
+										</div>
+									);
+								})}
 							</h1>
 							<h1 className="text-[#AAAAAA] line-through">
 								{productId.price}
@@ -549,47 +566,33 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						<span className="text-[#AAAAAA] ">Trả góp 0%</span>
 					</div>
 
-					<div className="my-8 text-center cursor-pointer">
-						<Radio.Group value="1" row>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center ">
-								<Radio value="1" className="items-center text-center">
-									Reno7z
-									<Radio.Description>10.490.000đ</Radio.Description>
-								</Radio>
-							</div>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="2" className="items-center text-center">
-									Reno7z 5G
-									<Radio.Description>11.490.000đ</Radio.Description>
-								</Radio>
-							</div>
-						</Radio.Group>
-					</div>
-					<div className="my-8 text-center cursor-pointer">
-						<Radio.Group value="1" row>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="1" className="items-center text-center">
-									<Image
-										src="/images/product/oppo-den.webp"
-										width={40}
-										height={40}
-										alt="Color"
-									/>
-									<Radio.Description>Đen</Radio.Description>
-								</Radio>
-							</div>
-							<div className="bg-white rounded py-5 px-5 mx-3 text-center items-center">
-								<Radio value="2" className="items-center text-center">
-									<Image
-										src="/images/product/oppo-cam.webp"
-										width={40}
-										height={40}
-										alt="Color"
-									/>
-									<Radio.Description>Cam</Radio.Description>
-								</Radio>
-							</div>
-						</Radio.Group>
+					<div className="my-8 text-center cursor-pointer grid grid-cols-2 gap-3">
+						{product.map((item: any, index) => {
+							return (
+								<div
+									className="bg-white rounded py-5 px-5 mx-3 text-center items-center w-64"
+									key={index}
+								>
+									<Radio
+										value={index}
+										className="items-center text-center"
+										checked={version === item.storage && color === item.color}
+										onChange={() => {
+											setVersion(item.storage), setColor(item.color);
+										}}
+									>
+										<div className="flex flex-col">
+											<span>
+												{productId.name} {item.storage}
+											</span>
+											<span>{item.color}</span>
+										</div>
+
+										<Radio.Description>{productId.price}</Radio.Description>
+									</Radio>
+								</div>
+							);
+						})}
 					</div>
 
 					<div className="max-w-3xl bg-white my-5 flex flex-col">
@@ -644,7 +647,22 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									open={visible}
 									onClose={closeHandler}
 								>
-									<BuyModal />
+									{product.map((item: any, index) => {
+										return (
+											<div key={index}>
+												{color === item.color && version === item.storage && (
+													<BuyModal
+														id={item._id}
+														name={productId.name}
+														storage={item.storage}
+														color={item.color}
+														img={productId.image}
+														price={item.price}
+													/>
+												)}
+											</div>
+										);
+									})}
 								</Modal>
 							</h3>
 							<span className="text-white text-center text-sm font-semibold justify-center">
@@ -673,46 +691,49 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						<div className="m-5 font-semibold">Thông số kỹ thuật</div>
 						<div className="my-8">
 							<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
-								{console.log(product)}
 								{product.map((item: any, index) => {
 									return (
 										<tbody key={index}>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Màn hình: </td>
-												<td>{item.screen}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Hệ điều hành: </td>
-												<td>{item.operatingSystem}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Camera sau: </td>
-												<td>{item.camera}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Camera trước: </td>
-												<td>{item.camera}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Chip: </td>
-												<td>{item.processor}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Ram: </td>
-												<td>{item.ram}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Bộ nhớ trong: </td>
-												<td>{item.storage}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>SIM: </td>
-												<td>{item.connect}</td>
-											</tr>
-											<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
-												<td>Pin, Sạc: </td>
-												<td>{item.battery}</td>
-											</tr>
+											{color === item.color && version === item.storage && (
+												<>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Màn hình: </td>
+														<td>{item.screen}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Hệ điều hành: </td>
+														<td>{item.operatingSystem}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Camera: </td>
+														<td>{item.camera}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Màu sắc: </td>
+														<td>{item.color}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Chip: </td>
+														<td>{item.processor}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Ram: </td>
+														<td>{item.ram}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Bộ nhớ trong: </td>
+														<td>{item.storage}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>SIM: </td>
+														<td>{item.connect}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+														<td>Pin, Sạc: </td>
+														<td>{item.battery}</td>
+													</tr>
+												</>
+											)}
 										</tbody>
 									);
 								})}
@@ -727,33 +748,31 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 				</h1>
 				<div>
 					<Slider {...settings}>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
+						{allProducts.map((item: any, index) => {
+							return (
+								<div
+									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
+									key={index}
+								>
+									<CardVivo
+										name={item.name}
+										price={item.price}
+										img={item.image}
+										slug={ChangeToSlug(item.name)}
+										id={item._id}
+									/>
+								</div>
+							);
+						})}
 					</Slider>
 				</div>
 			</div>
 
 			<div className="container max-w-7xl mx-auto px-4 my-16">
-				<Rating />
+				<Rating name={productId.name} />
 			</div>
 			<div className="container max-w-7xl mx-auto px-4 my-16">
-				<Comment />
+				<Comment name={productId.name} />
 			</div>
 
 			<Footer />

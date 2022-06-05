@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
+import { addCart } from '@/pages/api/cartApi';
 
-const BuyModal = () => {
+const BuyModal = (props: any) => {
 	const [counter, setCounter] = useState(1);
+	const [cart, setCart] = useState({});
 
 	const increase = () => {
 		setCounter((count) => count + 1);
@@ -18,6 +20,14 @@ const BuyModal = () => {
 	const reset = () => {
 		setCounter(0);
 	};
+	const handleAddToCart = async () => {
+		const cartData = {
+			specificationId: props.id,
+			quantity: counter,
+		};
+		const res = await addCart(cartData);
+		setCart(res);
+	};
 	return (
 		<>
 			{counter > 0 ? (
@@ -31,7 +41,7 @@ const BuyModal = () => {
 							<div className="mx-8 py-3 flex flex-col md:flex-row">
 								<div>
 									<Image
-										src="/images/home/oppo.png"
+										src={props.img ? props.img : '/images/product/oppo_1.jpg'}
 										width={206}
 										height={206}
 										alt="Oppo"
@@ -41,10 +51,10 @@ const BuyModal = () => {
 
 								<div className="max-w-xl flex flex-col">
 									<div className="font-bold text-xl mx-5 mt-5 mb-2 text-left">
-										OPPO Reno7 Z 5G 8GB - 128GB
+										{props.name} {props.storage}
 									</div>
 									<div className="font-bold text-lg mx-5 mb-2 text-left">
-										Đen
+										{props.color}
 									</div>
 									<div className="flex text-left mx-5 text-sm items-center text-[#6a737a]">
 										<Icon icon="bi:dot" />
@@ -101,7 +111,8 @@ const BuyModal = () => {
 							</div>
 
 							<div className="font-bold text-xl text-red-500 mx-5">
-								10.490.000<sup>đ</sup>
+								{props.price * counter}
+								<sup>đ</sup>
 							</div>
 						</div>
 						<hr />
@@ -117,7 +128,7 @@ const BuyModal = () => {
 						<div className="text-right ml-auto mr-2 mx-3 max-w-sm my-3">
 							<div className="flex justify-between">
 								<span className="text-lg">Tổng tiền: </span>
-								<span>10.490.000đ</span>
+								<span>{props.price * counter}</span>
 							</div>
 							<div className="flex justify-between">
 								<span className="text-lg">Giảm: </span>
@@ -125,11 +136,16 @@ const BuyModal = () => {
 							</div>
 							<div className="flex justify-between">
 								<span className="text-xl font-bold">Cần thanh toán: </span>
-								<span className="text-red-500 font-bold">9.990.000đ</span>
+								<span className="text-red-500 font-bold">
+									{props.price * counter - 500000}
+								</span>
 							</div>
 						</div>
 						<div className="mx-auto flex align-middle justify-center my-10 items-center flex-col">
-							<button className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3">
+							<button
+								className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3"
+								onClick={handleAddToCart}
+							>
 								Hoàn tất đặt hàng
 							</button>
 							<span className="text-[#b7b7b7] mb-5">
