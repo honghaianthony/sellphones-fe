@@ -7,7 +7,7 @@ const CardDetail = (props: any) => {
 	return (
 		<Link href={'/product/' + props.slug + '.' + props.id + '.html'}>
 			<a>
-				<div className="my-6 bg-white">
+				<div className="my-6 bg-white h-[400px]">
 					<div className="mx-auto py-3 text-center">
 						<Image
 							src={props.img ? props.img : '/images/product/oppo_1.jpg'}
