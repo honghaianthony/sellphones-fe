@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { addCart } from '@/pages/api/cartApi';
@@ -146,7 +147,9 @@ const BuyModal = (props: any) => {
 								className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3"
 								onClick={handleAddToCart}
 							>
-								Hoàn tất đặt hàng
+								<Link href="/cart">
+									<a>Hoàn tất đặt hàng</a>
+								</Link>
 							</button>
 							<span className="text-[#b7b7b7] mb-5">
 								Bằng cách đặt hàng, bạn đồng ý với điều khoản sử dụng của
