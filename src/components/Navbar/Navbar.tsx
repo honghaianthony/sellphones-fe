@@ -8,7 +8,7 @@ const Navbar = () => {
 	const [showLogin, setShowLogin] = useState(false);
 	return (
 		<nav className="top-0 z-50 w-full sticky flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-orange-400">
-			<div className="container px-4 mx-auto flex items-center justify-between">
+			<div className="container max-w-7xl px-4 mx-auto flex items-center justify-between">
 				<div className="relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
 					<Link href="/">
 						<a className="flex space-x-3 items-center">

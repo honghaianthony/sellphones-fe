@@ -93,7 +93,7 @@ const Slide = () => {
 					className="bg-zinc-50 text-black w-7 h-14 absolute cursor-pointer left-20 z-10 ml-4 mt-40 invisible lg:visible hover:bg-black hover:text-white top-0 bottom-0 "
 					onClick={prevSlide}
 				/> */}
-				<div className="flex items-center space-x-0.5 md:space-x-2.5 md:p-2">
+				<div className="flex items-center md:p-2">
 					{sliderData.map((slide, index) => {
 						return (
 							<div
@@ -109,8 +109,9 @@ const Slide = () => {
 										<Image
 											src={slide.image}
 											alt="Slider"
-											width={830}
-											height={300}
+											width={690}
+											height={250}
+											className="rounded-lg"
 										/>
 									</>
 								)}
