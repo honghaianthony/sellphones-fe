@@ -210,13 +210,6 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 
 	return (
 		<MainLayout>
-			<GoogleLogin
-				clientId="347597560668-h78esfd9sgo5krqvgs2ee35el2u9fr4m.apps.googleusercontent.com"
-				buttonText="Log in with Google"
-				onSuccess={handleLoginGG}
-				onFailure={handleLoginGG}
-				cookiePolicy={'single_host_origin'}
-			/>
 			<div
 				style={{ width: '100%', height: '446px', position: 'relative' }}
 				className="mb-8"
@@ -229,11 +222,11 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				/>
 			</div>
 
-			<div className="flex flex-col lg:flex-row mx-auto justify-center align-middle text-center">
+			<div className="max-w-7xl flex flex-col lg:flex-row mx-auto text-center -mt-44">
 				<div className="top-0 left-0 my-5 w-full">
 					<Slide />
 				</div>
-				<div className="relative mt-24 mx-8 lg:mt-5 lg:-ml-3">
+				<div className="relative mt-12 lg:-mt-16">
 					<Grid.Container gap={3} justify="flex-start">
 						{list.map((item, index) => (
 							<Grid key={index}>
@@ -270,9 +263,9 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</div>
 			</div>
 
-			<div className="container py-8 mx-auto items-center justify-between bg-gradient-to-r from-green-400 to-blue-500 mt-32 mb-5">
-				<span className="font-bold text-2xl ml-8 text-white">Hàng nổi bật</span>
-				<div className="grid grid-cols-1 gap-8 px-32 md:grid-cols-2 lg:grid-cols-4">
+			<div className="max-w-7xl container py-8 mx-auto items-center justify-between bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] mt-16 mb-5 rounded-lg">
+				<span className="font-bold text-2xl ml-5 text-black">Hàng nổi bật</span>
+				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
 					{allProducts.map((item: any, index) => {
 						console.log(item);
 						return (
@@ -280,7 +273,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 								key={index}
 								name={item.name}
 								price={item.price}
-								img={item.image}
+								img={item.image[0]}
 								slug={ChangeToSlug(item.name)}
 								id={item._id}
 							/>
@@ -288,7 +281,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 					})}
 				</div>
 			</div>
-			<div className="container max-w-7xl rounded mx-auto bg-[#FEC603] py-3 my-5">
+			<div className="container max-w-7xl rounded-lg mx-auto bg-[#FEC603] py-3 my-5">
 				<div className="mx-auto align-center text-center">
 					<Image
 						src="/images/home/deal.png"
@@ -319,27 +312,26 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</div>
 				<div>
 					<Slider {...settings}>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
+						{allProducts.map((item: any, index) => {
+							return (
+								<div
+									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
+									key={index}
+								>
+									<CardDetail
+										key={index}
+										name={item.name}
+										price={item.price}
+										img={item.image[0]}
+										slug={ChangeToSlug(item.name)}
+										id={item._id}
+									/>
+								</div>
+							);
+						})}
 					</Slider>
 				</div>
-				<div className="mx-auto text-center">
+				<div className="mx-auto text-center my-3">
 					<Link href="/product">
 						<a className="px-16 py-3 rounded items-center bg-white text-black">
 							Xem tất cả các sản phẩm
@@ -347,16 +339,24 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 					</Link>
 				</div>
 			</div>
-			<div className="container py-8 mx-auto items-center justify-between bg-gradient-to-r from-green-400 to-blue-500 my-5">
-				<span className="font-bold text-2xl ml-8 text-white">
+			<div className="max-w-7xl container py-8 mx-auto items-center justify-between bg-gradient-to-r from-purple-500 to-pink-500 mt-16 mb-5 rounded-lg">
+				<span className="font-bold text-2xl ml-5 text-white">
 					Xu hướng mua sắm
 				</span>
-				<div className="grid grid-cols-1 gap-8 px-32 md:grid-cols-3 lg:grid-cols-4">
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
-					<CardDetail />
+				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
+					{allProducts.map((item: any, index) => {
+						console.log(item);
+						return (
+							<CardDetail
+								key={index}
+								name={item.name}
+								price={item.price}
+								img={item.image[0]}
+								slug={ChangeToSlug(item.name)}
+								id={item._id}
+							/>
+						);
+					})}
 				</div>
 			</div>
 
@@ -386,29 +386,28 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</div>
 				<div>
 					<Slider {...settings}>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5">
-							<CardVivo />
-						</div>
+						{allProducts.map((item: any, index) => {
+							return (
+								<div
+									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
+									key={index}
+								>
+									<CardDetail
+										key={index}
+										name={item.name}
+										price={item.price}
+										img={item.image[0]}
+										slug={ChangeToSlug(item.name)}
+										id={item._id}
+									/>
+								</div>
+							);
+						})}
 					</Slider>
 				</div>
-				<div className="mx-auto text-center">
+				<div className="mx-auto text-center my-3">
 					<Link href="/product">
-						<a className="px-16 py-3 rounded items-center bg-white text-black">
+						<a className="px-16 py-3 rounded items-center bg-white text-black hover:bg-black hover:text-white">
 							Xem tất cả các sản phẩm
 						</a>
 					</Link>

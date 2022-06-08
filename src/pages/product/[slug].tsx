@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer';
 import { Icon } from '@iconify/react';
 import { Radio, Modal } from '@nextui-org/react';
 import Slider from 'react-slick';
-import CardVivo from '@/components/CardDetail/CardVivo';
+import CardDetail from '@/components/CardDetail/CardDetail';
 import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
@@ -199,7 +199,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 		<div className="bg-gray-100 h-full">
 			<Navbar />
 
-			<div className="container mx-auto px-4 my-8 flex flex-col lg:flex-row ">
+			<div className="container max-w-7xl mx-auto px-4 my-8 flex flex-col lg:flex-row ">
 				<div className="flex flex-col mr-7">
 					<div className="flex flex-row my-5 items-center">
 						<h3 className="font-bold mx-5">{productId.name}</h3>
@@ -656,7 +656,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 														name={productId.name}
 														storage={item.storage}
 														color={item.color}
-														img={productId.image}
+														img={productId.image[0]}
 														price={item.price}
 													/>
 												)}
@@ -754,10 +754,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
 									key={index}
 								>
-									<CardVivo
+									<CardDetail
 										name={item.name}
 										price={item.price}
-										img={item.image}
+										img={item.image[0]}
 										slug={ChangeToSlug(item.name)}
 										id={item._id}
 									/>
