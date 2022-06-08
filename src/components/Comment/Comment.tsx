@@ -17,7 +17,7 @@ const Comment = (props: any) => {
 					type="text"
 					placeholder="Viết bình luận"
 					name="comment"
-					className="pt-5 pb-10"
+					className="pt-5 pb-10 w-full"
 				/>
 				<Icon icon="bi:send" className="float-right text-red-500 w-5 h-5" />
 			</div>
@@ -34,7 +34,7 @@ const Comment = (props: any) => {
 				</Tooltip>
 				<div className="flex flex-col mx-3">
 					<span className="font-bold">Đặng Ngô Hồng Hải</span>
-					<p className="text-sm">Reno7.4g về chưa shop, giá bao nhiêu vậy</p>
+					<p className="text-base">Reno7.4g về chưa shop, giá bao nhiêu vậy</p>
 					<button
 						className="text-sm text-blue-400 text-left my-1"
 						onClick={handleClickReply}
@@ -51,7 +51,7 @@ const Comment = (props: any) => {
 							Quản trị viên
 						</span>
 					</div>
-					<p>Về rồi ạ</p>
+					<p className="text-base">Về rồi ạ</p>
 				</div>
 			</div>
 
