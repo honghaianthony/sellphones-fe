@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-
+import { LoginModal} from '../LoginModal'
+ 
 const Navbar = () => {
+	const [showLogin, setShowLogin] = useState(false);
 	return (
 		<nav className="top-0 z-50 w-full sticky flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-orange-400">
 			<div className="container px-4 mx-auto flex items-center justify-between">
@@ -53,6 +55,10 @@ const Navbar = () => {
 									<h5 className="text-lg text-white">Hỏi đáp</h5>
 								</a>
 							</Link>
+						</li>
+						<li>
+							<button onClick={()=> {setShowLogin(true)}}>Đăng nhập/Đăng ký</button>
+							<LoginModal show={showLogin} setShow={setShowLogin}/>
 						</li>
 					</ul>
 				</div>
