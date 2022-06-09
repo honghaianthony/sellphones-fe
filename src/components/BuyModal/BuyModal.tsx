@@ -3,8 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { addCart } from '@/pages/api/cartApi';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 const BuyModal = (props: any) => {
+	const router = useRouter();
 	const [counter, setCounter] = useState(1);
 	const [cart, setCart] = useState({});
 
@@ -27,8 +30,17 @@ const BuyModal = (props: any) => {
 			quantity: counter,
 		};
 		const res = await addCart(cartData);
-		setCart(res);
+		if (res) {
+			toast.success('Thêm vào giỏ hàng thành công');
+			setCart(res);
+		} else {
+			toast.error('Thêm vào giỏ hàng thất bại');
+		}
 	};
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	}
 	return (
 		<>
 			{counter > 0 ? (
@@ -112,7 +124,7 @@ const BuyModal = (props: any) => {
 							</div>
 
 							<div className="font-bold text-xl text-red-500 mx-5">
-								{props.price * counter}
+								{numberWithCommas(props.price * counter)}
 								<sup>đ</sup>
 							</div>
 						</div>
@@ -129,27 +141,28 @@ const BuyModal = (props: any) => {
 						<div className="text-right ml-auto mr-2 mx-3 max-w-sm my-3">
 							<div className="flex justify-between">
 								<span className="text-lg">Tổng tiền: </span>
-								<span>{props.price * counter}</span>
+								<span>{numberWithCommas(props.price * counter)}</span>
 							</div>
 							<div className="flex justify-between">
 								<span className="text-lg">Giảm: </span>
 								<span>-500.000đ</span>
 							</div>
-							<div className="flex justify-between">
+							<div className="flex justify-between items-center">
 								<span className="text-xl font-bold">Cần thanh toán: </span>
-								<span className="text-red-500 font-bold">
-									{props.price * counter - 500000}
+								<span className="text-red-500 font-bold text-xl">
+									{numberWithCommas(props.price * counter - 500000)}
 								</span>
 							</div>
 						</div>
 						<div className="mx-auto flex align-middle justify-center my-10 items-center flex-col">
 							<button
 								className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3"
-								onClick={handleAddToCart}
+								onClick={() => {
+									props.handleClick();
+									handleAddToCart();
+								}}
 							>
-								<Link href="/cart">
-									<a>Hoàn tất đặt hàng</a>
-								</Link>
+								Hoàn tất đặt hàng
 							</button>
 							<span className="text-[#b7b7b7] mb-5">
 								Bằng cách đặt hàng, bạn đồng ý với điều khoản sử dụng của

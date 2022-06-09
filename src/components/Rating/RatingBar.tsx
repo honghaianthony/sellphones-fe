@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 
 const RatingBar = () => {
 	return (
-		<Grid.Container xs={12} sm={3} gap={2}>
+		<Grid.Container xs={12} sm={3} gap={1}>
 			<Grid className="flex w-96">
 				<p className="text-sm mx-3">5</p>
 				<Icon icon="emojione:star" className="mr-3" />
