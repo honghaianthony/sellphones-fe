@@ -664,6 +664,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 														color={item.color}
 														img={productId.image[0]}
 														price={item.price}
+														handleClick={closeHandler}
 													/>
 												)}
 											</div>

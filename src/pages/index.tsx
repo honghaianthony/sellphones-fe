@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MainLayout from '@/components/Layouts/MainLayout';
 import { Card, Grid, Row, Text } from '@nextui-org/react';
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
@@ -203,11 +203,27 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 			},
 		],
 	};
-	const handleLoginGG = async (googleData: any) => {
-		const res = await loginGoogle(googleData);
-		console.log(res);
-	};
 
+	let takeEightProduct = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	let takeDeal = [2, 4, 6, 8, 10, 12, 13];
+
+	const PAGE_SIZE = 10; // or whatever you like
+
+	const [index, setIndex] = useState(0);
+
+	const [visibleData, setVisibleData] = useState([]);
+
+	useEffect(() => {
+		const numberOfItems = PAGE_SIZE * (index + 1);
+
+		const newArray = [];
+
+		for (let i = 0; i < allProducts.length; i++) {
+			if (i < numberOfItems) newArray.push(allProducts[i]);
+		}
+
+		setVisibleData(newArray);
+	}, [index]);
 	return (
 		<MainLayout>
 			<div
@@ -266,16 +282,15 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 			<div className="max-w-7xl container py-8 mx-auto items-center justify-between bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] mt-16 mb-5 rounded-lg">
 				<span className="font-bold text-2xl ml-5 text-black">Hàng nổi bật</span>
 				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
-					{allProducts.map((item: any, index) => {
-						console.log(item);
+					{takeEightProduct.map((item: any, index: number) => {
 						return (
 							<CardDetail
 								key={index}
-								name={item.name}
-								price={item.price}
-								img={item.image[0]}
-								slug={ChangeToSlug(item.name)}
-								id={item._id}
+								name={allProducts[item].name}
+								price={allProducts[item].price}
+								img={allProducts[item].image[0]}
+								slug={ChangeToSlug(allProducts[item].name)}
+								id={allProducts[item]._id}
 							/>
 						);
 					})}
@@ -312,19 +327,18 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</div>
 				<div>
 					<Slider {...settings}>
-						{allProducts.map((item: any, index) => {
+						{takeDeal.map((item: any, index) => {
 							return (
 								<div
 									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"
 									key={index}
 								>
 									<CardDetail
-										key={index}
-										name={item.name}
-										price={item.price}
-										img={item.image[0]}
-										slug={ChangeToSlug(item.name)}
-										id={item._id}
+										name={allProducts[item].name}
+										price={allProducts[item].price}
+										img={allProducts[item].image[0]}
+										slug={ChangeToSlug(allProducts[item].name)}
+										id={allProducts[item]._id}
 									/>
 								</div>
 							);
@@ -333,7 +347,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</div>
 				<div className="mx-auto text-center my-3">
 					<Link href="/product">
-						<a className="px-16 py-3 rounded items-center bg-white text-black">
+						<a className="px-16 py-3 rounded items-center bg-white text-black hover:bg-black hover:text-white">
 							Xem tất cả các sản phẩm
 						</a>
 					</Link>
@@ -344,7 +358,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 					Xu hướng mua sắm
 				</span>
 				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
-					{allProducts.map((item: any, index) => {
+					{visibleData.map((item: any, index) => {
 						console.log(item);
 						return (
 							<CardDetail
@@ -357,6 +371,14 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 							/>
 						);
 					})}
+				</div>
+				<div className="mx-auto text-center my-3 ">
+					<button
+						onClick={() => setIndex(index + 1)}
+						className="px-16 py-3 rounded items-center bg-white text-black hover:bg-black hover:text-white"
+					>
+						Xem thêm
+					</button>
 				</div>
 			</div>
 
@@ -422,6 +444,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 								id={item.id}
 								title={item.title}
 								image={item.image}
+								link={ChangeToSlug(item.title)}
 							/>
 						);
 					})}

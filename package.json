@@ -24,6 +24,7 @@
     "react-google-login": "^5.2.2",
     "react-image-lightbox": "^5.1.4",
     "react-slick": "^0.29.0",
+    "react-toastify": "^9.0.4",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
