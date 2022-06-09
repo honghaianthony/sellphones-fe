@@ -128,6 +128,12 @@ const productData = [
 	},
 ];
 
+const productData2 = [
+	{
+		images: '/images/product/tronghop.webp',
+	},
+];
+
 const images = [
 	'/images/product/hinh1.png',
 	'/images/product/hinh2.jpg',
@@ -154,7 +160,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	const settings = {
 		dots: false,
 		infinite: false,
-		slidesToShow: 4,
+		slidesToShow: 5,
 		slidesToScroll: 3,
 		nextArrow: <SampleNextArrow />,
 		prevArrow: <SamplePrevArrow />,
@@ -188,6 +194,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	};
 	const [photoIndex, setPhotoIndex] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen2, setIsOpen2] = useState(false);
 	const [mainImage, setMainImage] = useState(productData[0]);
 	const [visible, setVisible] = useState(false);
 	const handler = () => setVisible(true);
@@ -195,89 +202,84 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 		setVisible(false);
 	};
 
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	}
+
+	const smallItemStyles: React.CSSProperties = {
+		cursor: 'pointer',
+		objectFit: 'cover',
+		width: '100%',
+		maxHeight: '100%',
+	};
+
 	return (
-		<div className="bg-gray-100 h-full">
+		<div className="bg-[#fcfaf8] h-full">
 			<Navbar />
 
 			<div className="container max-w-7xl mx-auto px-4 my-8 flex flex-col lg:flex-row ">
-				<div className="flex flex-col mr-7">
+				<div className="flex flex-col w-2/3">
 					<div className="flex flex-row my-5 items-center">
 						<h3 className="font-bold mx-5">{productId.name}</h3>
 						{[...Array(5)].map((star, i) => {
 							return (
 								<label key={i}>
 									<input type="radio" name="rating" className="hidden" />
-									<Icon icon="emojione:star" className="mx-1" />
+									<Icon icon="emojione:star" />
 								</label>
 							);
 						})}
 						<span className="text-blue-500 mx-5">100 đánh giá</span>
 					</div>
 
-					<div className="w-full px-4 my-5">
-						<div className="w-7/10 mx-auto px-4 relative">
-							<Image
-								src={mainImage.images}
-								width={550}
-								height={300}
-								alt="Hinh 1"
-							/>
-						</div>
-						<div className="flex flex-row">
-							{productData.map((i, index) => {
-								return (
-									<div className="mr-4" key={index}>
-										<Image
-											src={i.images}
-											alt={'CellPhone number 5-' + index}
-											className="w-1/5 mr-auto cursor-pointer md:mb-4"
-											width={155}
-											height={120}
-											onClick={() => {
-												setMainImage(i);
-											}}
-										/>
-									</div>
-								);
-							})}
-						</div>
+					<div className="my-3 px-4 relative items-center text-center">
+						<Image
+							src={productId.image[0]}
+							width={400}
+							height={400}
+							alt="Hinh 1"
+						/>
 					</div>
-					<div className="w-full px-4 my-5">
-						<div className="flex flex-col items-center">
-							<button type="button" onClick={() => setIsOpen(true)}>
-								<Icon icon="bi:images" className="text-5xl" />
-							</button>
-							<span>Xem thêm {productData.length} ảnh</span>
-						</div>
 
-						{isOpen && (
-							<Lightbox
-								mainSrc={productData[photoIndex].images}
-								nextSrc={
-									productData[(photoIndex + 1) % productData.length].images
-								}
-								prevSrc={
-									productData[
-										(photoIndex + productData.length - 1) % productData.length
-									].images
-								}
-								onCloseRequest={() => setIsOpen(false)}
-								onMovePrevRequest={() =>
-									setPhotoIndex(
-										(photoIndex + productData.length - 1) % productData.length
-									)
-								}
-								onMoveNextRequest={() =>
-									setPhotoIndex((photoIndex + 1) % productData.length)
-								}
-							/>
-						)}
+					<div className="flex">
+						<div className="w-full px-4 my-5">
+							<div className="flex flex-col items-center">
+								<button type="button" onClick={() => setIsOpen(true)}>
+									<Icon icon="bi:images" className="text-5xl" />
+								</button>
+								<span>Xem thêm {productData.length} ảnh</span>
+							</div>
+
+							{isOpen && (
+								<Lightbox
+									mainSrc={productData[photoIndex].images}
+									nextSrc={
+										productData[(photoIndex + 1) % productData.length].images
+									}
+									prevSrc={
+										productData[
+											(photoIndex + productData.length - 1) % productData.length
+										].images
+									}
+									onCloseRequest={() => setIsOpen(false)}
+									onMovePrevRequest={() =>
+										setPhotoIndex(
+											(photoIndex + productData.length - 1) % productData.length
+										)
+									}
+									onMoveNextRequest={() =>
+										setPhotoIndex((photoIndex + 1) % productData.length)
+									}
+								/>
+							)}
+						</div>
 					</div>
+
 					<div className="container max-w-3xl grid grid-cols-2 my-4 auto-cols-min">
-						<div className="flex flex-row w-9/12 pb-3">
+						<div className="flex flex-row  pb-3">
 							<Icon
 								icon="fluent:wallet-24-regular"
-								className="text-2xl text-blue-500 mx-3"
+								className="text-4xl text-blue-500 mx-3"
 							/>
 							<p>
 								Hư gì đổi nấy <span className="font-bold">12 tháng</span> tại
@@ -287,10 +289,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								</Link>
 							</p>
 						</div>
-						<div className="flex flex-row w-9/12">
+						<div className="flex flex-row ">
 							<Icon
 								icon="bi:shield-check"
-								className="text-2xl text-blue-500 mx-3"
+								className="text-4xl text-blue-500 mx-3"
 							/>
 							<p>
 								Bảo hành
@@ -304,10 +306,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								</Link>
 							</p>
 						</div>
-						<div className="flex flex-row w-9/12">
+						<div className="flex flex-row ">
 							<Icon
 								icon="bi:box-seam"
-								className="text-2xl text-blue-500 mx-3"
+								className="text-4xl text-blue-500 mx-3"
 							/>
 							<p>
 								Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy sim, Ốp lưng, Cáp
@@ -540,7 +542,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						/>
 					</div>
 				</div>
-				<div className="max-w-7xl flex flex-col my-5">
+				<div className="flex flex-col my-5 w-1/3">
 					<div className="flex justify-between items-center container">
 						<div className="mx-3 flex items-center mr-5">
 							<h1 className="text-red-500 mx-3 text-2xl font-bold">
@@ -549,7 +551,9 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 										<div key={index}>
 											{color === item.color && version === item.storage && (
 												<span>
-													{productId.price ? productId.price : item.price}
+													{productId.price
+														? numberWithCommas(productId.price)
+														: numberWithCommas(item.price)}
 													<sup>đ</sup>
 												</span>
 											)}
@@ -557,20 +561,16 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									);
 								})}
 							</h1>
-							<h1 className="text-[#AAAAAA] line-through">
-								{productId.price}
-								<sup>đ</sup>
-							</h1>
 						</div>
 
 						<span className="text-[#AAAAAA] ">Trả góp 0%</span>
 					</div>
 
-					<div className="my-8 text-center cursor-pointer grid grid-cols-2 gap-3">
+					<div className="my-8 text-center cursor-pointer grid grid-cols-2 gap-2">
 						{product.map((item: any, index) => {
 							return (
 								<div
-									className="bg-white rounded py-5 px-5 mx-3 text-center items-center w-64"
+									className="bg-white rounded py-5 px-5 mx-3 text-center items-center"
 									key={index}
 								>
 									<Radio
@@ -582,20 +582,20 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 										}}
 									>
 										<div className="flex flex-col">
-											<span>
-												{productId.name} {item.storage}
-											</span>
-											<span>{item.color}</span>
+											<span className="text-sm">{item.storage}</span>
+											<span className="text-sm">{item.color}</span>
 										</div>
 
-										<Radio.Description>{productId.price}</Radio.Description>
+										<Radio.Description>
+											{numberWithCommas(item.price)}
+										</Radio.Description>
 									</Radio>
 								</div>
 							);
 						})}
 					</div>
 
-					<div className="max-w-3xl bg-white my-5 flex flex-col">
+					<div className="bg-white my-5 flex flex-col rounded-lg">
 						<div className="flex flex-col bg-[##F5F5F5] mx-3 pt-3 pb-5">
 							<span className="font-bold">Khuyến mãi</span>
 							<span className="font-semibold text-[#ff0000]">
@@ -604,8 +604,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						</div>
 						<div className="flex flex-col my-3">
 							<div className="flex items-center mx-3 pb-5">
-								<div className="w-8 h-8 rounded-full flex justify-center items-center bg-[#424FC2] mx-3">
-									<span className="text-sm text-white">1</span>
+								<div>
+									<span className="text-xs text-white w-4 h-4 text-center rounded-full inline-block leading-4 bg-[#424FC2] mx-3">
+										1
+									</span>
 								</div>
 								<div className="font-semibold">
 									Nhập mã DMX100 giảm 3% tối đa 100,000đ khi thanh toán quét
@@ -613,8 +615,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								</div>
 							</div>
 							<div className="flex items-center mx-3 pb-5">
-								<div className="w-8 h-8 rounded-full flex justify-center items-center bg-[#424FC2] mx-3">
-									<span className="text-sm text-white">2</span>
+								<div>
+									<span className="text-xs text-white w-4 h-4 text-center rounded-full inline-block leading-4 bg-[#424FC2] mx-3">
+										2
+									</span>
 								</div>
 								<div className="font-semibold">
 									Nhập mã DMX100 giảm 3% tối đa 100,000đ khi thanh toán quét
@@ -622,8 +626,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								</div>
 							</div>
 							<div className="flex items-center mx-3 pb-5">
-								<div className="w-8 h-8 rounded-full flex justify-center items-center bg-[#424FC2] mx-3">
-									<span className="text-sm text-white">3</span>
+								<div>
+									<span className="text-xs text-white w-4 h-4 text-center rounded-full inline-block leading-4 bg-[#424FC2] mx-3">
+										3
+									</span>
 								</div>
 								<div className="font-semibold">
 									Nhập mã DMX100 giảm 3% tối đa 100,000đ khi thanh toán quét
@@ -633,10 +639,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						</div>
 					</div>
 
-					<div className="my-3 grid grid-cols-2 gap-3">
-						<div className="col-span-2 max-w-3xl bg-[#CA2A2A] py-3 items-center text-center cursor-pointer">
+					<div className="my-3 gap-3">
+						<div className="col-span-2 max-w-3xl bg-[#CA2A2A] py-3 items-center text-center cursor-pointer rounded-lg">
 							<h3
-								className="uppercase text-white text-center text-2xl font-bold"
+								className="uppercase text-white text-center text-xl font-bold"
 								onClick={handler}
 							>
 								MUA NGAY
@@ -658,6 +664,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 														color={item.color}
 														img={productId.image[0]}
 														price={item.price}
+														handleClick={closeHandler}
 													/>
 												)}
 											</div>
@@ -669,68 +676,66 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								Giao hàng miễn phí hoặc giao tại shop
 							</span>
 						</div>
-						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer">
-							<h3 className="uppercase text-white text-center text-2xl font-bold">
-								TRẢ GÓP 0%
+						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3">
+							<h3 className="uppercase text-white text-center text-xl font-bold">
+								Thanh toán bằng Momo
 							</h3>
-							<span className="text-white text-center text-sm font-semibold justify-center">
-								Duyệt nhanh qua điện thoại
-							</span>
-						</div>
-						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer">
-							<h3 className="uppercase text-white text-center text-2xl font-bold">
-								TRẢ GÓP QUA THẺ
-							</h3>
-							<span className="text-white text-center text-sm font-semibold justify-center">
-								Visa, Master Card, JCB
+							<span className="text-white text-center text-sm font-semibold justify-center my-2">
+								<Image
+									src="/images/product/momo.jpg"
+									alt="Momo Payment"
+									width={35}
+									height={35}
+									className="rounded-lg"
+								/>
 							</span>
 						</div>
 					</div>
 
-					<div className="max-w-3xl bg-white my-5 flex flex-col">
+					<div className="bg-white my-5 flex flex-col rounded-lg">
 						<div className="m-5 font-semibold">Thông số kỹ thuật</div>
-						<div className="my-8">
+						<div className="my-5">
 							<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
 								{product.map((item: any, index) => {
 									return (
 										<tbody key={index}>
 											{color === item.color && version === item.storage && (
 												<>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Màn hình: </td>
-														<td>{item.screen}</td>
+														<td className="pl-3">{item.screen}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Hệ điều hành: </td>
-														<td>{item.operatingSystem}</td>
+														<td className="pl-3">{item.operatingSystem}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Camera: </td>
-														<td>{item.camera}</td>
+														<td className="pl-3">{item.camera}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Màu sắc: </td>
-														<td>{item.color}</td>
+														<td className="pl-3">{item.color}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Chip: </td>
-														<td>{item.processor}</td>
+														<td className="pl-3">{item.processor}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Ram: </td>
-														<td>{item.ram}</td>
+														<td className="pl-3">{item.ram}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Bộ nhớ trong: </td>
-														<td>{item.storage}</td>
+														<td className="pl-3">{item.storage}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>SIM: </td>
-														<td>{item.connect}</td>
+														<td className="pl-3">{item.connect}</td>
 													</tr>
-													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10">
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Pin, Sạc: </td>
-														<td>{item.battery}</td>
+														<td className="pl-3">{item.battery}</td>
 													</tr>
 												</>
 											)}

@@ -6,7 +6,7 @@ const Rating = (props: any) => {
 	const [rating, setRating] = useState<any | null>();
 	const [hover, setHover] = useState<any | null>(null);
 	return (
-		<div className="max-w-7xl bg-white rounded-lg">
+		<div className="max-w-7xl bg-white rounded-lg pb-3">
 			<h1 className="p-7 font-bold text-xl">
 				Đánh giá & Nhận xét {props.name}
 			</h1>
@@ -14,17 +14,8 @@ const Rating = (props: any) => {
 			<div className="items-center justify-between mx-5 flex flex-col lg:flex-row">
 				<div className="flex flex-col items-center text-center ml-5">
 					<p className="my-3 text-lg">Đánh giá trung bình</p>
-					<p className="text-4xl text-[#BF3131]">5/5</p>
-					<div className="mt-3 mx-3 flex flex-row items-center">
-						{[...Array(5)].map((star, i) => {
-							return (
-								<label key={i}>
-									<input type="radio" name="rating" className="hidden" />
-									<Icon icon="emojione:star" className="mx-1" />
-								</label>
-							);
-						})}
-					</div>
+					<p className="text-4xl text-[#BF3131] font-bold">5/5</p>
+					<Icon icon="emojione:star" className="mt-2 text-lg" />
 					<p className="text-sm my-3">1 đánh giá</p>
 				</div>
 
