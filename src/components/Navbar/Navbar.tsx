@@ -80,7 +80,7 @@ const Navbar = () => {
 											icon="ant-design:user-outlined"
 											className="text-white text-lg"
 										/>
-										Đăng nhập/Đăng ký
+										Đăng nhập
 									</button>
 									<LoginModal show={showLogin} setShow={setShowLogin} />
 								</>
