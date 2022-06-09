@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { addCart } from '@/pages/api/cartApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { getUser } from '@/pages/api/userApi';
 
 const BuyModal = (props: any) => {
 	const router = useRouter();
 	const [counter, setCounter] = useState(1);
 	const [cart, setCart] = useState({});
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			setUser(fetchData);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 
 	const increase = () => {
 		setCounter((count) => count + 1);
@@ -41,6 +52,9 @@ const BuyModal = (props: any) => {
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 	}
+
+	console.log(user);
+
 	return (
 		<>
 			{counter > 0 ? (
@@ -131,11 +145,14 @@ const BuyModal = (props: any) => {
 						<hr />
 						<div className="p-8">
 							<div className="font-bold text-xl">Thông tin khánh hàng</div>
-							<div>Họ và tên: Nguyễn Văn A</div>
-							<div>Giới tính: Nam</div>
-							<div>Số điện thoại: 0123456789</div>
-							<div>Địa chỉ: TP. Hồ Chí Minh</div>
-							<div>Email: nguyenvana@gmail.com</div>
+							{user && (
+								<>
+									<div>Họ và tên: {user.fullName}</div>
+									<div>Số điện thoại: {user.phone}</div>
+									<div>Địa chỉ: {user.address}</div>
+									<div>Email: {user.email}</div>
+								</>
+							)}
 						</div>
 						<hr />
 						<div className="text-right ml-auto mr-2 mx-3 max-w-sm my-3">

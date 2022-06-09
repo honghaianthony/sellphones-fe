@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
 	baseURL: 'http://localhost:8102/',
-	withCredentials: true,
 	// baseURL: 'https://sellphone-heroku.herokuapp.com',
 });
 
@@ -11,7 +10,7 @@ axiosInstance.interceptors.request.use(
 	function (config: any) {
 		const token = Cookies.get('token');
 		if (token) {
-			config.headers.Authorization = token;
+			config.headers.Authorization = 'Bearer ' + token;
 		}
 
 		return config;

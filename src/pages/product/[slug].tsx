@@ -703,15 +703,21 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 												<>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Màn hình: </td>
-														<td className="pl-3">{item.screen}</td>
+														<td className="pl-3">{productId.screen}</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Hệ điều hành: </td>
-														<td className="pl-3">{item.operatingSystem}</td>
+														<td className="pl-3">
+															{productId.operatingSystem}
+														</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
-														<td>Camera: </td>
-														<td className="pl-3">{item.camera}</td>
+														<td>Camera sau: </td>
+														<td className="pl-3">{productId.backCamera}</td>
+													</tr>
+													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
+														<td>Camera trước: </td>
+														<td className="pl-3">{productId.frontCamera}</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Màu sắc: </td>
@@ -719,11 +725,11 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Chip: </td>
-														<td className="pl-3">{item.processor}</td>
+														<td className="pl-3">{productId.processor}</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Ram: </td>
-														<td className="pl-3">{item.ram}</td>
+														<td className="pl-3">{productId.ram}</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Bộ nhớ trong: </td>
@@ -731,11 +737,13 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>SIM: </td>
-														<td className="pl-3">{item.connect}</td>
+														<td className="pl-3">{productId.connect}</td>
 													</tr>
 													<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
 														<td>Pin, Sạc: </td>
-														<td className="pl-3">{item.battery}</td>
+														<td className="pl-3">
+															{productId.battery},{productId.charge}
+														</td>
 													</tr>
 												</>
 											)}

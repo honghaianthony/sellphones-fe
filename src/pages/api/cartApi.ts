@@ -1,7 +1,7 @@
 import axiosInstance from './axiosInstance';
 
 const getCart = async () => {
-	return await axiosInstance.get('/api/v2/cart/get-all-cart');
+	return await axiosInstance.get('/api/v2/cart');
 };
 
 const addCart = async (data: any) => {
