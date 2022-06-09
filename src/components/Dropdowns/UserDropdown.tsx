@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useAuth, actions } from '@/context/AuthContext'
 
-const UserDropdown = () => {
+interface IUserDropdownProps {
+	avatar?: any;
+	username?: any;
+}
+
+const UserDropdown = (props: IUserDropdownProps) => {
+	const [authState, dispatch] = useAuth()
 	const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
 
 	const openDropdownPopover = () => {
@@ -21,13 +28,13 @@ const UserDropdown = () => {
 				}}
 			>
 				<div className="items-center flex flex-col">
-					<span className="w-12 h-12 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full">
+					<span className="w-8 h-8 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full">
 						<Image
 							alt="Team1"
 							className="w-full rounded-full align-middle border-none shadow-lg"
-							src="/images/product/avatar.png"
-							width={800}
-							height={800}
+							src={props.avatar || '/images/anonymous.png'}
+							width={400}
+							height={400}
 						/>
 					</span>
 					<div
@@ -44,6 +51,16 @@ const UserDropdown = () => {
 						>
 							Quản lý tài khoản
 						</button>
+						{props.username && (
+							<button
+								className={
+									'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
+								}
+								onClick={(e) => e.preventDefault()}
+							>
+								{props.username}
+							</button>
+						)}
 						<button
 							className={
 								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
@@ -58,7 +75,10 @@ const UserDropdown = () => {
 							className={
 								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
 							}
-							onClick={(e) => e.preventDefault()}
+							onClick={(e) => {
+								e.preventDefault();
+								dispatch(actions.logout());
+							}}
 						>
 							Đăng xuất
 						</button>

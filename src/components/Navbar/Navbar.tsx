@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-import { LoginModal} from '../LoginModal'
+import { LoginModal} from '../LoginModal';
+import { useAuth } from '@/context/AuthContext';
+import { UserDropdown } from '../Dropdowns';
  
 const Navbar = () => {
+	const [authState, dispatch] = useAuth();
 	const [showLogin, setShowLogin] = useState(false);
 	return (
 		<nav className="top-0 z-50 w-full sticky flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-orange-400">
@@ -57,8 +60,16 @@ const Navbar = () => {
 							</Link>
 						</li>
 						<li>
-							<button onClick={()=> {setShowLogin(true)}}>Đăng nhập/Đăng ký</button>
-							<LoginModal show={showLogin} setShow={setShowLogin}/>
+							{authState.isAuth ? (
+								<>
+									<UserDropdown username={authState.username}/>
+								</>
+							) : (
+								<>
+									<button onClick={()=> {setShowLogin(true)}}>Đăng nhập/Đăng ký</button>
+									<LoginModal show={showLogin} setShow={setShowLogin}/>
+								</>
+							)}
 						</li>
 					</ul>
 				</div>

@@ -1,13 +1,22 @@
 import React from 'react';
+import {login} from '@/pages/api/authApi'
+import {actions, useAuth} from '@/context/AuthContext'
 
 interface LoginModalProps {
 	show: Boolean;
 	setShow: Function;
 }
 function LoginModal(props: LoginModalProps) {
+	const [authState, dispatch] = useAuth();
+	const handleLogin = async (e: any) => {
+		e.preventDefault();
+		const res: any = await login({username: e.target.username.value, password: e.target.password.value})
+		dispatch(actions.login(res.jwtToken));
+		props.setShow(false);
+	}
 	return (
 		<>
-			{props.show ? (
+			{props.show && !authState.isAuth ? (
 				<>
 					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
 						<div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -38,7 +47,7 @@ function LoginModal(props: LoginModalProps) {
 											<h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
 												Đăng nhập
 											</h3>
-											<form className="space-y-6" action="#">
+											<form className="space-y-6" onSubmit={handleLogin}>
 												<div>
 													<label
 														htmlFor="email"
