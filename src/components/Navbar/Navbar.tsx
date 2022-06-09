@@ -59,15 +59,22 @@ const Navbar = () => {
 								</a>
 							</Link>
 						</li>
-						<li>
+						<li className="flex items-center px-3 lg:text-white cursor-pointer">
 							{authState.isAuth ? (
 								<>
-									<UserDropdown username={authState.username}/>
+									<UserDropdown username={authState.username} />
 								</>
 							) : (
 								<>
-									<button onClick={()=> {setShowLogin(true)}}>Đăng nhập/Đăng ký</button>
-									<LoginModal show={showLogin} setShow={setShowLogin}/>
+									<button
+										onClick={() => {
+											setShowLogin(true);
+										}}
+										className="text-lg text-white"
+									>
+										Đăng nhập
+									</button>
+									<LoginModal show={showLogin} setShow={setShowLogin} />
 								</>
 							)}
 						</li>
