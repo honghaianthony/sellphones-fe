@@ -1,6 +1,6 @@
 import React from 'react';
-import {login} from '@/pages/api/authApi'
-import {actions, useAuth} from '@/context/AuthContext'
+import { login } from '@/pages/api/authApi';
+import { actions, useAuth } from '@/context/AuthContext';
 
 interface LoginModalProps {
 	show: Boolean;
@@ -10,10 +10,13 @@ function LoginModal(props: LoginModalProps) {
 	const [authState, dispatch] = useAuth();
 	const handleLogin = async (e: any) => {
 		e.preventDefault();
-		const res: any = await login({username: e.target.username.value, password: e.target.password.value})
+		const res: any = await login({
+			username: e.target.username.value,
+			password: e.target.password.value,
+		});
 		dispatch(actions.login(res.jwtToken));
 		props.setShow(false);
-	}
+	};
 	return (
 		<>
 			{props.show && !authState.isAuth ? (
@@ -127,8 +130,7 @@ function LoginModal(props: LoginModalProps) {
 							</div>
 						</div>
 					</div>
-					<div
-						className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+					<div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
 				</>
 			) : null}
 		</>
