@@ -7,20 +7,27 @@ interface RegisterModalProps {
 	setShow: Function;
 }
 function RegisterModal(props: RegisterModalProps) {
-	const handleRegister = async (e: any) => {
-		e.preventDefault();
-		const res: any = await register({
-			username: e.target.username.value,
-			password: e.target.password.value,
-			fullName: e.target.fullName.value,
-			email: e.target.email.value,
-			address: e.target.address.value,
-			phone: e.target.phone.value,
-		});
-    if (res.jwtToken) {
-			toast.success("Đăng ký thành công!")
-      props.setShow(false);
-    } else {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const [fullName, setFullName] = useState("");
+	const [phone, setPhone] = useState("");
+	const [email, setEmail] = useState("");
+	const [address, setAddress] = useState("");
+	const handleRegister = async () => {
+		try {
+			const res: any = await register({
+				username: username,
+				password: password,
+				fullName: fullName,
+				email: email,
+				address: address,
+				phone: phone,
+			});
+			if (res.jwtToken) {
+				toast.success("Đăng ký thành công!")
+				props.setShow(false);
+			}
+		} catch (error) {
 			toast.error("Đăng ký thất bại!")
 		}
 	};
@@ -47,7 +54,7 @@ function RegisterModal(props: RegisterModalProps) {
 												xmlns="http://www.w3.org/2000/svg"
 											>
 												<path
-													fill-rule="evenodd"
+													fillRule="evenodd"
 													d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
 													clipRule="evenodd"
 												></path>
@@ -57,7 +64,7 @@ function RegisterModal(props: RegisterModalProps) {
 											<h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
 												Đăng ký
 											</h3>
-											<form className="space-y-6" onSubmit={handleRegister}>
+											<form className="space-y-6">
 												<div>
 													<label
 														htmlFor="email"
@@ -72,6 +79,10 @@ function RegisterModal(props: RegisterModalProps) {
 														className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 														placeholder="username"
 														required
+														value={username}
+														onChange={(e) => {
+															setUsername(e.target.value);
+														}}
 													/>
 												</div>
 												<div>
@@ -88,9 +99,13 @@ function RegisterModal(props: RegisterModalProps) {
 														placeholder="••••••••"
 														className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 														required
+														value={password}
+														onChange={(e) => {
+															setPassword(e.target.value);
+														}}
 													/>
 												</div>
-                        <hr />
+												<hr />
 												<div className="flex flex-row justify-between ">
 													<div className="mr-2">
 														<label
@@ -105,6 +120,10 @@ function RegisterModal(props: RegisterModalProps) {
 															id="fullName"
 															className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 															required
+															value={fullName}
+															onChange={(e) => {
+																setFullName(e.target.value);
+															}}
 														/>
 													</div>
 													<div className="ml-2">
@@ -120,6 +139,10 @@ function RegisterModal(props: RegisterModalProps) {
 															id="email"
 															className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 															required
+															value={email}
+															onChange={(e) => {
+																setEmail(e.target.value);
+															}}
 														/>
 													</div>
 												</div>
@@ -137,6 +160,10 @@ function RegisterModal(props: RegisterModalProps) {
 															id="address"
 															className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 															required
+															value={address}
+															onChange={(e) => {
+																setAddress(e.target.value);
+															}}
 														/>
 													</div>
 													<div className="ml-2">
@@ -152,12 +179,20 @@ function RegisterModal(props: RegisterModalProps) {
 															id="phone"
 															className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
 															required
+															value={phone}
+															onChange={(e) => {
+																setPhone(e.target.value);
+															}}
 														/>
 													</div>
 												</div>
 												<button
 													type="submit"
 													className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+													onClick={(e) => {
+														e.preventDefault();
+														handleRegister();
+													}}
 												>
 													Đăng ký
 												</button>
