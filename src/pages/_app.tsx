@@ -12,18 +12,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<NextUIProvider>
 			<AuthProvider>
 				<Component {...pageProps} />
+				<ToastContainer
+					position="top-right"
+					autoClose={2000}
+					hideProgressBar={false}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+				/>
 			</AuthProvider>
-			<ToastContainer
-				position="bottom-right"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-			/>
 		</NextUIProvider>
 	);
 }

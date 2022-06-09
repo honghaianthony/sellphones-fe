@@ -1,6 +1,8 @@
-import React from 'react';
-import { login } from '@/pages/api/authApi';
-import { actions, useAuth } from '@/context/AuthContext';
+import React, { useState } from 'react';
+import {login} from '@/pages/api/authApi'
+import {actions, useAuth} from '@/context/AuthContext'
+import {RegisterModal} from './index'
+import { toast } from 'react-toastify'
 
 interface LoginModalProps {
 	show: Boolean;
@@ -8,21 +10,26 @@ interface LoginModalProps {
 }
 function LoginModal(props: LoginModalProps) {
 	const [authState, dispatch] = useAuth();
+	const [showRegister, setShowRegister] = useState<boolean>(false)
 	const handleLogin = async (e: any) => {
 		e.preventDefault();
-		const res: any = await login({
-			username: e.target.username.value,
-			password: e.target.password.value,
-		});
-		dispatch(actions.login(res.jwtToken));
-		props.setShow(false);
-	};
+		try {
+			const res: any = await login({username: e.target.username.value, password: e.target.password.value})
+			if(res.jwtToken) {
+				dispatch(actions.login(res.jwtToken));
+				toast.success("Đăng nhập thành công!")
+				props.setShow(false);
+			} 
+		} catch (error) {
+			toast.error("Đăng nhập thất bại!")
+		}
+	}
 	return (
 		<>
 			{props.show && !authState.isAuth ? (
 				<>
 					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-						<div className="relative w-auto my-6 mx-auto max-w-3xl">
+						<div className="relative w-96 my-6 mx-auto max-w-3xl">
 							<div className="z-50">
 								<div className="relative p-4 w-full max-w-md h-full md:h-auto">
 									<div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -42,7 +49,7 @@ function LoginModal(props: LoginModalProps) {
 												<path
 													fill-rule="evenodd"
 													d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-													clip-rule="evenodd"
+													clipRule="evenodd"
 												></path>
 											</svg>
 										</button>
@@ -116,12 +123,16 @@ function LoginModal(props: LoginModalProps) {
 												</button>
 												<div className="text-sm font-medium text-gray-500 dark:text-gray-300">
 													Chưa có tài khoản{' '}
-													<a
-														href="#"
+													<button
 														className="text-blue-700 hover:underline dark:text-blue-500"
+														onClick={(e) => {
+															e.preventDefault()
+															setShowRegister(true)
+														}}
 													>
 														Đăng ký
-													</a>
+													</button>
+													<RegisterModal show={showRegister} setShow={setShowRegister} />
 												</div>
 											</form>
 										</div>
@@ -130,7 +141,8 @@ function LoginModal(props: LoginModalProps) {
 							</div>
 						</div>
 					</div>
-					<div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+					<div
+						className="opacity-50 fixed inset-0 z-40 bg-black"></div>
 				</>
 			) : null}
 		</>
