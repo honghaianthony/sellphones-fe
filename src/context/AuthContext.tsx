@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 // CONSTANTS 
 const LOGIN = 'login';
 const LOGOUT = 'logout';
+const RELOAD = 'reload';
 
 // ACTIONS 
 const login = (payload: any) => {
@@ -20,10 +21,17 @@ const logout = (payload?: any) => {
 		payload,
 	};
 };
+const reload = (payload?: any) => {
+	return {
+		type: RELOAD,
+		payload,
+	};
+};
 
 export const actions = {
 	login,
 	logout,
+	reload,
 }
 
 // CONTEXT 
@@ -48,6 +56,17 @@ const reducer: any = (state: boolean, action: any) => {
 				isAuth: true,
 				username: info.sub,
 			};
+		case RELOAD:
+			const token: any = Cookies.get('token');
+			if (token) {
+				const infoReload: any = jwtDecode(token)
+				return {
+					isAuth: true,
+					username: infoReload.sub,
+				};
+			} else {
+				return initialState;
+			}
 		case LOGOUT:
       Cookies.remove('token');
 			return initialState;
@@ -58,16 +77,10 @@ const reducer: any = (state: boolean, action: any) => {
 
 // PROVIDER 
 export const AuthProvider = ({ children }: any) => {
-	let localState: IAuthState = initialState ;
-	if (Cookies.get("token")) {
-		const token: any = Cookies.get('token');
-		const info: any = jwtDecode(token);
-		localState = {
-			isAuth: true,
-			username: info.sub,
-		};
-	}
-	const [state, dispatch] = useReducer(reducer, localState || initialState);
+	const [state, dispatch] = useReducer(reducer, initialState);
+	useEffect(()=>{
+		dispatch(actions.reload());
+	},[])
 	return (
 		<AuthContext.Provider value={[state, dispatch]}>
 			{children}
