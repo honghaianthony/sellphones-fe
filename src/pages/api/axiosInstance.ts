@@ -7,13 +7,19 @@ const axiosInstance = axios.create({
 	// baseURL: 'https://sellphone-heroku.herokuapp.com',
 });
 
-axiosInstance.interceptors.request.use(function (config: any) {
-		const token = Cookies.get("token");
-		config.headers.Authorization = token;
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+axiosInstance.interceptors.request.use(
+	function (config: any) {
+		const token = Cookies.get('token');
+		if (token) {
+			config.headers.Authorization = token;
+		}
+
+		return config;
+	},
+	function (error) {
+		return Promise.reject(error);
+	}
+);
 
 axiosInstance.interceptors.response.use(
 	function (response) {
