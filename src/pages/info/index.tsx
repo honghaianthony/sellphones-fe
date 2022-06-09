@@ -9,6 +9,7 @@ import { Icon } from '@iconify/react';
 import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
 import { IconButton } from '@/components/CardDetail/IconButton';
 import { getCart, deleteCart } from '@/pages/api/cartApi';
+import { getUser } from '@/pages/api/userApi';
 import {
 	getProductBySpecificationId,
 	getProductById,
@@ -32,6 +33,10 @@ import { Input } from '@nextui-org/react';
 
 const Info: NextPage = () => {
 	const [dailyData, setDailyData] = useState([]);
+	const [user, setUser] = useState();
+	const [userName, setUserName] = useState();
+	const [address, setAddress] = useState();
+	const [phone, setPhone] = useState();
 	var total = 0;
 
 	useEffect(() => {
@@ -43,16 +48,33 @@ const Info: NextPage = () => {
 		asyncFetchDailyData();
 	}, []);
 
-	const handleDelete = async (id) => {
-		try {
-			let response = await deleteCart(id);
-			if (response && response.errCode === 0) {
-				const succ = await getCart();
-				setDailyData(succ);
-			}
-		} catch (error) {}
-	};
-	console.log(dailyData);
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			setUserName(fetchData.fullName);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			setAddress(fetchData.address);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			setPhone(fetchData.phone);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
 	return (
 		<>
 			<Head>
@@ -83,20 +105,12 @@ const Info: NextPage = () => {
 											bordered
 											color="default"
 											labelPlaceholder="Họ tên khách hàng"
+											value={userName}
+											onChange={(e) => setUserName(e.target.value)}
 										/>
 									</div>
 								</div>
-								<div className="w-full lg:w-6/12 px-4 mb-8">
-									<div className="relative w-full mb-3 z-0">
-										<Input
-											fullWidth
-											clearable
-											bordered
-											color="default"
-											labelPlaceholder="Email"
-										/>
-									</div>
-								</div>
+
 								<div className="w-full lg:w-6/12 px-4 mb-8">
 									<div className="relative w-full mb-3 z-0">
 										<Input
@@ -105,6 +119,8 @@ const Info: NextPage = () => {
 											bordered
 											color="default"
 											labelPlaceholder="Địa chỉ"
+											value={address}
+											onChange={(e) => setAddress(e.target.value)}
 										/>
 									</div>
 								</div>
@@ -116,6 +132,8 @@ const Info: NextPage = () => {
 											bordered
 											color="default"
 											labelPlaceholder="Số điện thoại"
+											value={phone}
+											onChange={(e) => setPhone(e.target.value)}
 										/>
 									</div>
 								</div>

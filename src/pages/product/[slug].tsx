@@ -325,7 +325,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						<h1 className="text-lg font-bold text-left m-5">
 							Đặc điểm nổi bật
 						</h1>
-						<h3 className="text-center my-3 text-lg font-bold">
+						<div
+							dangerouslySetInnerHTML={{ __html: productId.description }}
+						></div>
+						{/* <h3 className="text-center my-3 text-lg font-bold">
 							Đánh giá chi tiết Oppo Reno7
 						</h3>
 						<p className="mx-3 font-bold my-3">
@@ -539,7 +542,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 							width={960}
 							height={640}
 							alt="Oppo 1"
-						/>
+						/> */}
 					</div>
 				</div>
 				<div className="flex flex-col my-5 w-1/3">
