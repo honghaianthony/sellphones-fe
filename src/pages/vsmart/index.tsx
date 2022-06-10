@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/Layouts/MainLayout';
 import Image from 'next/image';
 import Slider from 'react-slick';
-import CardVivo from '@/components/CardDetail/CardVivo';
+import CardDetail from '@/components/CardDetail/CardDetail';
 import Specifications from '@/components/Specifications';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
+import { getAllProducts } from '@/pages/api/productApi';
+import { getCategories } from '@/pages/api/categoryApi';
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
 	return (
@@ -45,7 +47,56 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
+function ChangeToSlug(str: any) {
+	// Chuyển hết sang chữ thường
+	str = str.toLowerCase();
+
+	// xóa dấu
+	str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+	str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+	str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+	str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+	str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+	str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+	str = str.replace(/(đ)/g, 'd');
+
+	// Xóa ký tự đặc biệt
+	str = str.replace(/([^0-9a-z-\s])/g, '');
+
+	// Xóa khoảng trắng thay bằng ký tự -
+	str = str.replace(/(\s+)/g, '-');
+
+	// xóa phần dự - ở đầu
+	str = str.replace(/^-+/g, '');
+
+	// xóa phần dư - ở cuối
+	str = str.replace(/-+$/g, '');
+
+	// return
+	return str;
+}
+
 const Vsmart = () => {
+	const [product, setProduct] = useState([]);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const allProducts = await getAllProducts();
+			const allCategories = await getCategories();
+
+			const appleCategory = allCategories.find(
+				(category: any) => category.name === 'Vsmart'
+			);
+
+			const categoryProduct = allProducts.filter(
+				(product) => product.categoryId === appleCategory._id
+			);
+
+			setProduct(categoryProduct);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 	const settings = {
 		infinite: true,
 		speed: 500,
@@ -120,282 +171,93 @@ const Vsmart = () => {
 					</div>
 				</Slider>
 			</div>
-			<div className="container max-w-7xl rounded bg-white mx-auto my-3 px-4 py-3">
+			<div className="container max-w-7xl rounded-lg bg-white mx-auto my-3 px-4 py-3">
 				<h1 className="uppercase text-[#cb1c22] font-bold text-xl">
 					Khuyến mãi hot
 				</h1>
 				<div>
 					<Slider {...settings2}>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
+						{product.map((item: any, index) => {
+							return (
+								<div
+									className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4"
+									key={index}
+								>
+									<div className="flex flex-col items-center">
+										<CardDetail
+											name={item.name}
+											price={item.price}
+											img={item.image[0]}
+											slug={ChangeToSlug(item.name)}
+											id={item._id}
+										/>
+
+										<Specifications
+											processor={item.processor}
+											ram={item.ram}
+											screen={item.screen}
+											backCamera={item.backCamera}
+										/>
+										<div className="my-8">
+											<Link
+												href={
+													'/product/' +
+													ChangeToSlug(item.name) +
+													'.' +
+													item._id +
+													'.html'
+												}
+											>
+												<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
+													Mua ngay
+												</a>
+											</Link>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
-								</div>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
-								</div>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
-								</div>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
-								</div>
-							</div>
-						</div>
-						<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-							<div className="flex flex-col items-center">
-								<CardVivo />
-								<Specifications />
-								<div className="my-8">
-									<Link href="/product/oppo-reno7z">
-										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-											Mua ngay
-										</a>
-									</Link>
-								</div>
-							</div>
-						</div>
+							);
+						})}
 					</Slider>
 				</div>
 			</div>
-			<div className="container max-w-7xl rounded bg-white mx-auto my-3 px-4 py-3">
+			<div className="container max-w-7xl rounded-lg bg-white mx-auto my-3 px-4 py-3">
 				<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-				</div>
-				<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-				</div>
-				<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-				</div>
-				<div className="grid grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4">
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-					<div className="flex flex-col items-center">
-						<CardVivo />
-						<Specifications />
-						<div className="my-8">
-							<Link href="/product/oppo-reno7z">
-								<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
-									Mua ngay
-								</a>
-							</Link>
-						</div>
-					</div>
-				</div>
+					{product.map((item: any, index) => {
+						return (
+							<div className="flex flex-col items-center" key={index}>
+								<CardDetail
+									name={item.name}
+									price={item.price}
+									img={item.image[0]}
+									slug={ChangeToSlug(item.name)}
+									id={item._id}
+								/>
 
-				{/* <div className="flex justify-center">
-					<button onClick={onLoadMore}>Xem thêm</button>
-				</div> */}
+								<Specifications
+									processor={item.processor}
+									ram={item.ram}
+									screen={item.screen}
+									backCamera={item.backCamera}
+								/>
+								<div className="my-8">
+									<Link
+										href={
+											'/product/' +
+											ChangeToSlug(item.name) +
+											'.' +
+											item._id +
+											'.html'
+										}
+									>
+										<a className="px-5 py-3 text-white bg-red-600 rounded font-bold hover:bg-red-700">
+											Mua ngay
+										</a>
+									</Link>
+								</div>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 			<div className="container max-w-5xl mx-auto my-16">
 				<div className="flex justify-between">
