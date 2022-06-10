@@ -82,8 +82,6 @@ function ChangeToSlug(str: any) {
 const ProductList: NextPage = () => {
 	const [product, setProduct] = useState([]);
 
-	const idArray = [0, 1, 2];
-
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
 			const allProducts = await getAllProducts();
@@ -93,6 +91,7 @@ const ProductList: NextPage = () => {
 
 		asyncFetchDailyData();
 	}, []);
+
 	const settings = {
 		infinite: true,
 		speed: 500,
@@ -103,6 +102,8 @@ const ProductList: NextPage = () => {
 		autoplay: true,
 		autoplaySpeed: 3000,
 	};
+
+	let takeThreeProduct = [1, 2, 3];
 
 	console.log(product);
 	return (
@@ -301,16 +302,18 @@ const ProductList: NextPage = () => {
 							<div className="w-full bg-white rounded-lg mb-8">
 								<p className="py-4 pl-6 font-bold text-xl">Dòng sản phẩm</p>
 								<div className="grid grid-cols-1 gap-8 mx-8 md:grid-cols-2 lg:grid-cols-3">
-									{idArray.map((item: any, index: Number) => {
+									{takeThreeProduct.map((item: any, index: Number) => {
 										return (
-											<CardDetail
-												key={index}
-												name={product[item].name}
-												price={product[item].price}
-												img={product[item].image[0]}
-												slug={ChangeToSlug(product[item].name)}
-												id={product[item]._id}
-											/>
+											product[item] && (
+												<CardDetail
+													key={index}
+													name={product[item].name}
+													price={product[item].price}
+													img={product[item].image[0]}
+													slug={ChangeToSlug(product[item].name)}
+													id={product[item]._id}
+												/>
+											)
 										);
 									})}
 								</div>

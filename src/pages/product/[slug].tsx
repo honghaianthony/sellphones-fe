@@ -223,8 +223,8 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 			<div className="bg-[#fcfaf8] h-full">
 				<Navbar />
 
-				<div className="container max-w-7xl mx-auto px-4 my-8 flex flex-col lg:flex-row ">
-					<div className="flex flex-col w-2/3">
+				<div className="container max-w-7xl mx-auto px-4 my-8 flex flex-col lg:flex-row text-center">
+					<div className="flex flex-col w-full lg:w-2/3 mx-auto">
 						<div className="flex flex-row my-5 items-center">
 							<h3 className="font-bold mx-5">{productId.name}</h3>
 							{[...Array(5)].map((star, i) => {
@@ -553,7 +553,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						/> */}
 						</div>
 					</div>
-					<div className="flex flex-col my-5 w-1/3">
+					<div className="flex flex-col my-5 w-full lg:w-1/3">
 						<div className="flex justify-between items-center container">
 							<div className="mx-3 flex items-center mr-5">
 								<h1 className="text-red-500 mx-3 text-2xl font-bold">

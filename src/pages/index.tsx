@@ -13,7 +13,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
-import { loginGoogle} from '@/pages/api/authApi';
+import { loginGoogle } from '@/pages/api/authApi';
 import GoogleLogin from 'react-google-login';
 import { getAllProducts } from '@/pages/api/productApi';
 
@@ -238,11 +238,11 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				/>
 			</div>
 
-			<div className="max-w-7xl flex flex-col lg:flex-row mx-auto text-center -mt-44">
+			<div className="max-w-7xl flex flex-col lg:flex-row mx-auto text-center -mt-44 ">
 				<div className="top-0 left-0 my-5 w-full">
 					<Slide />
 				</div>
-				<div className="relative mt-12 lg:-mt-16">
+				<div className="relative mt-32 lg:-mt-16 mx-auto">
 					<Grid.Container gap={3} justify="flex-start">
 						{list.map((item, index) => (
 							<Grid key={index}>
