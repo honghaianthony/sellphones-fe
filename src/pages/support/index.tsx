@@ -4,10 +4,15 @@ import { Sidebar } from '@/components/Sidebar';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import React from 'react';
+import { PageSEO } from '@/components/SEO';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support"
+				name="Chính sách giao hàng và kinh doanh - Hỗ trợ"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

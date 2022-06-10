@@ -10,6 +10,7 @@ import { Input } from '@nextui-org/react';
 import { updateOrder, getAllOrder } from '@/pages/api/orderApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { PageSEO } from '@/components/SEO';
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 // 	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
@@ -110,9 +111,7 @@ const Info: NextPage = () => {
 
 	return (
 		<>
-			<Head>
-				<title>Giỏ hàng</title>
-			</Head>
+			<PageSEO href="/info" name="Thông tin khách hàng" />
 			<MainLayout>
 				<div className="flex flex-row pt-12 pl-4 lg:mx-24 md:mx-10 mb-4 items-center">
 					<Link href="/">

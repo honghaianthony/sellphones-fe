@@ -4,10 +4,12 @@ import { Sidebar } from '@/components/Sidebar';
 import Image from 'next/image';
 import React from 'react';
 import { Icon } from '@iconify/react';
+import { PageSEO } from '@/components/SEO';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO href="/support/apple-id" name="Tài khoản iCloud (Apple ID)" />
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

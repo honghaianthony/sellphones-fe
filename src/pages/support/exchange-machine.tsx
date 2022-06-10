@@ -2,11 +2,16 @@ import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { Sidebar } from '@/components/Sidebar';
 import Image from 'next/image';
+import { PageSEO } from '@/components/SEO';
 import React from 'react';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support/exchange-machine"
+				name="Giới thiệu về máy đổi trả tại SellPhone"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { getAllProducts } from '@/pages/api/productApi';
 import { getCategories } from '@/pages/api/categoryApi';
+import { PageSEO } from '@/components/SEO';
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
 	return (
@@ -143,6 +144,7 @@ const Samsung = () => {
 
 	return (
 		<MainLayout>
+			<PageSEO href="/samsung" name="Samsung" />
 			<div className="pb-32 bg-[#DFB8C1] justify-center text-center align-middle">
 				<Image
 					alt="Banner"

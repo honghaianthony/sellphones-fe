@@ -3,10 +3,15 @@ import { Navbar } from '@/components/Navbar';
 import { Sidebar } from '@/components/Sidebar';
 import Image from 'next/image';
 import React from 'react';
+import { PageSEO } from '@/components/SEO';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support/unboxing-policy"
+				name="Chính sách khui hộp sản phẩm"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

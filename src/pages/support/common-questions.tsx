@@ -4,10 +4,15 @@ import { Sidebar } from '@/components/Sidebar';
 import Image from 'next/image';
 import React from 'react';
 import { Icon } from '@iconify/react';
+import { PageSEO } from '@/components/SEO';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support/common-questions"
+				name="Câu hỏi thường gặp khi mua Apple"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

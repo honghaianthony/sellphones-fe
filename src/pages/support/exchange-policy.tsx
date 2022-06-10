@@ -5,9 +5,14 @@ import Image from 'next/image';
 import React from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import { Icon } from '@iconify/react';
+import { PageSEO } from '@/components/SEO';
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support/exchange-policy"
+				name="Chính sách đổi trả tại SellPhone"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />
