@@ -642,13 +642,25 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 						</div>
 					</div>
 
-					<div className="my-3 gap-3">
+					<div className="my-3 gap-3 grid grid-cols-2">
 						<div className="col-span-2 max-w-3xl bg-[#CA2A2A] py-3 items-center text-center cursor-pointer rounded-lg">
+							<h3 className="uppercase text-white text-center text-xl font-bold">
+								MUA NGAY
+							</h3>
+							<span className="text-white text-center text-sm font-semibold justify-center">
+								Giao hàng miễn phí hoặc giao tại shop
+							</span>
+						</div>
+						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3 flex">
+							<Icon
+								icon="bi:cart-check-fill"
+								className="text-white text-center text-2xl font-semibold justify-center my-2 mx-2"
+							/>
 							<h3
-								className="uppercase text-white text-center text-xl font-bold"
+								className="uppercase text-white text-center text-base font-bold"
 								onClick={handler}
 							>
-								MUA NGAY
+								Thêm vào giỏ hàng
 								<Modal
 									closeButton
 									width="1280px"
@@ -675,12 +687,9 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									})}
 								</Modal>
 							</h3>
-							<span className="text-white text-center text-sm font-semibold justify-center">
-								Giao hàng miễn phí hoặc giao tại shop
-							</span>
 						</div>
-						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3">
-							<h3 className="uppercase text-white text-center text-xl font-bold">
+						<div className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3 px-2">
+							<h3 className="uppercase text-white text-center text-base font-bold">
 								Thanh toán bằng Momo
 							</h3>
 							<span className="text-white text-center text-sm font-semibold justify-center my-2">

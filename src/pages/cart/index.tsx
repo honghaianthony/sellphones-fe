@@ -8,11 +8,10 @@ import Link from 'next/link';
 import { Icon } from '@iconify/react';
 import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
 import { IconButton } from '@/components/CardDetail/IconButton';
-import { getCart, deleteCart } from '@/pages/api/cartApi';
-import {
-	getProductBySpecificationId,
-	getProductById,
-} from '@/pages/api/productApi';
+import { getCart, deleteCart, getCartInfo } from '@/pages/api/cartApi';
+import { addOrder } from '@/pages/api/orderApi';
+import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 // 	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
@@ -29,14 +28,28 @@ import {
 // 	};
 // };
 
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 const Cart: NextPage = () => {
 	const [dailyData, setDailyData] = useState([]);
+	const [infoCart, setInfoCart] = useState([]);
 	var total = 0;
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
 			const fetchData = await getCart(); // fetchDailyData() is calling Api
 			setDailyData(fetchData);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getCartInfo(); // fetchDailyData() is calling Api
+			setInfoCart(fetchData);
 		};
 
 		asyncFetchDailyData();
@@ -51,7 +64,19 @@ const Cart: NextPage = () => {
 			}
 		} catch (error) {}
 	};
-	console.log(dailyData);
+	console.log(infoCart);
+
+	const handleAddOrder = async () => {
+		const orderData = {
+			carts: infoCart,
+		};
+		const res = await addOrder(orderData);
+		if (res) {
+			toast.success('Đặt hàng thành công. Vui lòng điền thông tin khách hàng');
+		} else {
+			toast.error('Đặt hàng thất bại');
+		}
+	};
 	return (
 		<>
 			<Head>
@@ -93,13 +118,27 @@ const Cart: NextPage = () => {
 
 									return (
 										<Table.Row key={index} className="items-center">
-											<Table.Cell>{item.product.name}</Table.Cell>
+											<Table.Cell className="items-center flex">
+												<Image
+													src={item.product.image[0]}
+													width={30}
+													height={30}
+													alt="Product Image"
+												/>
+												<span className="mx-3">
+													{item.product.name} {item.specification.storage}{' '}
+													{item.specification.color}
+												</span>
+											</Table.Cell>
 											<Table.Cell>
-												{item.specification.price} <sup>đ</sup>
+												{numberWithCommas(item.specification.price)}{' '}
+												<sup>đ</sup>
 											</Table.Cell>
 											<Table.Cell>{item.quantity}</Table.Cell>
 											<Table.Cell>
-												{item.specification.price * item.quantity}
+												{numberWithCommas(
+													item.specification.price * item.quantity
+												)}
 											</Table.Cell>
 											<Table.Cell>
 												<Tooltip content="Xóa sản phẩm" color="error">
@@ -123,7 +162,7 @@ const Cart: NextPage = () => {
 							<div className="flex justify-between my-3">
 								<span>Tổng cộng</span>
 								<span>
-									{total}
+									{numberWithCommas(total)}
 									<sup>đ</sup>
 								</span>
 							</div>
@@ -137,14 +176,20 @@ const Cart: NextPage = () => {
 							<div className="flex justify-between my-3">
 								<span className="font-bold">Thành tiền</span>
 								<span className="text-xl text-red-500 font-bold">
-									{total}
+									{numberWithCommas(total)}
 									<sup>đ</sup>
 								</span>
 							</div>
 						</div>
-						<button className=" px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4">
-							<span className="font-bold text-white">TIẾP TỤC</span>
-						</button>
+						<Link href="/info">
+							<a className="align-middle text-center px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4">
+								<button onClick={handleAddOrder}>
+									<span className="font-bold text-white text-center">
+										TIẾP TỤC
+									</span>
+								</button>
+							</a>
+						</Link>
 					</div>
 				</div>
 
