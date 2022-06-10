@@ -3,10 +3,15 @@ import { Navbar } from '@/components/Navbar';
 import { Sidebar } from '@/components/Sidebar';
 import { Icon } from '@iconify/react';
 import React from 'react';
+import { PageSEO } from '@/components/SEO';
 
 const Support = () => {
 	return (
 		<>
+			<PageSEO
+				href="/support/security-policy"
+				name="Chính sách bảo mật tại SellPhone"
+			/>
 			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />

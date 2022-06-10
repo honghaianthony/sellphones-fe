@@ -12,6 +12,7 @@ import { getCart, deleteCart, getCartInfo } from '@/pages/api/cartApi';
 import { addOrder } from '@/pages/api/orderApi';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { PageSEO } from '@/components/SEO';
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 // 	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
@@ -79,9 +80,7 @@ const Cart: NextPage = () => {
 	};
 	return (
 		<>
-			<Head>
-				<title>Giỏ hàng</title>
-			</Head>
+			<PageSEO href="/cart" name="Giỏ hàng" />
 			<MainLayout>
 				<div className="flex flex-row pt-12 pl-4 lg:mx-24 md:mx-10 mb-4 items-center">
 					<Link href="/">

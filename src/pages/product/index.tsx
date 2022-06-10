@@ -9,6 +9,7 @@ import Slider from 'react-slick';
 import Specifications from '@/components/Specifications';
 import { useState, useEffect } from 'react';
 import { getAllProducts } from '@/pages/api/productApi';
+import { PageSEO } from '@/components/SEO';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -106,9 +107,7 @@ const ProductList: NextPage = () => {
 	console.log(product);
 	return (
 		<>
-			<Head>
-				<title>Tất cả sản phẩm</title>
-			</Head>
+			<PageSEO href="/product" name="Sản phẩm" />
 			<MainLayout>
 				<div className="container max-w-7xl flex mx-auto items-center my-5">
 					<Link href="/">

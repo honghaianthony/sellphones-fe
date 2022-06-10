@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { getAllProducts } from '@/pages/api/productApi';
 import { getCategories } from '@/pages/api/categoryApi';
+import { PageSEO } from '@/components/SEO';
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
 	return (
@@ -144,6 +145,7 @@ const Apple = () => {
 
 	return (
 		<MainLayout>
+			<PageSEO href="/apple" name="Apple" />
 			<div className="container max-w-[1200px] justify-center text-center align-middle mx-auto">
 				<Slider {...settings}>
 					<div>
