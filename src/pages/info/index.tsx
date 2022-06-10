@@ -1,20 +1,15 @@
-import { BuyModal } from '@/components/BuyModal';
-import { CartItem } from '@/components/CardDetail';
 import MainLayout from '@/components/Layouts/MainLayout';
 import type { NextPage, GetServerSideProps, GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
-import { IconButton } from '@/components/CardDetail/IconButton';
 import { getCart, deleteCart } from '@/pages/api/cartApi';
 import { getUser } from '@/pages/api/userApi';
-import {
-	getProductBySpecificationId,
-	getProductById,
-} from '@/pages/api/productApi';
 import { Input } from '@nextui-org/react';
+import { updateOrder, getAllOrder } from '@/pages/api/orderApi';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 // 	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
@@ -32,11 +27,13 @@ import { Input } from '@nextui-org/react';
 // };
 
 const Info: NextPage = () => {
+	const router = useRouter();
 	const [dailyData, setDailyData] = useState([]);
 	const [user, setUser] = useState();
 	const [userName, setUserName] = useState();
 	const [address, setAddress] = useState();
 	const [phone, setPhone] = useState();
+	const [order, setOrder] = useState([]);
 	var total = 0;
 
 	useEffect(() => {
@@ -75,6 +72,42 @@ const Info: NextPage = () => {
 		asyncFetchDailyData();
 	}, []);
 
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData = await getAllOrder();
+			setOrder(fetchData);
+			// fetchData.map((item: any, index: Number) => {
+			// 	total += item.price;
+			// });
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	const handleSubmitInfo = async () => {
+		order.map(async (item: any, index: Number) => {
+			const updateInfo = {
+				fullName: userName,
+				address: address,
+				phone: phone,
+				_id: item._id,
+			};
+			const res = await updateOrder(updateInfo);
+			if (res) {
+				toast.success(
+					'Đặt hàng thành công. Hàng sẽ được xác nhận và chuyển hàng trong thời gian sớm nhất'
+				);
+				router.push('/');
+			} else {
+				toast.error('Đặt hàng thất bại. Hãy kiểm tra lại các trường thông tin');
+			}
+		});
+	};
+
+	const itemPrice = order.map((item: any, index) => {
+		total += item.price;
+	});
+
 	return (
 		<>
 			<Head>
@@ -90,7 +123,7 @@ const Info: NextPage = () => {
 						<a className="hover:text-lightBlue-600">Giỏ hàng</a>
 					</Link>
 				</div>
-				<div className="flex flex-col lg:flex-row my-8 mx-16">
+				<div className="flex flex-col lg:flex-row my-8 mx-16 items-center">
 					<div className="w-full xl:w-9/12 mb-12 xl:mb-0 p-4 bg-white rounded-lg mx-4">
 						<h1 className="font-bold text-xl px-3 mb-8">
 							Thông tin khách hàng
@@ -164,7 +197,10 @@ const Info: NextPage = () => {
 								</span>
 							</div>
 						</div>
-						<button className=" px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4">
+						<button
+							className=" px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4"
+							onClick={handleSubmitInfo}
+						>
 							<span className="font-bold text-white">TIẾP TỤC</span>
 						</button>
 					</div>
