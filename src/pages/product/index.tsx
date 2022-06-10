@@ -9,6 +9,7 @@ import Slider from 'react-slick';
 import Specifications from '@/components/Specifications';
 import { useState, useEffect } from 'react';
 import { getAllProducts } from '@/pages/api/productApi';
+import { getCategories } from '@/pages/api/categoryApi';
 import { PageSEO } from '@/components/SEO';
 
 function SampleNextArrow(props: any) {
@@ -81,6 +82,18 @@ function ChangeToSlug(str: any) {
 
 const ProductList: NextPage = () => {
 	const [product, setProduct] = useState([]);
+	const [productName, setProductName] = useState([]);
+	const [activeFilter, setActiveFilter] = useState([]);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const res = await getCategories();
+
+			setProductName(res);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
@@ -105,7 +118,37 @@ const ProductList: NextPage = () => {
 
 	let takeThreeProduct = [1, 2, 3];
 
-	console.log(product);
+	const onFilterChange = (filter: any) => {
+		if (filter === 'ALL') {
+			if (activeFilter.length === productName.length) {
+				return;
+			} else {
+				setActiveFilter(productName.map((filter) => filter._id));
+			}
+		} else {
+			if (activeFilter.includes(filter)) {
+				const filterIndex = activeFilter.indexOf(filter);
+				const newFilter = [...activeFilter];
+				newFilter.splice(filterIndex, 1);
+				setActiveFilter(newFilter);
+			} else {
+				setActiveFilter([...activeFilter, filter]);
+			}
+		}
+	};
+
+	let filteredList;
+
+	if (activeFilter.length === 0 || activeFilter.length === productName.length) {
+		filteredList = product;
+	} else {
+		filteredList = product.filter((item) =>
+			activeFilter.includes(item.categoryId)
+		);
+	}
+
+	console.log(filteredList);
+
 	return (
 		<>
 			<PageSEO href="/product" name="Sản phẩm" />
@@ -179,45 +222,30 @@ const ProductList: NextPage = () => {
 								<h3 className="font-bold my-3">Hãng sản xuất</h3>
 								<div className="grid grid-cols-2 gap-3">
 									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
+										<input
+											id="myInput"
+											type="checkbox"
+											onChange={() => onFilterChange('ALL')}
+											defaultChecked
+											checked={activeFilter.length === productName.length}
+										/>
 										<label className="ml-1">Tất cả</label>
 									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Apple </label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Samsung</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">OPPO</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Xiaomi</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Vivo</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Realme</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Nokia</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Asus</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Vsmart</label>
-									</div>
+									{productName.map((item: any, index) => {
+										return (
+											<div className="mr-3 flex items-center" key={index}>
+												<input
+													id={item._id}
+													type="checkbox"
+													checked={activeFilter.includes(item._id)}
+													onChange={() => onFilterChange(item._id)}
+												/>
+												<label className="ml-1" htmlFor={item._id}>
+													{item.name}
+												</label>
+											</div>
+										);
+									})}
 								</div>
 							</div>
 							<div className="mb-3">
@@ -341,7 +369,7 @@ const ProductList: NextPage = () => {
 								</div>
 
 								<div className="grid grid-cols-1 gap-8 mx-8 md:grid-cols-2 lg:grid-cols-3 ">
-									{product.map((item: any, index) => {
+									{filteredList.map((item: any, index) => {
 										return (
 											<div className="flex flex-col items-center" key={index}>
 												<CardDetail
