@@ -16,7 +16,7 @@ export default function Admin({ children }: AdminLayoutProps) {
 	const router = useRouter();
 	const [authState] = useAuth();
 	useEffect(() => {
-		if (authState.isAuth && authState.role !== 'ROLE_ADMIN') {
+		if (!authState.isAuth && authState.role !== 'ROLE_ADMIN') {
 			router.push('/');
 		}
 	}, []);

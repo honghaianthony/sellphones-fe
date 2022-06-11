@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
 import { IconButton } from './IconButton';
 import { Icon } from '@iconify/react';
+import { getAllUsers } from '@/pages/api/userApi';
 
 // components
 
 export default function CardEmployee(props: any) {
+	const [employee, setEmployee] = useState([]);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData: any = await getAllUsers(); // fetchDailyData() is calling Api
+			setEmployee(fetchData);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 	return (
 		<>
 			<div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -44,213 +55,43 @@ export default function CardEmployee(props: any) {
 							<Table.Column>CHỨC VỤ</Table.Column>
 							<Table.Column>THAO TÁC</Table.Column>
 						</Table.Header>
-						<Table.Body>
-							<Table.Row key="1" className="items-center">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="2">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="3">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="4">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="5">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="6">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="7">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="8">
-								<Table.Cell>Đặng Ngô Hồng Hải</Table.Cell>
-								<Table.Cell>dangngohonghai@gmail.com</Table.Cell>
-								<Table.Cell>TP.Hồ Chí Minh</Table.Cell>
-								<Table.Cell>0123456789</Table.Cell>
-								<Table.Cell>Admin</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa nhân viên" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa nhân viên" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
+						<Table.Body items={employee}>
+							{employee.map((item: any, index: any) => {
+								return (
+									<Table.Row key={index} className="items-center">
+										<Table.Cell>{item.fullName}</Table.Cell>
+										<Table.Cell>{item.email}</Table.Cell>
+										<Table.Cell>{item.address}</Table.Cell>
+										<Table.Cell>{item.phone}</Table.Cell>
+										<Table.Cell>Nhân viên</Table.Cell>
+										<Table.Cell>
+											<Tooltip content="Chỉnh sửa nhân viên" color="success">
+												<IconButton>
+													<Icon
+														icon="eva:edit-2-outline"
+														className="text-[#6ff033] mr-3"
+													/>
+												</IconButton>
+											</Tooltip>
+											<Tooltip content="Xóa nhân viên" color="error">
+												<IconButton>
+													<Icon
+														icon="fluent:delete-24-filled"
+														className="text-[#FF0080]"
+													/>
+												</IconButton>
+											</Tooltip>
+										</Table.Cell>
+									</Table.Row>
+								);
+							})}
 						</Table.Body>
 						<Table.Pagination
 							shadow
 							noMargin
 							align="center"
 							rowsPerPage={3}
+							total={10}
 							onPageChange={(page) => console.log({ page })}
 						/>
 					</Table>
