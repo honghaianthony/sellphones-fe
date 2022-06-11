@@ -94,6 +94,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	};
 };
 
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 interface HomeProps {
 	allProducts: [];
 }
@@ -287,7 +291,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 							<CardDetail
 								key={index}
 								name={allProducts[item].name}
-								price={allProducts[item].price}
+								price={numberWithCommas(allProducts[item].price)}
 								img={allProducts[item].image[0]}
 								slug={ChangeToSlug(allProducts[item].name)}
 								id={allProducts[item]._id}
@@ -335,7 +339,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 								>
 									<CardDetail
 										name={allProducts[item].name}
-										price={allProducts[item].price}
+										price={numberWithCommas(allProducts[item].price)}
 										img={allProducts[item].image[0]}
 										slug={ChangeToSlug(allProducts[item].name)}
 										id={allProducts[item]._id}
@@ -364,7 +368,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 							<CardDetail
 								key={index}
 								name={item.name}
-								price={item.price}
+								price={numberWithCommas(item.price)}
 								img={item.image[0]}
 								slug={ChangeToSlug(item.name)}
 								id={item._id}
@@ -417,7 +421,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 									<CardDetail
 										key={index}
 										name={item.name}
-										price={item.price}
+										price={numberWithCommas(item.price)}
 										img={item.image[0]}
 										slug={ChangeToSlug(item.name)}
 										id={item._id}

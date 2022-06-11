@@ -18,6 +18,7 @@ import { getProductById, getAllProducts } from '@/pages/api/productApi';
 import { PageSEO } from '@/components/SEO';
 import { toast } from 'react-toastify';
 import { addCart } from '../api/cartApi';
+import MainLayout from '@/components/Layouts/MainLayout';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -202,7 +203,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	const [mainImage, setMainImage] = useState(productData[0]);
 	const [visible, setVisible] = useState(false);
 	const handler = () => {
-		setVisible(true)
+		setVisible(true);
 	};
 	const closeHandler = () => {
 		setVisible(false);
@@ -231,14 +232,12 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	};
 
 	return (
-		<>
+		<MainLayout>
 			<PageSEO
 				href={`/product/${ChangeToSlug(productId.name)}.${productId._id}.html`}
 				name={productId.name}
 			/>
 			<div className="bg-[#fcfaf8] h-full">
-				<Navbar />
-
 				<div className="container max-w-7xl mx-auto px-4 my-8 flex flex-col lg:flex-row text-center">
 					<div className="flex flex-col w-full lg:w-2/3 mx-auto">
 						<div className="flex flex-row my-5 items-center">
@@ -514,7 +513,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 							<div className="m-5 font-semibold">Thông số kỹ thuật</div>
 							<div className="my-5">
 								<table className="table-auto border-collapse w-10/12 justify-center items-center ml-5">
-									<tbody >
+									<tbody>
 										{choosedItem.price !== undefined && (
 											<>
 												<tr className="odd:bg-white even:bg-slate-100 py-3 leading-10 text-sm">
@@ -602,7 +601,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 
 				<Footer />
 			</div>
-		</>
+		</MainLayout>
 	);
 };
 

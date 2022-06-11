@@ -77,6 +77,10 @@ function ChangeToSlug(str: any) {
 	return str;
 }
 
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 const Asus = () => {
 	const [product, setProduct] = useState([]);
 
@@ -180,7 +184,7 @@ const Asus = () => {
 									<div className="flex flex-col items-center">
 										<CardDetail
 											name={item.name}
-											price={item.price}
+											price={numberWithCommas(item.price)}
 											img={item.image[0]}
 											slug={ChangeToSlug(item.name)}
 											id={item._id}
@@ -221,7 +225,7 @@ const Asus = () => {
 							<div className="flex flex-col items-center" key={index}>
 								<CardDetail
 									name={item.name}
-									price={item.price}
+									price={numberWithCommas(item.price)}
 									img={item.image[0]}
 									slug={ChangeToSlug(item.name)}
 									id={item._id}

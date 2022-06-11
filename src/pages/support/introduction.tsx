@@ -4,12 +4,12 @@ import { Sidebar } from '@/components/Sidebar';
 import Image from 'next/image';
 import React from 'react';
 import { PageSEO } from '@/components/SEO';
+import MainLayout from '@/components/Layouts/MainLayout';
 
 const Support = () => {
 	return (
-		<>
+		<MainLayout>
 			<PageSEO href="/support/introduction" name="Giới thiệu về SellPhone" />
-			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />
 				<div className="my-5 lg:my-20 mx-14 xl:mr-72 xl:w-1/2">
@@ -25,7 +25,7 @@ const Support = () => {
 				</div>
 			</div>
 			<Footer />
-		</>
+		</MainLayout>
 	);
 };
 
