@@ -29,7 +29,7 @@ import { PageSEO } from '@/components/SEO';
 // 	};
 // };
 
-function numberWithCommas(x) {
+function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
@@ -40,7 +40,7 @@ const Cart: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getCart(); // fetchDailyData() is calling Api
+			const fetchData: any = await getCart(); // fetchDailyData() is calling Api
 			setDailyData(fetchData);
 		};
 
@@ -49,18 +49,18 @@ const Cart: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getCartInfo(); // fetchDailyData() is calling Api
+			const fetchData: any = await getCartInfo(); // fetchDailyData() is calling Api
 			setInfoCart(fetchData);
 		};
 
 		asyncFetchDailyData();
 	}, []);
 
-	const handleDelete = async (id) => {
+	const handleDelete = async (id: any) => {
 		try {
-			let response = await deleteCart(id);
+			let response: any = await deleteCart(id);
 			if (response && response.errCode === 0) {
-				const succ = await getCart();
+				const succ: any = await getCart();
 				setDailyData(succ);
 			}
 		} catch (error) {}

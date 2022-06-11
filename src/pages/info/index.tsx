@@ -39,7 +39,7 @@ const Info: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getCart(); // fetchDailyData() is calling Api
+			const fetchData: any = await getCart(); // fetchDailyData() is calling Api
 			setDailyData(fetchData);
 		};
 
@@ -48,7 +48,7 @@ const Info: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			const fetchData: any = await getUser(); // fetchDailyData() is calling Api
 			setUserName(fetchData.fullName);
 		};
 
@@ -57,7 +57,7 @@ const Info: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			const fetchData: any = await getUser(); // fetchDailyData() is calling Api
 			setAddress(fetchData.address);
 		};
 
@@ -66,7 +66,7 @@ const Info: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			const fetchData: any = await getUser(); // fetchDailyData() is calling Api
 			setPhone(fetchData.phone);
 		};
 
@@ -75,7 +75,7 @@ const Info: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getAllOrder();
+			const fetchData: any = await getAllOrder();
 			setOrder(fetchData);
 			// fetchData.map((item: any, index: Number) => {
 			// 	total += item.price;
@@ -138,7 +138,7 @@ const Info: NextPage = () => {
 											color="default"
 											labelPlaceholder="Họ tên khách hàng"
 											value={userName}
-											onChange={(e) => setUserName(e.target.value)}
+											onChange={(e: any) => setUserName(e.target.value)}
 										/>
 									</div>
 								</div>
@@ -152,7 +152,7 @@ const Info: NextPage = () => {
 											color="default"
 											labelPlaceholder="Địa chỉ"
 											value={address}
-											onChange={(e) => setAddress(e.target.value)}
+											onChange={(e: any) => setAddress(e.target.value)}
 										/>
 									</div>
 								</div>
@@ -165,7 +165,7 @@ const Info: NextPage = () => {
 											color="default"
 											labelPlaceholder="Số điện thoại"
 											value={phone}
-											onChange={(e) => setPhone(e.target.value)}
+											onChange={(e: any) => setPhone(e.target.value)}
 										/>
 									</div>
 								</div>

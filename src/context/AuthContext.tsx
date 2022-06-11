@@ -41,10 +41,12 @@ export const AuthContext = React.createContext({});
 interface IAuthState {
 	isAuth: boolean;
 	username: String;
+	role: String;
 }
 const initialState: IAuthState = {
 	isAuth: false,
 	username: "",
+	role: ""
 };
 
 const reducer: any = (state: boolean, action: any) => {
@@ -55,6 +57,7 @@ const reducer: any = (state: boolean, action: any) => {
 			return {
 				isAuth: true,
 				username: info.sub,
+				role: info.role,
 			};
 		case RELOAD:
 			const token: any = Cookies.get('token');
@@ -63,6 +66,7 @@ const reducer: any = (state: boolean, action: any) => {
 				return {
 					isAuth: true,
 					username: infoReload.sub,
+					role: infoReload.role,
 				};
 			} else {
 				return initialState;
@@ -77,7 +81,7 @@ const reducer: any = (state: boolean, action: any) => {
 
 // PROVIDER 
 export const AuthProvider = ({ children }: any) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch]: any = useReducer(reducer, initialState);
 	useEffect(()=>{
 		dispatch(actions.reload());
 	},[])

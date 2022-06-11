@@ -6,16 +6,17 @@ import { addCart } from '@/pages/api/cartApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getUser } from '@/pages/api/userApi';
+import { addOrder } from '@/pages/api/orderApi'
 
 const BuyModal = (props: any) => {
 	const router = useRouter();
 	const [counter, setCounter] = useState(1);
 	const [cart, setCart] = useState({});
-	const [user, setUser] = useState();
+	const [user, setUser] = useState<any>();
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData = await getUser(); // fetchDailyData() is calling Api
+			const fetchData: any = await getUser(); // fetchDailyData() is calling Api
 			setUser(fetchData);
 		};
 
@@ -35,7 +36,7 @@ const BuyModal = (props: any) => {
 	const reset = () => {
 		setCounter(0);
 	};
-	const handleAddToCart = async () => {
+	const handleOrder = async () => {
 		const cartData = {
 			specificationId: props.id,
 			quantity: counter,
@@ -49,7 +50,7 @@ const BuyModal = (props: any) => {
 		}
 	};
 
-	function numberWithCommas(x) {
+	function numberWithCommas(x: any) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 	}
 
@@ -176,7 +177,7 @@ const BuyModal = (props: any) => {
 								className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3"
 								onClick={() => {
 									props.handleClick();
-									handleAddToCart();
+									handleOrder();
 								}}
 							>
 								Hoàn tất đặt hàng
