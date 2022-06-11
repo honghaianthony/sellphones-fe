@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // components
 
 import { SidebarEmployee } from '@/components/Sidebar';
+import { useRouter } from 'next/router';
+import { useAuth } from '@/context/AuthContext';
 
 interface EmployeeLayoutProps {
 	children: any;
 }
 
 export default function EmployeeLayout({ children }: EmployeeLayoutProps) {
+	const router = useRouter();
+	const [authState] = useAuth();
+	useEffect(() => {
+		if (
+			!authState.isAuth &&
+			authState.role !== 'ROLE_ADMIN' &&
+			authState.role !== 'ROLE_STAFF'
+		) {
+			router.push('/');
+		}
+	}, []);
 	return (
 		<>
 			<SidebarEmployee />
