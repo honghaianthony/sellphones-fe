@@ -6,7 +6,7 @@ import { addCart } from '@/pages/api/cartApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getUser } from '@/pages/api/userApi';
-import { addOrder } from '@/pages/api/orderApi'
+import { addOrder, buyNow, updateOrder, updatePaymentMethod } from '@/pages/api/orderApi'
 import { Input, Radio } from '@nextui-org/react';
 
 const BuyModal = (props: any) => {
@@ -18,6 +18,7 @@ const BuyModal = (props: any) => {
 	const [phone, setPhone] = useState<string>("");
 	const [address, setAddress] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
+	const [momoPay, setMomoPay] = useState<any>(false);
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
@@ -50,12 +51,28 @@ const BuyModal = (props: any) => {
 			specificationId: props.id,
 			quantity: counter,
 		};
-		const res = await addCart(cartData);
-		if (res) {
-			toast.success('Thêm vào giỏ hàng thành công');
-			setCart(res);
-		} else {
-			toast.error('Thêm vào giỏ hàng thất bại');
+		const body = {
+			carts: [cartData]
+		}
+		try {
+			const res: any = await buyNow(body);
+			console.log(res);
+			if(res.statusCode === 201) {
+				const info: any = await updateOrder({_id: res.orderId, address: address, fullName: name, phone: phone});
+				if (momoPay === true) {
+					await updatePaymentMethod({idOrder: res.orderId, method: "Thanh toán MOMO", status: 1})
+				}
+				if (info.statusCode === 201) {
+					toast.success('Đặt hàng thành công');
+					props.handleClick();
+				} else {
+					toast.error('Đặt hàng thất bại');
+				}
+			} else {
+				toast.error('Đặt hàng thất bại');
+			}
+		} catch (error) {
+			toast.error('Đặt hàng thất bại');
 		}
 	};
 
@@ -227,13 +244,23 @@ const BuyModal = (props: any) => {
 							<div className="text-lg text-left">
 								Chọn phương thức thanh toán:
 							</div>
-							<div className="flex flex-row">
-								<Radio>
+							<div className="flex flex-col">
+								<Radio
+									checked={!momoPay}
+									onClick={() => {
+										setMomoPay(false);
+									}}
+								>
 									<Radio.Description>
-										<div>Thanh toán khi nhận hàng</div>
+										Thanh toán khi nhận hàng
 									</Radio.Description>
 								</Radio>
-								<Radio>
+								<Radio
+									checked={momoPay}
+									onClick={() => {
+										setMomoPay(true);
+									}}
+								>
 									<Radio.Description>Thanh toán Momo</Radio.Description>
 								</Radio>
 							</div>
@@ -242,7 +269,6 @@ const BuyModal = (props: any) => {
 							<button
 								className="bg-red-600 text-white px-4 py-3 text-2xl rounded-xl my-3"
 								onClick={() => {
-									props.handleClick();
 									handleOrder();
 								}}
 							>
