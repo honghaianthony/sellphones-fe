@@ -77,7 +77,7 @@ function ChangeToSlug(str: any) {
 	return str;
 }
 
-function numberWithCommas(x) {
+function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 

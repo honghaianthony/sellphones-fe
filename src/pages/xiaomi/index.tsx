@@ -48,7 +48,7 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
-function numberWithCommas(x) {
+function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
@@ -86,15 +86,15 @@ const Xiaomi = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
-			const allCategories = await getCategories();
+			const allProducts: any = await getAllProducts();
+			const allCategories: any = await getCategories();
 
 			const appleCategory = allCategories.find(
 				(category: any) => category.name === 'Xiaomi'
 			);
 
 			const categoryProduct = allProducts.filter(
-				(product) => product.categoryId === appleCategory._id
+				(product: any) => product.categoryId === appleCategory._id
 			);
 
 			setProduct(categoryProduct);

@@ -6,7 +6,7 @@ import { AdminNavbar } from '@/components/Navbar';
 import { SidebarAdmin } from '@/components/Sidebar';
 import { FooterAdmin } from '@/components/Footer';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext';
 
 interface AdminLayoutProps {
 	children: any;
@@ -15,11 +15,11 @@ interface AdminLayoutProps {
 export default function Admin({ children }: AdminLayoutProps) {
 	const router = useRouter();
 	const [authState] = useAuth();
-	useEffect(()=> {
-		if (!authState.isAuth && authState.role !== "ROLE_ADMIN") {
-			router.push('/')
+	useEffect(() => {
+		if (authState.isAuth && authState.role !== 'ROLE_ADMIN') {
+			router.push('/');
 		}
-	},[])
+	}, []);
 	return (
 		<>
 			<SidebarAdmin />
