@@ -83,7 +83,44 @@ function ChangeToSlug(str: any) {
 const ProductList: NextPage = () => {
 	const [product, setProduct] = useState([]);
 	const [productName, setProductName] = useState([]);
+	const [battery, setBattery] = useState([]);
+	const [ram, setRam] = useState([]);
+	const [ramArray, setRamArray] = useState([]);
 	const [activeFilter, setActiveFilter] = useState([]);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const allProducts = await getAllProducts();
+
+			const ramCategory = allProducts.map((category) => {
+				return category.ram;
+			});
+
+			setRamArray(ramCategory);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const allProducts = await getAllProducts();
+
+			setRam(allProducts);
+		};
+
+		asyncFetchDailyData();
+	}, []);
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const allProducts = await getAllProducts();
+
+			setBattery(allProducts.battery);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
@@ -118,37 +155,64 @@ const ProductList: NextPage = () => {
 
 	let takeThreeProduct = [1, 2, 3];
 
-	const onFilterChange = (filter: any) => {
-		if (filter === 'ALL') {
-			if (activeFilter.length === productName.length) {
-				return;
-			} else {
-				setActiveFilter(productName.map((filter) => filter._id));
-			}
-		} else {
-			if (activeFilter.includes(filter)) {
-				const filterIndex = activeFilter.indexOf(filter);
-				const newFilter = [...activeFilter];
-				newFilter.splice(filterIndex, 1);
-				setActiveFilter(newFilter);
-			} else {
-				setActiveFilter([...activeFilter, filter]);
-			}
-		}
-	};
+	const [productInfo, setProductInfo] = useState([]);
+	const [productRam, setProductRam] = useState([]);
+	// const [productBattery, setProductBattery] = useState([]);
 
-	let filteredList;
+	const filteredUnits =
+		productInfo.length || productRam.length
+			? product.filter((apartment) => {
+					console.log('filtering', apartment);
+					return (
+						(!productInfo.length ||
+							productInfo.includes(apartment.categoryId)) &&
+						(!productRam.length || productRam.includes(apartment.ram))
+					);
+			  })
+			: product;
 
-	if (activeFilter.length === 0 || activeFilter.length === productName.length) {
-		filteredList = product;
-	} else {
-		filteredList = product.filter((item) =>
-			activeFilter.includes(item.categoryId)
-		);
+	// const onFilterChange = (filter: any) => {
+	// 	if (filter === 'ALL') {
+	// 		if (activeFilter.length === productName.length) {
+	// 			return;
+	// 		} else {
+	// 			setActiveFilter(productName.map((filter) => filter._id));
+	// 		}
+	// 	} else {
+	// 		if (activeFilter.includes(filter)) {
+	// 			const filterIndex = activeFilter.indexOf(filter);
+	// 			const newFilter = [...activeFilter];
+	// 			newFilter.splice(filterIndex, 1);
+	// 			setActiveFilter(newFilter);
+	// 		} else {
+	// 			setActiveFilter([...activeFilter, filter]);
+	// 		}
+	// 	}
+	// };
+
+	// let filteredList;
+
+	// if (activeFilter.length === 0 || activeFilter.length === productName.length) {
+	// 	filteredList = product;
+	// } else {
+	// 	filteredList = product.filter((item) =>
+	// 		activeFilter.includes(item.categoryId)
+	// 	);
+	// }
+
+	// console.log(filteredList);
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 	}
 
-	console.log(filteredList);
-
+	function uniq(a) {
+		var seen = {};
+		return a.filter(function (item) {
+			return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+		});
+	}
+	const newRam = uniq(ramArray);
 	return (
 		<>
 			<PageSEO href="/product" name="Sản phẩm" />
@@ -221,7 +285,7 @@ const ProductList: NextPage = () => {
 							<div className="mb-3">
 								<h3 className="font-bold my-3">Hãng sản xuất</h3>
 								<div className="grid grid-cols-2 gap-3">
-									<div className="mr-3 flex items-center">
+									{/* <div className="mr-3 flex items-center">
 										<input
 											id="myInput"
 											type="checkbox"
@@ -230,16 +294,21 @@ const ProductList: NextPage = () => {
 											checked={activeFilter.length === productName.length}
 										/>
 										<label className="ml-1">Tất cả</label>
-									</div>
+									</div> */}
 									{productName.map((item: any, index) => {
 										return (
 											<div className="mr-3 flex items-center" key={index}>
 												<input
-													id={item._id}
+													id="check-box-1"
 													type="checkbox"
-													checked={activeFilter.includes(item._id)}
-													onChange={() => onFilterChange(item._id)}
+													onChange={(event) =>
+														setProductInfo((prev) =>
+															event.target.checked ? [...prev, item._id] : []
+														)
+													}
+													className=" h-4 w-4"
 												/>
+
 												<label className="ml-1" htmlFor={item._id}>
 													{item.name}
 												</label>
@@ -249,76 +318,27 @@ const ProductList: NextPage = () => {
 								</div>
 							</div>
 							<div className="mb-3">
-								<h3 className="font-bold my-3">Mức giá</h3>
-								<div className="grid grid-cols-1 gap-3">
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Tất cả</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Dưới 2 triệu </label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Từ 2 - 4 triệu</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Từ 4 - 7 triệu</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Từ 7 - 13 triệu</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Trên 13 triệu</label>
-									</div>
-								</div>
-							</div>
-							<div className="mb-3">
-								<h3 className="font-bold my-3">Dung lượng pin</h3>
-								<div className="grid grid-cols-1 gap-3">
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Tất cả</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Dưới 3000 mah </label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Từ 3000 - 4000 mah</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Siêu trâu: trên 4000 mah</label>
-									</div>
-								</div>
-							</div>
-							<div className="mb-3">
-								<h3 className="font-bold mb-1">Màn hình</h3>
-								<div className="grid grid-cols-1 gap-3">
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Tất cả</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Màn hình nhỏ: dưới 5.0 inch</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">
-											Nhỏ gọn vừa tay: dưới 6.0 inch, tràn viền
-										</label>
-									</div>
-									<div className="mr-3 flex items-center">
-										<input type="checkbox" />
-										<label className="ml-1">Siêu trâu: trên 4000 mah</label>
-									</div>
+								<h3 className="font-bold my-3">Dung lượng RAM</h3>
+								<div className="grid grid-cols-2 gap-3">
+									{newRam.map((item: any, index) => {
+										return (
+											<div className="mr-3 flex items-center" key={index}>
+												<input
+													id={item._id}
+													type="checkbox"
+													onChange={(event) =>
+														setProductRam((prev) =>
+															event.target.checked ? [...prev, item] : []
+														)
+													}
+													className=" h-4 w-4"
+												/>
+												<label className="ml-1" htmlFor={item._id} key={index}>
+													{item} GB
+												</label>
+											</div>
+										);
+									})}
 								</div>
 							</div>
 						</div>
@@ -336,7 +356,7 @@ const ProductList: NextPage = () => {
 												<CardDetail
 													key={index}
 													name={product[item].name}
-													price={product[item].price}
+													price={numberWithCommas(product[item].price)}
 													img={product[item].image[0]}
 													slug={ChangeToSlug(product[item].name)}
 													id={product[item]._id}
@@ -369,12 +389,12 @@ const ProductList: NextPage = () => {
 								</div>
 
 								<div className="grid grid-cols-1 gap-8 mx-8 md:grid-cols-2 lg:grid-cols-3 ">
-									{filteredList.map((item: any, index) => {
+									{filteredUnits.map((item: any, index) => {
 										return (
 											<div className="flex flex-col items-center" key={index}>
 												<CardDetail
 													name={item.name}
-													price={item.price}
+													price={numberWithCommas(item.price)}
 													img={item.image[0]}
 													slug={ChangeToSlug(item.name)}
 													id={item._id}
