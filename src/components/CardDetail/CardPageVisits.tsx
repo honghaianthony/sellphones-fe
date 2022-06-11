@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
 import { IconButton } from './IconButton';
 import { Icon } from '@iconify/react';
+import { getAllProducts } from '@/pages/api/productApi';
 
 // components
 
+function numberWithCommas(x: any) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 export default function CardPageVisits(props: any) {
+	const [product, setProduct] = useState([]);
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const allProducts: any = await getAllProducts();
+
+			setProduct(allProducts);
+		};
+
+		asyncFetchDailyData();
+	}, []);
 	return (
 		<>
-			<div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+			<div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded z-0">
 				<div className="rounded-t mb-0 px-4 py-3 border-0">
 					<div className="flex flex-wrap items-center">
 						<div className="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -38,219 +53,49 @@ export default function CardPageVisits(props: any) {
 					>
 						<Table.Header>
 							<Table.Column>TÊN SẢN PHẨM</Table.Column>
-							<Table.Column>NHÃN HÀNG</Table.Column>
 							<Table.Column>XUẤT XỨ</Table.Column>
-							<Table.Column>HỆ ĐIỀU HÀNH</Table.Column>
+							<Table.Column>GIÁ CẢ</Table.Column>
+							<Table.Column>CHIP XỬ LÝ</Table.Column>
 							<Table.Column>THỜI GIAN RA MẮT</Table.Column>
 							<Table.Column>THAO TÁC</Table.Column>
 						</Table.Header>
 						<Table.Body>
-							<Table.Row key="1" className="items-center">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="2">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="3">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="4">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="5">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="6">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="7">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
-							<Table.Row key="8">
-								<Table.Cell>Iphone 13 Pro Max 256GB</Table.Cell>
-								<Table.Cell>Apple</Table.Cell>
-								<Table.Cell>Mỹ</Table.Cell>
-								<Table.Cell>iOS</Table.Cell>
-								<Table.Cell>29/05/2022</Table.Cell>
-								<Table.Cell>
-									<Tooltip content="Chỉnh sửa sản phẩm" color="success">
-										<IconButton>
-											<Icon
-												icon="eva:edit-2-outline"
-												className="text-[#6ff033] mr-3"
-											/>
-										</IconButton>
-									</Tooltip>
-									<Tooltip content="Xóa sản phẩm" color="error">
-										<IconButton>
-											<Icon
-												icon="fluent:delete-24-filled"
-												className="text-[#FF0080]"
-											/>
-										</IconButton>
-									</Tooltip>
-								</Table.Cell>
-							</Table.Row>
+							{product.map((item: any, index) => {
+								return (
+									<Table.Row key={index} className="items-center">
+										<Table.Cell>{item.name}</Table.Cell>
+										<Table.Cell>{item.origin}</Table.Cell>
+										<Table.Cell>{numberWithCommas(item.price)}</Table.Cell>
+										<Table.Cell>{item.processor}</Table.Cell>
+										<Table.Cell>{item.releaseDate}</Table.Cell>
+										<Table.Cell>
+											<Tooltip content="Chỉnh sửa sản phẩm" color="success">
+												<IconButton>
+													<Icon
+														icon="eva:edit-2-outline"
+														className="text-[#6ff033] mr-3"
+													/>
+												</IconButton>
+											</Tooltip>
+											<Tooltip content="Xóa sản phẩm" color="error">
+												<IconButton>
+													<Icon
+														icon="fluent:delete-24-filled"
+														className="text-[#FF0080]"
+													/>
+												</IconButton>
+											</Tooltip>
+										</Table.Cell>
+									</Table.Row>
+								);
+							})}
 						</Table.Body>
 						<Table.Pagination
 							shadow
 							noMargin
 							align="center"
-							rowsPerPage={3}
+							rowsPerPage={5}
+							total={10}
 							onPageChange={(page) => console.log({ page })}
 						/>
 					</Table>
