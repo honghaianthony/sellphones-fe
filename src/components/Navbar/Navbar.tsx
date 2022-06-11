@@ -10,23 +10,27 @@ const Navbar = () => {
 	const [authState, dispatch] = useAuth();
 	const [showLogin, setShowLogin] = useState(false);
 	return (
-		<nav className="top-0 z-50 w-full sticky flex flex-wrap justify-between px-2 py-3 navbar-expand-lg bg-orange-400 ">
-			<div className="container max-w-7xl px-4 mx-auto flex items-center justify-between">
-				<div className="relative flex w-7/12 lg:static space-x-5 items-center">
-					<Link href="/">
-						<a className="flex space-x-3 items-center w-5/12">
-							<Image
-								src="/images/logo.png"
-								width={44}
-								height={44}
-								alt="Sellphone Logo"
-							/>
-							<h1 className="text-2xl font-medium text-white font-josefin">
-								Sellphone
-							</h1>
-						</a>
-					</Link>
-					<div className="w-7/12 bg-white py-3 rounded items-center hidden lg:visible lg:flex">
+		<nav className="bg-orange-600 border-gray-200 px-2 sm:px-4 py-2.5 rounded">
+			<div className="flex flex-wrap justify-between items-center mx-auto container max-w-7xl">
+				<Link href="/">
+					<a className="flex items-center lg:w-2/12 mx-auto">
+						<Image
+							src="/images/logo.png"
+							width={44}
+							height={44}
+							alt="Sellphone Logo"
+						/>
+						<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white mx-3">
+							SellPhone
+						</span>
+					</a>
+				</Link>
+
+				<div
+					className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1 lg:w-6/12"
+					id="mobile-menu-2"
+				>
+					<div className="bg-white py-2 rounded items-center hidden lg:visible lg:flex lg:w-9/12">
 						<input
 							type="text"
 							className="mx-2 w-full px-3 border-0 outline-0"
@@ -39,54 +43,52 @@ const Navbar = () => {
 					</div>
 				</div>
 
-				<div className="flex w-5/12 items-center pt-2">
-					<ul className="flex flex-col lg:flex-row list-none lg:ml-auto items-center">
-						<li className="flex items-center px-3 lg:text-white cursor-pointer">
-							<Link href="/cart">
-								<a className="flex flex-col space-x-3 items-center">
+				<div className="flex md:order-2 ">
+					<div className="flex items-center mx-3">
+						<Link href="/cart">
+							<a className="flex space-x-3 items-center">
+								<Icon
+									icon="ant-design:shopping-cart-outlined"
+									className="text-white text-lg"
+								/>
+								<h5 className="text-lg text-white">Giỏ hàng</h5>
+							</a>
+						</Link>
+					</div>
+					<div className="flex items-center mx-3">
+						<Link href="/support">
+							<a className="flex space-x-3 items-center">
+								<Icon
+									icon="akar-icons:chat-question"
+									className="text-white text-lg"
+								/>
+								<h5 className="text-lg text-white">Hỏi đáp</h5>
+							</a>
+						</Link>
+					</div>
+					<div className="flex items-center mx-3">
+						{authState.isAuth ? (
+							<>
+								<UserDropdown />
+							</>
+						) : (
+							<>
+								<button
+									onClick={() => {
+										setShowLogin(true);
+									}}
+									className="flex text-white items-center"
+								>
 									<Icon
-										icon="ant-design:shopping-cart-outlined"
-										className="text-white text-lg"
+										icon="ant-design:user-outlined"
+										className="text-white text-lg mr-2"
 									/>
-									<h5 className="text-lg text-white">Giỏ hàng</h5>
-								</a>
-							</Link>
-						</li>
-						<li className="flex items-center px-3 lg:text-white cursor-pointer">
-							<Link href="/support">
-								<a className="flex flex-col space-x-3 items-center">
-									<Icon
-										icon="akar-icons:chat-question"
-										className="text-white text-lg"
-									/>
-									<h5 className="text-lg text-white">Hỏi đáp</h5>
-								</a>
-							</Link>
-						</li>
-						<li className="flex items-center px-3 lg:text-white cursor-pointer">
-							{authState.isAuth ? (
-								<>
-									<UserDropdown />
-								</>
-							) : (
-								<>
-									<button
-										onClick={() => {
-											setShowLogin(true);
-										}}
-										className="flex flex-col"
-									>
-										<Icon
-											icon="ant-design:user-outlined"
-											className="text-white text-lg"
-										/>
-										Đăng nhập
-									</button>
-									<LoginModal show={showLogin} setShow={setShowLogin} />
-								</>
-							)}
-						</li>
-					</ul>
+									<span>Đăng nhập</span>
+								</button>
+								<LoginModal show={showLogin} setShow={setShowLogin} />
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 		</nav>

@@ -48,6 +48,10 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 function ChangeToSlug(str: any) {
 	// Chuyển hết sang chữ thường
 	str = str.toLowerCase();
@@ -180,7 +184,7 @@ const Xiaomi = () => {
 									<div className="flex flex-col items-center">
 										<CardDetail
 											name={item.name}
-											price={item.price}
+											price={numberWithCommas(item.price)}
 											img={item.image[0]}
 											slug={ChangeToSlug(item.name)}
 											id={item._id}
@@ -221,7 +225,7 @@ const Xiaomi = () => {
 							<div className="flex flex-col items-center" key={index}>
 								<CardDetail
 									name={item.name}
-									price={item.price}
+									price={numberWithCommas(item.price)}
 									img={item.image[0]}
 									slug={ChangeToSlug(item.name)}
 									id={item._id}

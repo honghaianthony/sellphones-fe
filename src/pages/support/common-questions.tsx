@@ -5,15 +5,15 @@ import Image from 'next/image';
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { PageSEO } from '@/components/SEO';
+import MainLayout from '@/components/Layouts/MainLayout';
 
 const Support = () => {
 	return (
-		<>
+		<MainLayout>
 			<PageSEO
 				href="/support/common-questions"
 				name="Câu hỏi thường gặp khi mua Apple"
 			/>
-			<Navbar />
 			<div className="flex flex-col lg:flex-row bg-gray-100">
 				<Sidebar />
 				<div className="my-5 lg:my-20 mx-14 xl:mr-72 xl:w-1/2">
@@ -115,7 +115,7 @@ const Support = () => {
 				</div>
 			</div>
 			<Footer />
-		</>
+		</MainLayout>
 	);
 };
 

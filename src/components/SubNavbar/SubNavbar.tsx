@@ -5,8 +5,8 @@ import { Icon } from '@iconify/react';
 const SubNavbar = () => {
 	const [navbarOpen, setNavbarOpen] = useState(false);
 	return (
-		<div className="sticky top-0 w-full bg-black">
-			<nav className="max-w-7xl mx-auto text-center align-middle py-3 flex justify-between">
+		<div className="w-full bg-black ">
+			<nav className="container max-w-7xl mx-auto text-center align-middle py-3 flex justify-between">
 				<button
 					className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
 					type="button"
