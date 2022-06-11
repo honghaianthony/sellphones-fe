@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useAuth, actions } from '@/context/AuthContext'
+import Link from 'next/link';
 
 interface IUserDropdownProps {
 	avatar?: any;
@@ -51,16 +52,6 @@ const UserDropdown = (props: IUserDropdownProps) => {
 						>
 							Quản lý tài khoản
 						</button>
-						{props.username && (
-							<button
-								className={
-									'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
-								}
-								onClick={(e) => e.preventDefault()}
-							>
-								{props.username}
-							</button>
-						)}
 						<button
 							className={
 								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
@@ -69,6 +60,28 @@ const UserDropdown = (props: IUserDropdownProps) => {
 						>
 							Thông tin tài khoản
 						</button>
+						{authState.role === 'ROLE_ADMIN' && (
+							<Link href={'/admin/dashboard'}>
+								<a
+									className={
+										'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
+									}
+								>
+									Trang quản trị
+								</a>
+							</Link>
+						)}
+						{(authState.role === 'ROLE_STAFF' || authState.role === 'ROLE_ADMIN') && (
+							<Link href={'/employee/overview'}>
+								<a
+									className={
+										'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
+									}
+								>
+									Trang nhân viên
+								</a>
+							</Link>
+						)}
 
 						<div className="h-0 my-2 border border-solid border-slate-100" />
 						<button

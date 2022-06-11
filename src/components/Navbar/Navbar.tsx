@@ -66,7 +66,7 @@ const Navbar = () => {
 						<li className="flex items-center px-3 lg:text-white cursor-pointer">
 							{authState.isAuth ? (
 								<>
-									<UserDropdown username={authState.username} />
+									<UserDropdown />
 								</>
 							) : (
 								<>
