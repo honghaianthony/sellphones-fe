@@ -7,17 +7,26 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getUser } from '@/pages/api/userApi';
 import { addOrder } from '@/pages/api/orderApi'
+import { Input, Radio } from '@nextui-org/react';
 
 const BuyModal = (props: any) => {
 	const router = useRouter();
 	const [counter, setCounter] = useState(1);
 	const [cart, setCart] = useState({});
 	const [user, setUser] = useState<any>();
+	const [name, setName] = useState<string>("");
+	const [phone, setPhone] = useState<string>("");
+	const [address, setAddress] = useState<string>("");
+	const [email, setEmail] = useState<string>("");
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
 			const fetchData: any = await getUser(); // fetchDailyData() is calling Api
 			setUser(fetchData);
+			setName(fetchData.fullName);
+			setPhone(fetchData.phone);
+			setAddress(fetchData.address);
+			setEmail(fetchData.email);
 		};
 
 		asyncFetchDailyData();
@@ -144,15 +153,59 @@ const BuyModal = (props: any) => {
 							</div>
 						</div>
 						<hr />
-						<div className="p-8">
-							<div className="font-bold text-xl">Thông tin khánh hàng</div>
+						<div className="p-8 text-left child:my-2 w-full">
+							<div className="font-bold text-xl ">Thông tin khánh hàng</div>
 							{user && (
-								<>
-									<div>Họ và tên: {user.fullName}</div>
-									<div>Số điện thoại: {user.phone}</div>
-									<div>Địa chỉ: {user.address}</div>
-									<div>Email: {user.email}</div>
-								</>
+								<div className="flex flex-row">
+									<div className="child:h-12 child:leading-10">
+										<div className="">Họ và tên:</div>
+										<div className="">Số điện thoại:</div>
+										<div className="">Địa chỉ:</div>
+										<div className="">Email:</div>
+									</div>
+									<div className="flex flex-col child:w-full child:h-12 w-1/2">
+										<Input
+											bordered
+											color="default"
+											className="ml-2"
+											type="text"
+											value={name}
+											onChange={(e: any) => {
+												setName(e.target.value);
+											}}
+										/>
+										<Input
+											bordered
+											color="default"
+											className="ml-2 "
+											type="text"
+											value={phone}
+											onChange={(e: any) => {
+												setPhone(e.target.value);
+											}}
+										/>
+										<Input
+											bordered
+											color="default"
+											className="ml-2 "
+											type="text"
+											value={address}
+											onChange={(e: any) => {
+												setAddress(e.target.value);
+											}}
+										/>
+										<Input
+											bordered
+											color="default"
+											className="ml-2 "
+											type="text"
+											value={email}
+											onChange={(e: any) => {
+												setEmail(e.target.value);
+											}}
+										/>
+									</div>
+								</div>
 							)}
 						</div>
 						<hr />
@@ -170,6 +223,19 @@ const BuyModal = (props: any) => {
 								<span className="text-red-500 font-bold text-xl">
 									{numberWithCommas(props.price * counter - 500000)}
 								</span>
+							</div>
+							<div className="text-lg text-left">
+								Chọn phương thức thanh toán:
+							</div>
+							<div className="flex flex-row">
+								<Radio>
+									<Radio.Description>
+										<div>Thanh toán khi nhận hàng</div>
+									</Radio.Description>
+								</Radio>
+								<Radio>
+									<Radio.Description>Thanh toán Momo</Radio.Description>
+								</Radio>
 							</div>
 						</div>
 						<div className="mx-auto flex align-middle justify-center my-10 items-center flex-col">
