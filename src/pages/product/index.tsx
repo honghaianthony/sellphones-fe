@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { getAllProducts } from '@/pages/api/productApi';
 import { getCategories } from '@/pages/api/categoryApi';
 import { PageSEO } from '@/components/SEO';
+import { AxiosResponse } from 'axios';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -81,18 +82,18 @@ function ChangeToSlug(str: any) {
 }
 
 const ProductList: NextPage = () => {
-	const [product, setProduct] = useState([]);
-	const [productName, setProductName] = useState([]);
-	const [battery, setBattery] = useState([]);
-	const [ram, setRam] = useState([]);
-	const [ramArray, setRamArray] = useState([]);
-	const [activeFilter, setActiveFilter] = useState([]);
+	const [product, setProduct] = useState<any[]>([]);
+	const [productName, setProductName] = useState<any[]>([]);
+	const [battery, setBattery] = useState<any[]>([]);
+	const [ram, setRam] = useState<any[]>([]);
+	const [ramArray, setRamArray] = useState<any[]>([]);
+	const [activeFilter, setActiveFilter] = useState<any[]>([]);
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
+			const allProducts: any = await getAllProducts();
 
-			const ramCategory = allProducts.map((category) => {
+			const ramCategory = allProducts.map((category: any) => {
 				return category.ram;
 			});
 
@@ -104,7 +105,7 @@ const ProductList: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
+			const allProducts: any = await getAllProducts();
 
 			setRam(allProducts);
 		};
@@ -114,9 +115,9 @@ const ProductList: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
+			const allProducts: any = await getAllProducts();
 
-			setBattery(allProducts.battery);
+			setBattery(allProducts);
 		};
 
 		asyncFetchDailyData();
@@ -124,7 +125,7 @@ const ProductList: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const res = await getCategories();
+			const res: any = await getCategories();
 
 			setProductName(res);
 		};
@@ -134,7 +135,7 @@ const ProductList: NextPage = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
+			const allProducts: any = await getAllProducts();
 
 			setProduct(allProducts);
 		};
@@ -161,7 +162,7 @@ const ProductList: NextPage = () => {
 
 	const filteredUnits =
 		productInfo.length || productRam.length
-			? product.filter((apartment) => {
+			? product.filter((apartment: any) => {
 					console.log('filtering', apartment);
 					return (
 						(!productInfo.length ||
@@ -202,13 +203,13 @@ const ProductList: NextPage = () => {
 
 	// console.log(filteredList);
 
-	function numberWithCommas(x) {
+	function numberWithCommas(x: any) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 	}
 
-	function uniq(a) {
-		var seen = {};
-		return a.filter(function (item) {
+	function uniq(a: any) {
+		var seen: any = {};
+		return a.filter(function (item: any) {
 			return seen.hasOwnProperty(item) ? false : (seen[item] = true);
 		});
 	}
@@ -295,14 +296,14 @@ const ProductList: NextPage = () => {
 										/>
 										<label className="ml-1">Tất cả</label>
 									</div> */}
-									{productName.map((item: any, index) => {
+									{productName.map((item: any, index: any) => {
 										return (
 											<div className="mr-3 flex items-center" key={index}>
 												<input
 													id="check-box-1"
 													type="checkbox"
 													onChange={(event) =>
-														setProductInfo((prev) =>
+														setProductInfo((prev: any) =>
 															event.target.checked ? [...prev, item._id] : []
 														)
 													}
@@ -320,17 +321,17 @@ const ProductList: NextPage = () => {
 							<div className="mb-3">
 								<h3 className="font-bold my-3">Dung lượng RAM</h3>
 								<div className="grid grid-cols-2 gap-3">
-									{newRam.map((item: any, index) => {
+									{newRam.map((item: any, index: any) => {
 										return (
 											<div className="mr-3 flex items-center" key={index}>
 												<input
 													id={item._id}
 													type="checkbox"
-													onChange={(event) =>
-														setProductRam((prev) =>
+													onChange={(event) => {
+														setProductRam((prev: any) =>
 															event.target.checked ? [...prev, item] : []
-														)
-													}
+														);
+													}}
 													className=" h-4 w-4"
 												/>
 												<label className="ml-1" htmlFor={item._id} key={index}>

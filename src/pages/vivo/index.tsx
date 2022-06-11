@@ -77,7 +77,7 @@ function ChangeToSlug(str: any) {
 	return str;
 }
 
-function numberWithCommas(x) {
+function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
@@ -86,15 +86,15 @@ const Vivo = () => {
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const allProducts = await getAllProducts();
-			const allCategories = await getCategories();
+			const allProducts: any = await getAllProducts();
+			const allCategories: any = await getCategories();
 
 			const appleCategory = allCategories.find(
 				(category: any) => category.name === 'Vivo'
 			);
 
 			const categoryProduct = allProducts.filter(
-				(product) => product.categoryId === appleCategory._id
+				(product: any) => product.categoryId === appleCategory._id
 			);
 
 			setProduct(categoryProduct);
