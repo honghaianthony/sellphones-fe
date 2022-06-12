@@ -2,7 +2,11 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['cdn.discordapp.com', 'media.discordapp.net'],
+		domains: [
+			'cdn.discordapp.com',
+			'media.discordapp.net',
+			'firebasestorage.googleapis.com',
+		],
 	},
 };
 

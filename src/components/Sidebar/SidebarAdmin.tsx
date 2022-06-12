@@ -176,13 +176,13 @@ export default function Sidebar() {
 							</li>
 
 							<li className="items-center">
-								<Link href="/admin/accessory-management">
+								<Link href="/admin/specification-management">
 									<a
 										href="#pablo"
 										className={
 											'text-xs uppercase py-3 font-bold block ' +
 											(router.pathname.indexOf(
-												'/admin/accessory-management'
+												'/admin/specification-management'
 											) !== -1
 												? 'text-lightBlue-500 hover:text-lightBlue-600'
 												: 'text-slate-700 hover:text-slate-500')
@@ -194,13 +194,13 @@ export default function Sidebar() {
 												className={
 													'mr-2 text-sm ' +
 													(router.pathname.indexOf(
-														'/admin/accessory-management'
+														'/admin/specification-management'
 													) !== -1
 														? 'opacity-75'
 														: 'text-slate-300')
 												}
 											/>{' '}
-											Quản lý phụ kiện
+											Quản lý đặc tả
 										</div>
 									</a>
 								</Link>

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
 import { IconButton } from './IconButton';
 import { Icon } from '@iconify/react';
-import { getAllProducts } from '@/pages/api/productApi';
+import { getAllProducts, deleteProduct } from '@/pages/api/productApi';
+import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 // components
 
@@ -12,6 +14,16 @@ function numberWithCommas(x: any) {
 
 export default function CardPageVisits(props: any) {
 	const [product, setProduct] = useState([]);
+	const handleDelete = async (product: any) => {
+		try {
+			let response: any = await deleteProduct(product._id);
+			if (response && response.errCode === 0) {
+				const succ: any = await getAllProducts();
+				setProduct(succ);
+			}
+			toast.success('Xóa thành công');
+		} catch (error) {}
+	};
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
 			const allProducts: any = await getAllProducts();
@@ -71,18 +83,28 @@ export default function CardPageVisits(props: any) {
 										<Table.Cell>
 											<Tooltip content="Chỉnh sửa sản phẩm" color="success">
 												<IconButton>
-													<Icon
-														icon="eva:edit-2-outline"
-														className="text-[#6ff033] mr-3"
-													/>
+													<Link href={`/admin/update-product/${item._id}`}>
+														<a>
+															<Icon
+																icon="eva:edit-2-outline"
+																className="text-[#6ff033] mr-3"
+															/>
+														</a>
+													</Link>
 												</IconButton>
 											</Tooltip>
 											<Tooltip content="Xóa sản phẩm" color="error">
 												<IconButton>
-													<Icon
-														icon="fluent:delete-24-filled"
-														className="text-[#FF0080]"
-													/>
+													<button
+														onClick={() => {
+															handleDelete(item);
+														}}
+													>
+														<Icon
+															icon="fluent:delete-24-filled"
+															className="text-[#FF0080]"
+														/>
+													</button>
 												</IconButton>
 											</Tooltip>
 										</Table.Cell>

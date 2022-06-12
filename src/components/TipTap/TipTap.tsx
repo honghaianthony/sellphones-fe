@@ -215,8 +215,9 @@ const MenuBar = ({ editor }: any) => {
 	);
 };
 
-const Tiptap = ({ setContent }: any) => {
-	const editor = useEditor({
+const Tiptap = ({ setContent, content }: any) => {
+	console.log('cont', `${content}`);
+	const editor: any = useEditor({
 		extensions: [
 			StarterKit,
 			Underline,
@@ -225,9 +226,7 @@ const Tiptap = ({ setContent }: any) => {
 			}),
 			Image,
 		],
-		content: `
-          
-        `,
+		content: `${content}`,
 		onUpdate: ({ editor }) => {
 			const html = editor.getHTML();
 			setContent(html);
