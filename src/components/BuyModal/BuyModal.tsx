@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getUser } from '@/pages/api/userApi';
 import { buyNow } from '@/pages/api/orderApi';
-import { createMomoPay } from '@/pages/api/momoApi'
+import { createMomoPay } from '@/pages/api/momoApi';
 import { Input, Radio } from '@nextui-org/react';
 
 const BuyModal = (props: any) => {
@@ -15,10 +15,10 @@ const BuyModal = (props: any) => {
 	const [counter, setCounter] = useState(1);
 	const [cart, setCart] = useState({});
 	const [user, setUser] = useState<any>();
-	const [name, setName] = useState<string>("");
-	const [phone, setPhone] = useState<string>("");
-	const [address, setAddress] = useState<string>("");
-	const [email, setEmail] = useState<string>("");
+	const [name, setName] = useState<string>('');
+	const [phone, setPhone] = useState<string>('');
+	const [address, setAddress] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
 	const [momoPay, setMomoPay] = useState<any>(false);
 
 	useEffect(() => {
@@ -57,22 +57,22 @@ const BuyModal = (props: any) => {
 			fullName: name,
 			phone: phone,
 			address: address,
-		}
+		};
 		if (momoPay === true) {
 			body.paymentStatus = 0;
 			body.paymentMethod = 'Thanh toán MOMO';
 		}
 		try {
 			const res: any = await buyNow(body);
-			if(res.statusCode === 201) {
+			if (res.statusCode === 201) {
 				toast.success('Đặt hàng thành công');
 				if (momoPay === true) {
 					const momo: any = await createMomoPay({
 						amount: props.price * counter - 500000,
 						orderId: res.orderId,
 					});
-					if(momo.resultCode === 0) {
-						window.open(momo.payUrl, "_self");
+					if (momo.resultCode === 0) {
+						window.open(momo.payUrl, '_self');
 					}
 				}
 			} else {
@@ -248,28 +248,30 @@ const BuyModal = (props: any) => {
 									{numberWithCommas(props.price * counter - 500000)}
 								</span>
 							</div>
-							<div className="text-lg text-left">
-								Chọn phương thức thanh toán:
-							</div>
-							<div className="flex flex-col">
-								<Radio
-									checked={!momoPay}
-									onClick={() => {
-										setMomoPay(false);
-									}}
-								>
-									<Radio.Description>
-										Thanh toán khi nhận hàng
-									</Radio.Description>
-								</Radio>
-								<Radio
-									checked={momoPay}
-									onClick={() => {
-										setMomoPay(true);
-									}}
-								>
-									<Radio.Description>Thanh toán Momo</Radio.Description>
-								</Radio>
+							<div className="text-lg text-left mt-5 bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] rounded-lg ">
+								<span className="px-4 font-bold pt-8">
+									Chọn phương thức thanh toán:
+								</span>
+								<div className="flex flex-col px-4 pb-5">
+									<Radio.Group label="Options" defaultValue="A">
+										<Radio
+											checked={!momoPay}
+											onClick={() => {
+												setMomoPay(false);
+											}}
+										>
+											Thanh toán khi nhận hàng
+										</Radio>
+										<Radio
+											checked={momoPay}
+											onClick={() => {
+												setMomoPay(true);
+											}}
+										>
+											Thanh toán Momo
+										</Radio>
+									</Radio.Group>
+								</div>
 							</div>
 						</div>
 						<div className="mx-auto flex align-middle justify-center my-10 items-center flex-col">
