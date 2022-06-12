@@ -59,7 +59,7 @@ const BuyModal = (props: any) => {
 			address: address,
 		}
 		if (momoPay === true) {
-			body.paymentStatus = 1;
+			body.paymentStatus = 0;
 			body.paymentMethod = 'Thanh toán MOMO';
 		}
 		try {
