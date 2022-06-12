@@ -19,6 +19,7 @@ import { PageSEO } from '@/components/SEO';
 import { toast } from 'react-toastify';
 import { addCart } from '../api/cartApi';
 import MainLayout from '@/components/Layouts/MainLayout';
+import { useAuth } from '@/context/AuthContext'
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -156,11 +157,6 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	productId,
 	allProducts,
 }) => {
-	console.log('1', productId);
-	console.log('2', product);
-	console.log('3', allProducts);
-	const [color, setColor] = useState('');
-	const [version, setVersion] = useState('');
 	const [choosedItem, setChoosedItem] = useState<any>(product[0]);
 	const settings = {
 		dots: false,
@@ -202,8 +198,13 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	const [isOpen2, setIsOpen2] = useState(false);
 	const [mainImage, setMainImage] = useState(productData[0]);
 	const [visible, setVisible] = useState(false);
+	const [authState] = useAuth();
 	const handler = () => {
-		setVisible(true);
+		if (authState.isAuth === false) {
+			toast.warning("Vui lòng đăng nhập để tiếp tục!")
+		} else {
+			setVisible(true);
+		}
 	};
 	const closeHandler = () => {
 		setVisible(false);
@@ -214,8 +215,12 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 			quantity: 1,
 		};
 		try {
-			const res = await addCart(cartData);
-			toast.success('Thêm vào giỏ hàng thành công!');
+			const res: any = await addCart(cartData);
+			if(res.statusCode === 201) {
+				toast.success('Thêm vào giỏ hàng thành công!');
+			} else {
+				toast.error(res.errorMess);
+			}
 		} catch (error) {
 			toast.error('Thêm vào giỏ hàng thất bại!');
 		}
@@ -381,8 +386,6 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 											className="items-center text-center"
 											checked={item == choosedItem}
 											onChange={() => {
-												setVersion(item.storage);
-												setColor(item.color);
 												setChoosedItem(item);
 											}}
 										>
@@ -482,12 +485,12 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 								</Modal>
 							</div>
 							<div
-								className="max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3 flex"
+								className="col-span-2 max-w-xl bg-[#1B6BE3] py-3 items-center text-center cursor-pointer rounded-lg my-3"
 								onClick={handleAddToCart}
 							>
 								<Icon
 									icon="bi:cart-check-fill"
-									className="text-white text-center text-2xl font-semibold justify-center my-2 mx-2"
+									className="text-white text-center text-2xl font-semibold m-auto"
 								/>
 								<h3 className="uppercase text-white text-center text-base font-bold">
 									Thêm vào giỏ hàng

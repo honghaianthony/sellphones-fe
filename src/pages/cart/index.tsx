@@ -6,13 +6,15 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-import { Table, Row, Col, Tooltip, User, Text } from '@nextui-org/react';
+import { Table, Row, Col, Tooltip, User, Text, Input, Radio } from '@nextui-org/react';
 import { IconButton } from '@/components/CardDetail/IconButton';
 import { getCart, deleteCart, getCartInfo } from '@/pages/api/cartApi';
-import { addOrder } from '@/pages/api/orderApi';
+import { addOrder, buyNow } from '@/pages/api/orderApi';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { PageSEO } from '@/components/SEO';
+import { getUser } from '../api/userApi';
+import { createMomoPay } from '../api/momoApi';
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 // 	// const product = await getProductById('6298bd463ab70e3d305d5a8c');
@@ -36,21 +38,24 @@ function numberWithCommas(x: any) {
 const Cart: NextPage = () => {
 	const [dailyData, setDailyData] = useState([]);
 	const [infoCart, setInfoCart] = useState([]);
+	const [userName, setUserName] = useState();
+	const [address, setAddress] = useState();
+	const [phone, setPhone] = useState();
+	const [email, setEmail] = useState();
+	const [momoPay, setMomoPay] = useState<any>(false);
 	var total = 0;
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
 			const fetchData: any = await getCart(); // fetchDailyData() is calling Api
 			setDailyData(fetchData);
-		};
-
-		asyncFetchDailyData();
-	}, []);
-
-	useEffect(() => {
-		const asyncFetchDailyData = async () => {
-			const fetchData: any = await getCartInfo(); // fetchDailyData() is calling Api
-			setInfoCart(fetchData);
+			const cartInfo: any = await getCartInfo();
+			setInfoCart(cartInfo);
+			const user: any = await getUser();
+			setPhone(user.phone);
+			setUserName(user.fullName);
+			setAddress(user.address);
+			setEmail(user.email);
 		};
 
 		asyncFetchDailyData();
@@ -59,21 +64,40 @@ const Cart: NextPage = () => {
 	const handleDelete = async (id: any) => {
 		try {
 			let response: any = await deleteCart(id);
-			if (response && response.errCode === 0) {
+			if (response && response.statusCode === 201) {
 				const succ: any = await getCart();
 				setDailyData(succ);
 			}
 		} catch (error) {}
 	};
-	console.log(infoCart);
 
 	const handleAddOrder = async () => {
-		const orderData = {
+		if(total === 0) {
+			toast.warning("Giỏ hàng trống!!!")
+			return;
+		}
+		const orderData: any = {
 			carts: infoCart,
+			fullName: userName,
+			phone: phone,
+			address: address,
 		};
-		const res = await addOrder(orderData);
+		if (momoPay === true) {
+			orderData.paymentStatus = 1;
+			orderData.paymentMethod = 'Thanh toán MOMO';
+		}
+		const res: any = await buyNow(orderData);
 		if (res) {
-			toast.success('Đặt hàng thành công. Vui lòng điền thông tin khách hàng');
+			toast.success('Đặt hàng thành công.');
+			if (momoPay === true) {
+				const momo: any = await createMomoPay({
+					amount: total,
+					orderId: res.orderId,
+				});
+				if (momo.resultCode === 0) {
+					window.open(momo.payUrl, '_self');
+				}
+			}
 		} else {
 			toast.error('Đặt hàng thất bại');
 		}
@@ -155,6 +179,68 @@ const Cart: NextPage = () => {
 								})}
 							</Table.Body>
 						</Table>
+						<div className="bg-white rounded-lg mt-4">
+							<h1 className="font-bold text-xl px-3 mb-8">
+								Thông tin khách hàng
+							</h1>
+							<form>
+								<div className="flex flex-wrap">
+									<div className="w-full lg:w-6/12 px-4 mb-8">
+										<div className="relative w-full mb-3 z-0">
+											<Input
+												fullWidth
+												clearable
+												bordered
+												color="default"
+												labelPlaceholder="Họ tên khách hàng"
+												value={userName}
+												onChange={(e: any) => setUserName(e.target.value)}
+											/>
+										</div>
+									</div>
+
+									<div className="w-full lg:w-6/12 px-4 mb-8">
+										<div className="relative w-full mb-3 z-0">
+											<Input
+												fullWidth
+												clearable
+												bordered
+												color="default"
+												labelPlaceholder="Địa chỉ"
+												value={address}
+												onChange={(e: any) => setAddress(e.target.value)}
+											/>
+										</div>
+									</div>
+									<div className="w-full lg:w-6/12 px-4 mb-8">
+										<div className="relative w-full mb-3 z-0">
+											<Input
+												fullWidth
+												clearable
+												bordered
+												color="default"
+												labelPlaceholder="Số điện thoại"
+												value={phone}
+												onChange={(e: any) => setPhone(e.target.value)}
+											/>
+										</div>
+									</div>
+									<div className="w-full lg:w-6/12 px-4 mb-8">
+										<div className="relative w-full mb-3 z-0">
+											<Input
+												fullWidth
+												clearable
+												bordered
+												color="default"
+												labelPlaceholder="Email"
+												value={email}
+												onChange={(e: any) => setEmail(e.target.value)}
+											/>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 					<div className="w-full xl:w-3/12 flex flex-col">
 						<div className=" px-4 bg-white border border-solid border-slate-100 rounded-lg h-36">
@@ -180,41 +266,39 @@ const Cart: NextPage = () => {
 								</span>
 							</div>
 						</div>
-						<Link href="/info">
-							<a className="align-middle text-center px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4">
-								<button onClick={handleAddOrder}>
-									<span className="font-bold text-white text-center">
-										TIẾP TỤC
-									</span>
-								</button>
-							</a>
-						</Link>
+						<div className="px-4 bg-white border border-solid border-slate-100 rounded-lg h-36 mt-4">
+							<div>Chọn phương thức thanh toán:</div>
+							<div className="flex flex-col">
+								<Radio
+									checked={!momoPay}
+									onClick={() => {
+										setMomoPay(false);
+									}}
+								>
+									<Radio.Description>
+										Thanh toán khi nhận hàng
+									</Radio.Description>
+								</Radio>
+								<Radio
+									checked={momoPay}
+									onClick={() => {
+										setMomoPay(true);
+									}}
+								>
+									<Radio.Description>Thanh toán Momo</Radio.Description>
+								</Radio>
+							</div>
+						</div>
+						<button
+							onClick={handleAddOrder}
+							className="align-middle text-center px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4"
+						>
+							<span className="font-bold text-white text-center">
+								TIẾP TỤC
+							</span>
+						</button>
 					</div>
 				</div>
-
-				{/* <div className="container px-32">
-					<div className='bg-white rounded-2xl'>
-            <div className='p-4 font-bold text-xl'>Đặt mua sản phẩm</div>
-            <hr />
-            <CartItem />
-            <hr />
-            <div className='p-8'>
-              <div className='font-bold text-xl'>Thông tin khánh hàng</div>
-              <div>Họ và tên: Nguyễn Văn A</div>
-              <div>Giới tính: Nam</div>
-              <div>Số điện thoại: 0123456789</div>
-              <div>Địa chỉ: TP. Hồ Chí Minh</div>
-              <div>Email: nguyenvana@gmail.com</div>
-            </div>
-            <hr />
-            <div>
-              <div>Tổng tiền: </div>
-              <div>Giảm: </div>
-              <div>Cần thanh toán: </div>
-            </div>
-            <button className='bg-red-600 text-white p-4 text-2xl rounded-xl'>Hoàn tất đặt hàng</button>
-          </div>
-				</div> */}
 			</MainLayout>
 		</>
 	);
