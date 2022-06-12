@@ -83,7 +83,7 @@ const Cart: NextPage = () => {
 			address: address,
 		};
 		if (momoPay === true) {
-			orderData.paymentStatus = 1;
+			orderData.paymentStatus = 0;
 			orderData.paymentMethod = 'Thanh toán MOMO';
 		}
 		const res: any = await buyNow(orderData);
