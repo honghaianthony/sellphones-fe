@@ -235,7 +235,6 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 		width: '100%',
 		maxHeight: '100%',
 	};
-
 	return (
 		<MainLayout>
 			<PageSEO
@@ -599,7 +598,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 					<Rating name={productId.name} />
 				</div>
 				<div className="container max-w-7xl mx-auto px-4 my-16">
-					<Comment name={productId.name} />
+					<Comment name={productId.name} productId={productId._id} />
 				</div>
 
 				<Footer />
