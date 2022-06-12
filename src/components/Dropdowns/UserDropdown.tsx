@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useAuth, actions } from '@/context/AuthContext'
+import { useAuth, actions } from '@/context/AuthContext';
 import Link from 'next/link';
 
 interface IUserDropdownProps {
@@ -9,7 +9,7 @@ interface IUserDropdownProps {
 }
 
 const UserDropdown = (props: IUserDropdownProps) => {
-	const [authState, dispatch] = useAuth()
+	const [authState, dispatch] = useAuth();
 	const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
 
 	const openDropdownPopover = () => {
@@ -50,16 +50,21 @@ const UserDropdown = (props: IUserDropdownProps) => {
 							}
 							onClick={(e) => e.preventDefault()}
 						>
-							Quản lý tài khoản
-						</button>
-						<button
-							className={
-								'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
-							}
-							onClick={(e) => e.preventDefault()}
-						>
 							Thông tin tài khoản
 						</button>
+						{(authState.role === 'ROLE_STAFF' ||
+							authState.role === 'ROLE_ADMIN' ||
+							authState.role === 'ROLE_USER') && (
+							<Link href={'/history-purchase'}>
+								<a
+									className={
+										'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700 text-left'
+									}
+								>
+									Lịch sử mua hàng
+								</a>
+							</Link>
+						)}
 						{authState.role === 'ROLE_ADMIN' && (
 							<Link href={'/admin/dashboard'}>
 								<a
@@ -71,7 +76,8 @@ const UserDropdown = (props: IUserDropdownProps) => {
 								</a>
 							</Link>
 						)}
-						{(authState.role === 'ROLE_STAFF' || authState.role === 'ROLE_ADMIN') && (
+						{(authState.role === 'ROLE_STAFF' ||
+							authState.role === 'ROLE_ADMIN') && (
 							<Link href={'/employee/overview'}>
 								<a
 									className={

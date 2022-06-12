@@ -6,7 +6,16 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-import { Table, Row, Col, Tooltip, User, Text, Input, Radio } from '@nextui-org/react';
+import {
+	Table,
+	Row,
+	Col,
+	Tooltip,
+	User,
+	Text,
+	Input,
+	Radio,
+} from '@nextui-org/react';
 import { IconButton } from '@/components/CardDetail/IconButton';
 import { getCart, deleteCart, getCartInfo } from '@/pages/api/cartApi';
 import { addOrder, buyNow } from '@/pages/api/orderApi';
@@ -72,8 +81,8 @@ const Cart: NextPage = () => {
 	};
 
 	const handleAddOrder = async () => {
-		if(total === 0) {
-			toast.warning("Giỏ hàng trống!!!")
+		if (total === 0) {
+			toast.warning('Giỏ hàng trống!!!');
 			return;
 		}
 		const orderData: any = {
@@ -266,36 +275,36 @@ const Cart: NextPage = () => {
 								</span>
 							</div>
 						</div>
-						<div className="px-4 bg-white border border-solid border-slate-100 rounded-lg h-36 mt-4">
-							<div>Chọn phương thức thanh toán:</div>
-							<div className="flex flex-col">
-								<Radio
-									checked={!momoPay}
-									onClick={() => {
-										setMomoPay(false);
-									}}
-								>
-									<Radio.Description>
+						<div className="text-lg text-left mt-5 bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] rounded-lg ">
+							<span className="px-4 font-bold pt-8">
+								Chọn phương thức thanh toán:
+							</span>
+							<div className="flex flex-col px-4 pb-5">
+								<Radio.Group label="Options" defaultValue="A">
+									<Radio
+										checked={!momoPay}
+										onClick={() => {
+											setMomoPay(false);
+										}}
+									>
 										Thanh toán khi nhận hàng
-									</Radio.Description>
-								</Radio>
-								<Radio
-									checked={momoPay}
-									onClick={() => {
-										setMomoPay(true);
-									}}
-								>
-									<Radio.Description>Thanh toán Momo</Radio.Description>
-								</Radio>
+									</Radio>
+									<Radio
+										checked={momoPay}
+										onClick={() => {
+											setMomoPay(true);
+										}}
+									>
+										Thanh toán Momo
+									</Radio>
+								</Radio.Group>
 							</div>
 						</div>
 						<button
 							onClick={handleAddOrder}
 							className="align-middle text-center px-4 bg-red-500 border border-solid rounded-lg py-4 items-center my-4"
 						>
-							<span className="font-bold text-white text-center">
-								TIẾP TỤC
-							</span>
+							<span className="font-bold text-white text-center">TIẾP TỤC</span>
 						</button>
 					</div>
 				</div>
