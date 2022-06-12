@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 					rtl={false}
 					pauseOnFocusLoss
 					draggable
-					pauseOnHover
 				/>
 			</AuthProvider>
 		</NextUIProvider>

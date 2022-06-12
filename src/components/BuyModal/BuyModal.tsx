@@ -6,7 +6,8 @@ import { addCart } from '@/pages/api/cartApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getUser } from '@/pages/api/userApi';
-import { addOrder, buyNow, updateOrder, updatePaymentMethod } from '@/pages/api/orderApi'
+import { buyNow } from '@/pages/api/orderApi';
+import { createMomoPay } from '@/pages/api/momoApi'
 import { Input, Radio } from '@nextui-org/react';
 
 const BuyModal = (props: any) => {
@@ -51,22 +52,28 @@ const BuyModal = (props: any) => {
 			specificationId: props.id,
 			quantity: counter,
 		};
-		const body = {
-			carts: [cartData]
+		const body: any = {
+			carts: [cartData],
+			fullName: name,
+			phone: phone,
+			address: address,
+		}
+		if (momoPay === true) {
+			body.paymentStatus = 1;
+			body.paymentMethod = 'Thanh toán MOMO';
 		}
 		try {
 			const res: any = await buyNow(body);
-			console.log(res);
 			if(res.statusCode === 201) {
-				const info: any = await updateOrder({_id: res.orderId, address: address, fullName: name, phone: phone});
+				toast.success('Đặt hàng thành công');
 				if (momoPay === true) {
-					await updatePaymentMethod({idOrder: res.orderId, method: "Thanh toán MOMO", status: 1})
-				}
-				if (info.statusCode === 201) {
-					toast.success('Đặt hàng thành công');
-					props.handleClick();
-				} else {
-					toast.error('Đặt hàng thất bại');
+					const momo: any = await createMomoPay({
+						amount: props.price * counter - 500000,
+						orderId: res.orderId,
+					});
+					if(momo.resultCode === 0) {
+						window.open(momo.payUrl, "_self");
+					}
 				}
 			} else {
 				toast.error('Đặt hàng thất bại');
