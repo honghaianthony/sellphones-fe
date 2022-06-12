@@ -19,6 +19,8 @@ import {
 	Modal,
 } from '@nextui-org/react';
 import { getOrderDetail } from '@/pages/api/orderApi';
+import { addFeedBack } from '@/pages/api/feedBackApi';
+import { toast } from 'react-toastify';
 
 function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -61,6 +63,9 @@ export const StyledBadge = styled('span', {
 
 const HistoryPurchase: NextPage = () => {
 	const [order, setOrder] = useState([]);
+	const [productId, setProductId] = useState();
+	const [orderId, setOrderId] = useState();
+	const [comment, setComment] = useState();
 	const [cart, setCart] = useState([]);
 	const [visible, setVisible] = React.useState(false);
 	const handler = () => setVisible(true);
@@ -79,7 +84,27 @@ const HistoryPurchase: NextPage = () => {
 		asyncFetchDailyData();
 	}, []);
 
-	console.log('1', order);
+	const handleCreateRating = async () => {
+		const body = [
+			{
+				productId: productId,
+				content: comment,
+				rateStar: rating,
+			},
+		];
+		const res = await addFeedBack(orderId, body);
+		if (res) {
+			toast.success('Đăng đánh giá thành công');
+		} else {
+			toast.error('Đăng đánh giá thất bại');
+		}
+	};
+
+	function handleClick(event: any) {
+		const id = event.target.id;
+		console.log(id);
+		setProductId(id);
+	}
 
 	return (
 		<>
@@ -130,8 +155,15 @@ const HistoryPurchase: NextPage = () => {
 														{item.orderStatus === 1 ? (
 															<button
 																className="px-8 py-3 text-white bg-blue-600 rounded focus:outline-none"
-																onClick={handler}
+																id={item2.product._id}
+																onClick={(e: any) => {
+																	handleClick(e);
+																	handler();
+																	setOrderId(item._id);
+																}}
+																aria-label="open"
 															>
+																{console.log('id', 3)}
 																Đánh giá
 																<Modal
 																	closeButton
@@ -152,11 +184,14 @@ const HistoryPurchase: NextPage = () => {
 																			color="primary"
 																			size="lg"
 																			placeholder="Nội dung đánh giá"
+																			value={comment}
+																			onChange={(e: any) =>
+																				setComment(e.target.value)
+																			}
 																		/>
 																		<div className="mt-3 flex items-center text-center mx-auto">
 																			{[...Array(5)].map((star, i) => {
 																				const ratingValue = i + 1;
-
 																				return (
 																					<label key={i}>
 																						<input
@@ -189,7 +224,13 @@ const HistoryPurchase: NextPage = () => {
 																		</div>
 																	</Modal.Body>
 																	<Modal.Footer>
-																		<button className="px-8 py-3 text-white bg-blue-600 rounded focus:outline-none">
+																		<button
+																			className="px-8 py-3 text-white bg-blue-600 rounded focus:outline-none"
+																			onClick={() => {
+																				handleCreateRating();
+																				closeHandler();
+																			}}
+																		>
 																			Đánh giá
 																		</button>
 																	</Modal.Footer>
