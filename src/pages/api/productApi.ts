@@ -8,9 +8,33 @@ const getProductById = async (id: any) => {
 	return await axiosInstance.get(`/api/v1/product/${id}`);
 };
 
+const getProductInfoById = async (id: any) => {
+	return await axiosInstance.get(`/api/v1/product/info/${id}`);
+};
+
 const getProductBySpecificationId = async (id: any) => {
 	return await axiosInstance.get(`/api/v1/specification/${id}`);
 };
 
+const addProduct = async (data: any) => {
+	return await axiosInstance.post('/api/v3/product/add-product', data);
+};
+
+const deleteProduct = async (id: any) => {
+	return await axiosInstance.delete(`/api/v3/product/${id}`);
+};
+
+const updateProduct = async (data: any) => {
+	return await axiosInstance.put('/api/v3/product/update-product', data);
+};
+
 //export default 2 above function
-export { getAllProducts, getProductById, getProductBySpecificationId };
+export {
+	getAllProducts,
+	getProductById,
+	getProductBySpecificationId,
+	addProduct,
+	deleteProduct,
+	getProductInfoById,
+	updateProduct,
+};
