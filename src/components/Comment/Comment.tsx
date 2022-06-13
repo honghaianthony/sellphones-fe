@@ -126,7 +126,7 @@ const Comment = (props: ICommentProps) => {
 								</div>
 							</div>
 						</div>
-						{item.cmtReplyDetail && (
+						{item.cmtReplyDetail || true  && (
 							<div className="flex flex-col border-l-4 border-[#c7c7c7] mx-28">
 								<div className="flex flex-col mx-3">
 									<div className="flex">
