@@ -41,7 +41,11 @@ const Comment = (props: ICommentProps) => {
 	const connect = () => {
 		let Sock: any = new SockJS('http://localhost:8102/ws');
 		stompClient = Stomp.over(Sock);
-		stompClient.connect({}, onConnected, onError);
+		stompClient.connect({}, ()=>{
+			setTimeout(()=>{
+				onConnected();
+			}, 500)
+		}, onError);
 	}
 
 	const onConnected = () => {
@@ -69,6 +73,18 @@ const Comment = (props: ICommentProps) => {
 			setComment("")
 		}
 	};
+	const deleteComment = (item: any) => {
+		const del = {
+			ownerId: user.id,
+			_id: item._id,
+			productId: props.productId,
+		}
+		stompClient.send(
+			'/app/delete',
+			{},
+			JSON.stringify(del)
+		);
+	}
 	const handleClickReply = () => {
 		setShowInput(!showInput);
 	};
@@ -89,12 +105,25 @@ const Comment = (props: ICommentProps) => {
 							<div className="flex flex-col mx-3">
 								<span className="font-bold">{item.user.fullName}</span>
 								<p className="text-base">{item.content}</p>
-								<button
-									className="text-sm text-blue-400 text-left my-1"
-									onClick={handleClickReply}
-								>
-									Trả lời
-								</button>
+								<div className='child:mx-1'>
+									{(authState.role === 'ROLE_ADMIN' ||
+										authState.role === 'ROLE_STAFF') && (
+										<button
+											className="text-sm text-blue-400 text-left my-1"
+											onClick={handleClickReply}
+										>
+											Trả lời
+										</button>
+									)}
+									{user && user.id === item.ownerId && (
+										<button
+											className="text-sm text-blue-400 text-left my-1"
+											onClick={()=>{deleteComment(item)}}
+										>
+											Xóa
+										</button>
+									)}
+								</div>
 							</div>
 						</div>
 						{item.cmtReplyDetail && (
