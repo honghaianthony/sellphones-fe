@@ -131,7 +131,7 @@ const Comment = (props: ICommentProps) => {
 						</div>
 					</div>
 					{item.cmtReplyDetail && (
-						<div className="flex container max-w-5xl mx-auto items-center">
+						<div className="flex container max-w-5xl mx-16 md:mx-auto items-center">
 							<Avatar
 								pointer
 								size="md"

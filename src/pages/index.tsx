@@ -253,9 +253,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 					<Grid.Container gap={3} justify="flex-start">
 						{list.map((item, index) => (
 							<Grid key={index}>
-								<Link
-									href={item.link}
-								>
+								<Link href={item.link}>
 									<Card hoverable clickable>
 										<Card.Body css={{ p: 0 }}>
 											<Card.Image
@@ -291,7 +289,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 			</div>
 
 			<div className="max-w-7xl container py-8 mx-auto items-center justify-between bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] mt-16 mb-5 rounded-lg">
-				<span className="font-bold text-2xl ml-5 text-black">Hàng nổi bật</span>
+				<span className="font-bold text-2xl ml-5 text-black">Top sale</span>
 				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
 					{takeEightProduct.map((item: any, index: number) => {
 						return (

@@ -20,27 +20,39 @@ const Rating = (props: IRatingProps) => {
 	const [fiveStar, setFiveeStar] = useState(0);
 	const [maxStar, setMaxStar] = useState(1);
 
-	const getFeedback = async ()=>{
-		const res: any = await getAllFeedback(props.productId)
-		setFeedbackList(res)
-		let one = res.filter((i: any)=> { return i.rateStar == 1});
-		let two = res.filter((i: any)=> { return i.rateStar == 2});
-		let three = res.filter((i: any)=> { return i.rateStar == 3});
-		let four = res.filter((i: any)=> { return i.rateStar == 4});
-		let five = res.filter((i: any)=> { return i.rateStar == 5});
-		setMaxStar(Math.max(one.length, two.length, three.length, four.length, five.length))
+	const getFeedback = async () => {
+		const res: any = await getAllFeedback(props.productId);
+		setFeedbackList(res);
+		let one = res.filter((i: any) => {
+			return i.rateStar == 1;
+		});
+		let two = res.filter((i: any) => {
+			return i.rateStar == 2;
+		});
+		let three = res.filter((i: any) => {
+			return i.rateStar == 3;
+		});
+		let four = res.filter((i: any) => {
+			return i.rateStar == 4;
+		});
+		let five = res.filter((i: any) => {
+			return i.rateStar == 5;
+		});
+		setMaxStar(
+			Math.max(one.length, two.length, three.length, four.length, five.length)
+		);
 		setOneStar(one.length);
 		setTwoStar(two.length);
 		setThreeStar(three.length);
 		setFoureStar(four.length);
 		setFiveeStar(five.length);
-	}
+	};
 	useEffect(() => {
-		getFeedback()
+		getFeedback();
 		console.log(maxStar);
-	}, [])
+	}, []);
 
-	const mapFeedback = ()=>{
+	const mapFeedback = () => {
 		return feedbackList.map((item: any, index: any) => {
 			return (
 				<div className="my-4 mx-7 flex items-center" key={index}>
@@ -70,9 +82,9 @@ const Rating = (props: IRatingProps) => {
 					})}
 				</div>
 			);
-		})
-	}
-	
+		});
+	};
+
 	return (
 		<div className="max-w-7xl bg-white rounded-lg pb-3">
 			<h1 className="p-7 font-bold text-xl">
@@ -82,7 +94,9 @@ const Rating = (props: IRatingProps) => {
 			<div className="items-center justify-between mx-5 flex flex-col lg:flex-row">
 				<div className="flex flex-col items-center text-center ml-5">
 					<p className="my-3 text-lg">Đánh giá trung bình</p>
-					<p className="text-4xl text-[#BF3131] font-bold">{props.rating}/5</p>
+					<p className="text-4xl text-[#BF3131] font-bold">
+						{Math.round(props.rating * 10) / 10}/5
+					</p>
 					<Icon icon="emojione:star" className="mt-2 text-lg" />
 					<p className="text-sm my-3">{feedbackList.length} đánh giá</p>
 				</div>
@@ -146,8 +160,8 @@ const Rating = (props: IRatingProps) => {
 					</div>
 				</div> */}
 			</div>
-			<hr className='mx-4'/>
-			<div className='m-4'>{mapFeedback()}</div>
+			<hr className="mx-4" />
+			<div className="m-4">{mapFeedback()}</div>
 		</div>
 	);
 };

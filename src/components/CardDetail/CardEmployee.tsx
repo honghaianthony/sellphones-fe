@@ -53,7 +53,6 @@ export default function CardEmployee(props: any) {
 							<Table.Column>ĐỊA CHỈ</Table.Column>
 							<Table.Column>SỐ ĐIỆN THOẠI</Table.Column>
 							<Table.Column>CHỨC VỤ</Table.Column>
-							<Table.Column>THAO TÁC</Table.Column>
 						</Table.Header>
 						<Table.Body items={employee}>
 							{employee.map((item: any, index: any) => {
@@ -64,24 +63,6 @@ export default function CardEmployee(props: any) {
 										<Table.Cell>{item.address}</Table.Cell>
 										<Table.Cell>{item.phone}</Table.Cell>
 										<Table.Cell>Nhân viên</Table.Cell>
-										<Table.Cell>
-											<Tooltip content="Chỉnh sửa nhân viên" color="success">
-												<IconButton>
-													<Icon
-														icon="eva:edit-2-outline"
-														className="text-[#6ff033] mr-3"
-													/>
-												</IconButton>
-											</Tooltip>
-											<Tooltip content="Xóa nhân viên" color="error">
-												<IconButton>
-													<Icon
-														icon="fluent:delete-24-filled"
-														className="text-[#FF0080]"
-													/>
-												</IconButton>
-											</Tooltip>
-										</Table.Cell>
 									</Table.Row>
 								);
 							})}

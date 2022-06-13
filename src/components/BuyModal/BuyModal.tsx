@@ -68,7 +68,7 @@ const BuyModal = (props: any) => {
 				toast.success('Đặt hàng thành công');
 				if (momoPay === true) {
 					const momo: any = await createMomoPay({
-						amount: props.price * counter - 500000,
+						amount: props.price * counter,
 						orderId: res.orderId,
 					});
 					if (momo.resultCode === 0) {
@@ -238,14 +238,11 @@ const BuyModal = (props: any) => {
 								<span className="text-lg">Tổng tiền: </span>
 								<span>{numberWithCommas(props.price * counter)}</span>
 							</div>
-							<div className="flex justify-between">
-								<span className="text-lg">Giảm: </span>
-								<span>-500.000đ</span>
-							</div>
+
 							<div className="flex justify-between items-center">
 								<span className="text-xl font-bold">Cần thanh toán: </span>
 								<span className="text-red-500 font-bold text-xl">
-									{numberWithCommas(props.price * counter - 500000)}
+									{numberWithCommas(props.price * counter)}
 								</span>
 							</div>
 							<div className="text-lg text-left mt-5 bg-gradient-to-r from-[#ffecd2] to-[#fcb69f] rounded-lg ">
