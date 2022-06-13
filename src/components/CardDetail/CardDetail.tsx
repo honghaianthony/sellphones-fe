@@ -3,7 +3,15 @@ import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 
-const CardDetail = (props: any) => {
+interface ICardDetailProps {
+	slug: String;
+	id: String;
+	img: any;
+	name: any;
+	price: any;
+	rating: any;
+}
+const CardDetail = (props: ICardDetailProps) => {
 	return (
 		<Link href={'/product/' + props.slug + '.' + props.id + '.html'}>
 			<a>
@@ -28,16 +36,24 @@ const CardDetail = (props: any) => {
 						</span>
 						<div className="flex flex-row">
 							<div className="mt-3 mx-3 flex flex-row items-center">
-								{[...Array(5)].map((star, i) => {
-									return (
-										<label key={i}>
-											<input type="radio" name="rating" className="hidden" />
-											<Icon icon="emojione:star" />
-										</label>
-									);
-								})}
+								{props.rating == 0 ? (
+									<div className='text-gray-500'>Chưa có đánh giá</div>
+								) : (
+									[...Array(5)].map((star, i) => {
+										return (
+											<label key={i}>
+												{/* <input type="radio" name="rating" className="hidden" /> */}
+												{i < Math.round(props.rating) ? (
+													<Icon icon="emojione:star" />
+												) : (
+													<Icon icon="emojione-monotone:star" />
+												)}
+											</label>
+										);
+									})
+								)}
 							</div>
-							<span className="text-gray-10 mt-2">(100)</span>
+							{/* <span className="text-gray-10 mt-2">(100)</span> */}
 						</div>
 					</div>
 				</div>

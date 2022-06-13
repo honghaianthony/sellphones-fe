@@ -212,6 +212,7 @@ const Samsung = () => {
 											img={item.image[0]}
 											slug={ChangeToSlug(item.name)}
 											id={item._id}
+											rating={item.rating}
 										/>
 
 										<Specifications
@@ -253,6 +254,7 @@ const Samsung = () => {
 									img={item.image[0]}
 									slug={ChangeToSlug(item.name)}
 									id={item._id}
+									rating={item.rating}
 								/>
 
 								<Specifications
