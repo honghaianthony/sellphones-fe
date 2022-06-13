@@ -107,8 +107,8 @@ const Comment = (props: ICommentProps) => {
 						<div className="flex flex-col mx-3">
 							<span className="font-bold">{item.user.fullName}</span>
 							<p className="text-base">{item.content}</p>
-							<div className="child:mx-1">
-								{(authState.role === 'ROLE_ADMIN' ||
+							<div className="child:mx-1 ">
+								{/* {(authState.role === 'ROLE_ADMIN' ||
 									authState.role === 'ROLE_STAFF') && (
 									<button
 										className="text-sm text-blue-400 text-left my-1"
@@ -116,7 +116,7 @@ const Comment = (props: ICommentProps) => {
 									>
 										Trả lời
 									</button>
-								)}
+								)} */}
 								{user && user.id === item.ownerId && (
 									<button
 										className="text-sm text-blue-400 text-left my-1"
@@ -130,7 +130,7 @@ const Comment = (props: ICommentProps) => {
 							</div>
 						</div>
 					</div>
-					{(item.cmtReplyDetail || true) && (
+					{item.cmtReplyDetail && (
 						<div className="flex container max-w-5xl mx-auto items-center">
 							<Avatar
 								pointer
@@ -143,13 +143,13 @@ const Comment = (props: ICommentProps) => {
 							<div className="flex flex-col mx-3">
 								<div className="flex">
 									<span className="font-bold text-black mr-3">
-										Đặng Ngô Hồng Hải
+										{item.cmtReplyDetail.user.fullName}
 									</span>
-									<span className="w-24 h-5 px-2 bg-red-500 text-white text-sm pb-2">
+									<span className="w-24 h-5 px-2 bg-red-500 text-white text-sm pb-2 rounded-md">
 										Quản trị viên
 									</span>
 								</div>
-								<p className="text-base my-1">Về rồi ạ</p>
+								<p className="text-base my-1">{item.cmtReplyDetail.content}</p>
 							</div>
 						</div>
 					)}
