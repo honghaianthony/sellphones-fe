@@ -28,6 +28,12 @@ const updateProduct = async (data: any) => {
 	return await axiosInstance.put('/api/v3/product/update-product', data);
 };
 
+export const getAllProductComment = async (productId: any) => {
+	return await axiosInstance.get('/api/v1/get-all-comment?productId=' + productId);
+}
+export const getAllProductCommentStaff = async () => {
+	return await axiosInstance.get('/api/v3/get-all-comment-staff');
+}
 //export default 2 above function
 export {
 	getAllProducts,
