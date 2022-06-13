@@ -17,10 +17,10 @@ export default function CardPageVisits(props: any) {
 	const handleDelete = async (product: any) => {
 		try {
 			let response: any = await deleteProduct(product._id);
-			if (response && response.errCode === 0) {
-				const succ: any = await getAllProducts();
-				setProduct(succ);
-			}
+
+			const succ: any = await getAllProducts();
+			setProduct(succ);
+
 			toast.success('Xóa thành công');
 		} catch (error) {}
 	};
