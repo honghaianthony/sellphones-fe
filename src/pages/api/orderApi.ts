@@ -20,6 +20,10 @@ const getOrderDetail = async () => {
 	return await axiosInstance.get('/api/v2/order/detail');
 };
 
+const getOrderByStaff = async () => {
+	return await axiosInstance.get('/api/v3/order/get-all-order');
+};
+
 interface IUpdateOrderReq {
 	_id: String;
 	fullName: string;
@@ -28,6 +32,10 @@ interface IUpdateOrderReq {
 }
 const updateOrder = async (data: IUpdateOrderReq) => {
 	return await axiosInstance.put('/api/v2/order/update-order', data);
+};
+
+const updateOrderStatus = async (data: any) => {
+	return await axiosInstance.put('/api/v3/order/update-status', data);
 };
 
 interface IUpdatePaymentMethodReq {
@@ -47,4 +55,6 @@ export {
 	buyNow,
 	updatePaymentMethod,
 	getOrderDetail,
+	updateOrderStatus,
+	getOrderByStaff,
 };
