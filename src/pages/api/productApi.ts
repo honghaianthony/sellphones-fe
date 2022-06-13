@@ -34,6 +34,14 @@ export const getAllProductComment = async (productId: any) => {
 export const getAllProductCommentStaff = async () => {
 	return await axiosInstance.get('/api/v3/get-all-comment-staff');
 }
+
+interface IReplyCommentReq {
+	productCommentId: String;
+	content: String;
+}
+export const replyComment = async (data: IReplyCommentReq) => {
+	return await axiosInstance.post('/api/v3/reply', data)
+}
 //export default 2 above function
 export {
 	getAllProducts,

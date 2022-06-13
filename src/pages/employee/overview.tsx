@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import EmployeeLayout from '@/components/Layouts/EmployeeLayout';
-import { getAllProductCommentStaff } from '../api/productApi';
+import { getAllProductCommentStaff, replyComment } from '../api/productApi';
 import { Input, Table, Modal, Text } from '@nextui-org/react';
 import { IconButton } from '@/components/CardDetail/IconButton';
 import { Icon } from '@iconify/react';
@@ -9,6 +9,7 @@ import { PopupModal } from '@/components/PopupModal';
 
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
+import { toast } from 'react-toastify';
 
 var stompClient: any = null;
 function Overview() {
@@ -50,6 +51,21 @@ function Overview() {
 	const onError = (err: any) => {
 		console.log(err);
 	};
+	const replyCmt = async (item: any) => {
+		try {
+			if (reply) {
+				await replyComment({ content: reply, productCommentId: item.commentId });
+				toast.success("Phản hồi thành công!")
+				setShowModal(false)
+				setReply("")
+				getUnreplyCmt()
+			} else {
+				toast.warning("Không được phản hồi rỗng!")
+			}
+		} catch (error) {
+			toast.error("Phản hồi thất bại!")
+		}
+	}
 	return (
 		<EmployeeLayout>
 			<div className="block w-full overflow-x-auto my-5 bg-white">
@@ -72,8 +88,8 @@ function Overview() {
 						{cmt.map((item: any, index: any) => {
 							return (
 								<Table.Row key={index} className="items-center">
-									<Table.Cell>{item.ownerId}</Table.Cell>
-									<Table.Cell>{item.productId}</Table.Cell>
+									<Table.Cell>{item.userName}</Table.Cell>
+									<Table.Cell>{item.productName}</Table.Cell>
 									<Table.Cell>{item.content}</Table.Cell>
 									<Table.Cell>
 										<IconButton>
@@ -97,8 +113,8 @@ function Overview() {
 											<Modal.Body>
 												<div className="child:my-2 w-full">
 													<div>
-														Người dùng {item.ownerId} đã bình luận về sản phẩm{' '}
-														{item.productId}
+														Người dùng {item.userName} đã bình luận về sản phẩm{' '}
+														{item.productName}
 													</div>
 													<div>Nội dung: </div>
 													<div>{item.content}</div>
@@ -114,7 +130,7 @@ function Overview() {
 												</div>
 											</Modal.Body>
 											<Modal.Footer>
-												<button className="px-8 py-3 text-white bg-blue-600 rounded-lg focus:outline-none">
+												<button className="px-8 py-3 text-white bg-blue-600 rounded-lg focus:outline-none" onClick={()=>{replyCmt(item)}}>
 													Bình luận
 												</button>
 											</Modal.Footer>
