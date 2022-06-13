@@ -3,6 +3,9 @@ import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 
+function numberWithCommas(x: any) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
 interface ICardDetailProps {
 	slug: String;
 	id: String;
@@ -31,13 +34,13 @@ const CardDetail = (props: ICardDetailProps) => {
 							{props.name}
 						</span>
 						<span className="font-bold text-xl text-red-500 mx-5">
-							{props.price}
+							{numberWithCommas(props.price)}
 							<sup>đ</sup>
 						</span>
 						<div className="flex flex-row">
 							<div className="mt-3 mx-3 flex flex-row items-center">
 								{props.rating == 0 ? (
-									<div className='text-gray-500'>Chưa có đánh giá</div>
+									<div className="text-gray-500">Chưa có đánh giá</div>
 								) : (
 									[...Array(5)].map((star, i) => {
 										return (

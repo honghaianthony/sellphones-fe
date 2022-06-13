@@ -246,15 +246,22 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 					<div className="flex flex-col w-full lg:w-2/3 mx-auto">
 						<div className="flex flex-row my-5 items-center">
 							<h3 className="font-bold mx-5">{productId.name}</h3>
-							{[...Array(5)].map((star, i) => {
-								return (
-									<label key={i}>
-										<input type="radio" name="rating" className="hidden" />
-										<Icon icon="emojione:star" />
-									</label>
-								);
-							})}
-							<span className="text-blue-500 mx-5">100 đánh giá</span>
+							{productId.rating == 0 ? (
+								<div className="text-gray-500">Chưa có đánh giá</div>
+							) : (
+								[...Array(5)].map((star, i) => {
+									return (
+										<label key={i}>
+											{/* <input type="radio" name="rating" className="hidden" /> */}
+											{i < Math.round(productId.rating) ? (
+												<Icon icon="emojione:star" />
+											) : (
+												<Icon icon="emojione-monotone:star" />
+											)}
+										</label>
+									);
+								})
+							)}
 						</div>
 
 						<div className="my-3 px-4 relative items-center text-center">
@@ -596,7 +603,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 				</div>
 
 				<div className="container max-w-7xl mx-auto px-4 my-16">
-					<Rating name={productId.name} />
+					<Rating name={productId.name} productId={productId._id} rating={productId.rating}/>
 				</div>
 				<div className="container max-w-7xl mx-auto px-4 my-16">
 					<Comment name={productId.name} productId={productId._id} />
