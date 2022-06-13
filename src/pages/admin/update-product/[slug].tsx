@@ -259,6 +259,31 @@ const UpdateProduct: NextPage = () => {
 		asyncFetchDailyData();
 	}, [slug]);
 
+	const [defaultValue, setDefaultValue] = useState();
+
+	const buildDataProduct2 = (data: any) => {
+		let object: any = {};
+		object.label = data.name;
+		object.value = data._id;
+
+		return object;
+	};
+
+	useEffect(() => {
+		const asyncFetchDailyData = async () => {
+			const fetchData: any = await getProductInfoById(slug);
+			const getAllCategoriesInfo: any = await getCategories();
+
+			const findPhone = getAllCategoriesInfo.find((item: any, index: any) => {
+				return item._id === fetchData.categoryId;
+			});
+
+			setDefaultValue(buildDataProduct2(findPhone));
+		};
+
+		asyncFetchDailyData();
+	}, [slug]);
+
 	const buildDataCategory = (data: any) => {
 		let result: any = [];
 
@@ -352,7 +377,7 @@ const UpdateProduct: NextPage = () => {
 	const handleUpdateProduct = async () => {
 		const body = {
 			_id: slug,
-			categoryId: selectedCategory.value,
+			categoryId: defaultValue.value,
 			image: url,
 			name: name,
 			price: price,
@@ -428,10 +453,9 @@ const UpdateProduct: NextPage = () => {
 									<div className="w-full lg:w-6/12 px-4 mb-8 z-10">
 										<div className="relative w-full mb-3 z-0">
 											<Select
-												options={category}
-												placeholder="Chọn hãng"
-												value={selectedCategory}
+												value={defaultValue}
 												onChange={handleChangeSelect}
+												placeholder="Chọn hãng"
 											/>
 										</div>
 									</div>

@@ -94,9 +94,9 @@ const HistoryPurchase: NextPage = () => {
 		];
 		const res = await addFeedBack(orderId, body);
 		if (res) {
-			toast.success('Đăng đánh giá thành công');
+			toast.success('Cảm ơn bạn đã gửi đánh giá');
 		} else {
-			toast.error('Đăng đánh giá thất bại');
+			toast.error('Đánh giá thất bại');
 		}
 	};
 
