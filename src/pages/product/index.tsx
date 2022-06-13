@@ -351,7 +351,7 @@ const ProductList: NextPage = () => {
 							<div className="w-full bg-white rounded-lg mb-8">
 								<p className="py-4 pl-6 font-bold text-xl">Dòng sản phẩm</p>
 								<div className="grid grid-cols-1 gap-8 mx-8 md:grid-cols-2 lg:grid-cols-3">
-									{takeThreeProduct.map((item: any, index: Number) => {
+									{takeThreeProduct.map((item: any, index: any) => {
 										return (
 											product[item] && (
 												<CardDetail
@@ -361,6 +361,7 @@ const ProductList: NextPage = () => {
 													img={product[item].image[0]}
 													slug={ChangeToSlug(product[item].name)}
 													id={product[item]._id}
+													rating={product[item].rating}
 												/>
 											)
 										);
@@ -399,6 +400,7 @@ const ProductList: NextPage = () => {
 													img={item.image[0]}
 													slug={ChangeToSlug(item.name)}
 													id={item._id}
+													rating={item.rating}
 												/>
 
 												<Specifications

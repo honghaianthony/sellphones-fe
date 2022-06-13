@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Slider from 'react-slick';
+import Link from 'next/link';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -46,15 +47,19 @@ const Slide = () => {
 	const sliderData = [
 		{
 			image: '/images/slider/slide1.png',
+			link: '/product/samsung-galaxy-note-20.6297a7b0f810b335731cb758.html',
 		},
 		{
 			image: '/images/slider/slide2.png',
+			link: '/product/iphone-13-pro-max-i-chinh-hang-vna.62988fd48653b1442d01e10e.html',
 		},
 		{
 			image: '/images/slider/slide4.png',
+			link: '/product/oppo-find-x3-pro-5g.6298fa29b40940264abffe2a.html',
 		},
 		{
 			image: '/images/slider/slide3.png',
+			link: '/product/oppo-find-x3-pro-5g.6298fa29b40940264abffe2a.html',
 		},
 	];
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -106,13 +111,15 @@ const Slide = () => {
 							>
 								{index === currentSlide && (
 									<>
-										<Image
-											src={slide.image}
-											alt="Slider"
-											width={690}
-											height={250}
-											className="rounded-lg"
-										/>
+										<Link href={slide.link}>
+											<Image
+												src={slide.image}
+												alt="Slider"
+												width={690}
+												height={250}
+												className="rounded-lg"
+											/>
+										</Link>
 									</>
 								)}
 							</div>

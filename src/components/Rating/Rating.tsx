@@ -1,10 +1,78 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import RatingBar from './RatingBar';
+import { getAllFeedback } from '@/pages/api/productApi';
+import { Avatar, Grid, Progress } from '@nextui-org/react';
 
-const Rating = (props: any) => {
+interface IRatingProps {
+	name: String;
+	rating: any;
+	productId: any;
+}
+const Rating = (props: IRatingProps) => {
 	const [rating, setRating] = useState<any | null>();
 	const [hover, setHover] = useState<any | null>(null);
+	const [feedbackList, setFeedbackList] = useState<any>([]);
+	const [oneStar, setOneStar] = useState(0);
+	const [twoStar, setTwoStar] = useState(0);
+	const [threeStar, setThreeStar] = useState(0);
+	const [fourStar, setFoureStar] = useState(0);
+	const [fiveStar, setFiveeStar] = useState(0);
+	const [maxStar, setMaxStar] = useState(1);
+
+	const getFeedback = async ()=>{
+		const res: any = await getAllFeedback(props.productId)
+		setFeedbackList(res)
+		let one = res.filter((i: any)=> { return i.rateStar == 1});
+		let two = res.filter((i: any)=> { return i.rateStar == 2});
+		let three = res.filter((i: any)=> { return i.rateStar == 3});
+		let four = res.filter((i: any)=> { return i.rateStar == 4});
+		let five = res.filter((i: any)=> { return i.rateStar == 5});
+		setMaxStar(Math.max(one.length, two.length, three.length, four.length, five.length))
+		setOneStar(one.length);
+		setTwoStar(two.length);
+		setThreeStar(three.length);
+		setFoureStar(four.length);
+		setFiveeStar(five.length);
+	}
+	useEffect(() => {
+		getFeedback()
+		console.log(maxStar);
+	}, [])
+
+	const mapFeedback = ()=>{
+		return feedbackList.map((item: any, index: any) => {
+			return (
+				<div className="my-4 mx-7 flex items-center" key={index}>
+					<Avatar
+						pointer
+						size="lg"
+						src="/images/anonymous.png"
+						color="gradient"
+						bordered
+						squared
+					/>
+					<div className="flex flex-col mx-3">
+						<span className="font-bold">{item.user.fullName}</span>
+						<p className="text-base">{item.content}</p>
+					</div>
+					{[...Array(5)].map((star, i) => {
+						return (
+							<label key={i}>
+								{/* <input type="radio" name="rating" className="hidden" /> */}
+								{i < Math.round(item.rateStar) ? (
+									<Icon icon="emojione:star" />
+								) : (
+									<Icon icon="emojione-monotone:star" />
+								)}
+							</label>
+						);
+					})}
+				</div>
+			);
+		})
+	}
+	
 	return (
 		<div className="max-w-7xl bg-white rounded-lg pb-3">
 			<h1 className="p-7 font-bold text-xl">
@@ -14,16 +82,42 @@ const Rating = (props: any) => {
 			<div className="items-center justify-between mx-5 flex flex-col lg:flex-row">
 				<div className="flex flex-col items-center text-center ml-5">
 					<p className="my-3 text-lg">Đánh giá trung bình</p>
-					<p className="text-4xl text-[#BF3131] font-bold">5/5</p>
+					<p className="text-4xl text-[#BF3131] font-bold">{props.rating}/5</p>
 					<Icon icon="emojione:star" className="mt-2 text-lg" />
-					<p className="text-sm my-3">1 đánh giá</p>
+					<p className="text-sm my-3">{feedbackList.length} đánh giá</p>
 				</div>
 
 				<div className="text-center items-center mx-auto">
-					<RatingBar />
+					<Grid.Container xs={12} sm={3} gap={1}>
+						<Grid className="flex w-96">
+							<p className="text-sm mx-3">5</p>
+							<Icon icon="emojione:star" className="mr-3" />
+							<Progress color="success" value={(fiveStar / maxStar) * 100} />
+						</Grid>
+						<Grid className="flex w-96">
+							<p className="text-sm mx-3">4</p>
+							<Icon icon="emojione:star" className="mr-3" />
+							<Progress color="success" value={(fourStar / maxStar) * 100} />
+						</Grid>
+						<Grid className="flex w-96">
+							<p className="text-sm mx-3">3</p>
+							<Icon icon="emojione:star" className="mr-3" />
+							<Progress color="success" value={(threeStar / maxStar) * 100} />
+						</Grid>
+						<Grid className="flex w-96">
+							<p className="text-sm mx-3">2</p>
+							<Icon icon="emojione:star" className="mr-3" />
+							<Progress color="success" value={(twoStar / maxStar) * 100} />
+						</Grid>
+						<Grid className="flex w-96">
+							<p className="text-sm mx-3">1</p>
+							<Icon icon="emojione:star" className="mr-3" />
+							<Progress color="success" value={(oneStar / maxStar) * 100} />
+						</Grid>
+					</Grid.Container>
 				</div>
 
-				<div className="items-center flex flex-col py-3">
+				{/* <div className="items-center flex flex-col py-3">
 					<p>Bạn đã dùng sản phẩm này? Hãy gửi đánh giá</p>
 					<div className="mt-3 mx-3 flex flex-row items-center">
 						{[...Array(5)].map((star, i) => {
@@ -50,8 +144,10 @@ const Rating = (props: any) => {
 							);
 						})}
 					</div>
-				</div>
+				</div> */}
 			</div>
+			<hr className='mx-4'/>
+			<div className='m-4'>{mapFeedback()}</div>
 		</div>
 	);
 };

@@ -188,6 +188,7 @@ const Asus = () => {
 											img={item.image[0]}
 											slug={ChangeToSlug(item.name)}
 											id={item._id}
+											rating={item.rating}
 										/>
 
 										<Specifications
@@ -229,6 +230,7 @@ const Asus = () => {
 									img={item.image[0]}
 									slug={ChangeToSlug(item.name)}
 									id={item._id}
+									rating={item.rating}
 								/>
 
 								<Specifications

@@ -157,19 +157,22 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 	];
 	const list = [
 		{
-			title: 'iPhone 13',
+			title: 'iPhone 13 pro max',
 			img: '/images/banner/banner2.jpg',
-			price: '24.000.000đ',
+			price: '30.990.000đ',
+			link: '/product/iphone-13-pro-max-i-chinh-hang-vna.62988fd48653b1442d01e10e.html',
 		},
 		{
-			title: 'Samsung Galaxy S10',
+			title: 'Samsung Note 20',
 			img: '/images/banner/banner3.jpg',
-			price: '14.000.000đ',
+			price: '17.990.000đ',
+			link: '/product/samsung-galaxy-note-20.6297a7b0f810b335731cb758.html',
 		},
 		{
-			title: 'Galaxy A Series',
+			title: 'Samsung Galaxy Series',
 			img: '/images/banner/banner1.webp',
 			price: '24.000.000đ',
+			link: '/samsung',
 		},
 	];
 	const settings = {
@@ -250,33 +253,37 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 					<Grid.Container gap={3} justify="flex-start">
 						{list.map((item, index) => (
 							<Grid key={index}>
-								<Card hoverable clickable>
-									<Card.Body css={{ p: 0 }}>
-										<Card.Image
-											objectFit="cover"
-											src={item.img}
-											width="100%"
-											height={140}
-											alt={item.title}
-										/>
-									</Card.Body>
-									<Card.Footer justify="flex-start">
-										<Row
-											wrap="wrap"
-											justify="space-between"
-											className="items-center"
-										>
-											<Text b className="mr-4">
-												{item.title}
-											</Text>
-											<Text
-												css={{ color: '$accents4', fontWeight: '$semibold' }}
+								<Link
+									href={item.link}
+								>
+									<Card hoverable clickable>
+										<Card.Body css={{ p: 0 }}>
+											<Card.Image
+												objectFit="cover"
+												src={item.img}
+												width="100%"
+												height={140}
+												alt={item.title}
+											/>
+										</Card.Body>
+										<Card.Footer justify="flex-start">
+											<Row
+												wrap="wrap"
+												justify="space-between"
+												className="items-center"
 											>
-												{item.price}
-											</Text>
-										</Row>
-									</Card.Footer>
-								</Card>
+												<Text b className="mr-4">
+													{item.title}
+												</Text>
+												<Text
+													css={{ color: '$accents4', fontWeight: '$semibold' }}
+												>
+													{item.price}
+												</Text>
+											</Row>
+										</Card.Footer>
+									</Card>
+								</Link>
 							</Grid>
 						))}
 					</Grid.Container>
@@ -295,6 +302,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 								img={allProducts[item].image[0]}
 								slug={ChangeToSlug(allProducts[item].name)}
 								id={allProducts[item]._id}
+								rating={allProducts[item].rating}
 							/>
 						);
 					})}
@@ -343,6 +351,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 										img={allProducts[item].image[0]}
 										slug={ChangeToSlug(allProducts[item].name)}
 										id={allProducts[item]._id}
+										rating={allProducts[item].rating}
 									/>
 								</div>
 							);
@@ -372,6 +381,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 								img={item.image[0]}
 								slug={ChangeToSlug(item.name)}
 								id={item._id}
+								rating={item.rating}
 							/>
 						);
 					})}
@@ -425,6 +435,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 										img={item.image[0]}
 										slug={ChangeToSlug(item.name)}
 										id={item._id}
+										rating={item.rating}
 									/>
 								</div>
 							);
