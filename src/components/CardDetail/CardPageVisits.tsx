@@ -116,8 +116,8 @@ export default function CardPageVisits(props: any) {
 							shadow
 							noMargin
 							align="center"
-							rowsPerPage={5}
-							total={10}
+							rowsPerPage={7}
+							total={Math.ceil(product.length / 7)}
 							onPageChange={(page) => console.log({ page })}
 						/>
 					</Table>

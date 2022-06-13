@@ -28,7 +28,12 @@ export default function Sidebar() {
 							href="#pablo"
 							className="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
 						>
-							SellPhone
+							<div className="flex flex-col child:mt-2">
+								<span className="float-left">SellPhone</span>
+								<span className="float-right ml-auto mr-0 text-red-600">
+									Trang Admin
+								</span>
+							</div>
 						</a>
 					</Link>
 					{/* User */}
@@ -48,7 +53,7 @@ export default function Sidebar() {
 						}
 					>
 						{/* Collapse header */}
-						<div className="md:min-w-full md:hidden block pb-4 border-b border-solid border-slate-200 mb-10">
+						<div className="md:min-w-full md:hidden block pb-4 border-b border-solid border-slate-200 mb-10 ">
 							<div className="flex flex-wrap">
 								<div className="w-6/12">
 									<Link href="/">
@@ -56,7 +61,12 @@ export default function Sidebar() {
 											href="#pablo"
 											className="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
 										>
-											SellPhone
+											<div className="flex flex-col child:mt-2 items-center">
+												<span className="float-left">SellPhone</span>
+												<span className="float-right ml-auto mr-0 text-red-600">
+													Trang Admin
+												</span>
+											</div>
 										</a>
 									</Link>
 								</div>
@@ -86,11 +96,11 @@ export default function Sidebar() {
 						<hr className="my-4 md:min-w-full" />
 						{/* Heading */}
 						<h6 className="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-							Admin Layout Pages
+							Quản trị Admin
 						</h6>
 						{/* Navigation */}
 
-						<ul className="md:flex-col md:min-w-full flex flex-col list-none">
+						<ul className="md:flex-col md:min-w-full flex flex-col list-none z-10">
 							<li className="items-center">
 								<Link href="/admin/dashboard">
 									<a
@@ -112,7 +122,7 @@ export default function Sidebar() {
 														: 'text-slate-300')
 												}
 											/>{' '}
-											Dashboard
+											Tổng quan
 										</div>
 									</a>
 								</Link>
@@ -209,12 +219,11 @@ export default function Sidebar() {
 
 						{/* Divider */}
 						<hr className="my-4 md:min-w-full" />
-						{/* Heading */}
+						{/* Heading
 						<h6 className="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
 							Auth Layout Pages
 						</h6>
-						{/* Navigation */}
-
+		
 						<ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
 							<li className="items-center">
 								<Link href="/auth/login">
@@ -251,13 +260,12 @@ export default function Sidebar() {
 							</li>
 						</ul>
 
-						{/* Divider */}
 						<hr className="my-4 md:min-w-full" />
-						{/* Heading */}
+					
 						<h6 className="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
 							No Layout Pages
 						</h6>
-						{/* Navigation */}
+					
 
 						<ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
 							<li className="items-center">
@@ -295,13 +303,13 @@ export default function Sidebar() {
 							</li>
 						</ul>
 
-						{/* Divider */}
+			
 						<hr className="my-4 md:min-w-full" />
-						{/* Heading */}
+			
 						<h6 className="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
 							Documentation
 						</h6>
-						{/* Navigation */}
+			
 						<ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
 							<li className="inline-flex">
 								<a
@@ -438,7 +446,7 @@ export default function Sidebar() {
 									</div>
 								</a>
 							</li>
-						</ul>
+						</ul> */}
 					</div>
 				</div>
 			</nav>
