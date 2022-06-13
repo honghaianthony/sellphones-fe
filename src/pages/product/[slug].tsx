@@ -19,7 +19,7 @@ import { PageSEO } from '@/components/SEO';
 import { toast } from 'react-toastify';
 import { addCart } from '../api/cartApi';
 import MainLayout from '@/components/Layouts/MainLayout';
-import { useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/context/AuthContext';
 
 function SampleNextArrow(props: any) {
 	const { className, style, onClick } = props;
@@ -201,7 +201,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	const [authState] = useAuth();
 	const handler = () => {
 		if (authState.isAuth === false) {
-			toast.warning("Vui lòng đăng nhập để tiếp tục!")
+			toast.warning('Vui lòng đăng nhập để tiếp tục!');
 		} else {
 			setVisible(true);
 		}
@@ -216,7 +216,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 		};
 		try {
 			const res: any = await addCart(cartData);
-			if(res.statusCode === 201) {
+			if (res.statusCode === 201) {
 				toast.success('Thêm vào giỏ hàng thành công!');
 			} else {
 				toast.error(res.errorMess);
@@ -600,8 +600,6 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 				<div className="container max-w-7xl mx-auto px-4 my-16">
 					<Comment name={productId.name} productId={productId._id} />
 				</div>
-
-				<Footer />
 			</div>
 		</MainLayout>
 	);

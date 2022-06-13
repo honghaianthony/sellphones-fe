@@ -91,7 +91,7 @@ export default function CardEmployee(props: any) {
 							noMargin
 							align="center"
 							rowsPerPage={3}
-							total={10}
+							total={Math.ceil(employee.length / 3)}
 							onPageChange={(page) => console.log({ page })}
 						/>
 					</Table>

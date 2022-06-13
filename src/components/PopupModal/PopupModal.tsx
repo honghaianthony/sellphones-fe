@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 interface PopupModalProps {
 	show: Boolean;
 	setShow: Function;
-  title: String;
-  children: any
+	title: String;
+	children: any;
 }
 function PopupModal(props: PopupModalProps) {
 	return (

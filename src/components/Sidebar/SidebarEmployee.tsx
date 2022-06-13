@@ -28,7 +28,12 @@ export default function Sidebar() {
 							href="#pablo"
 							className="md:block text-left md:pb-2 text-slate-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
 						>
-							SellPhone Trang nhân viên
+							<div className="flex flex-col child:mt-2">
+								<span className="float-left">SellPhone</span>
+								<span className="float-right ml-auto mr-0 text-red-600">
+									Trang nhân viên
+								</span>
+							</div>
 						</a>
 					</Link>
 					{/* User */}
