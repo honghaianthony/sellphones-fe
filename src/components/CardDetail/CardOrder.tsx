@@ -3,7 +3,11 @@ import { Table, Row, Col, Tooltip, User, Text, Input } from '@nextui-org/react';
 import { IconButton } from './IconButton';
 import { Icon } from '@iconify/react';
 import { styled } from '@nextui-org/react';
-import { getOrderDetail, updateOrderStatus } from '@/pages/api/orderApi';
+import {
+	getOrderDetail,
+	updateOrderStatus,
+	getOrderByStaff,
+} from '@/pages/api/orderApi';
 import { toast } from 'react-toastify';
 
 // components
@@ -110,15 +114,18 @@ const InfoRow = (props: InfoRowProps) => {
 
 export default function CardOrder(props: any) {
 	const [order, setOrder] = useState([]);
+	const [another, setAnother] = useState([]);
 
 	useEffect(() => {
 		const asyncFetchDailyData = async () => {
-			const fetchData: any = await getOrderDetail(); // fetchDailyData() is calling Api
+			const fetchData: any = await getOrderByStaff(); // fetchDailyData() is calling Api
 			setOrder(fetchData);
 		};
 
 		asyncFetchDailyData();
 	}, []);
+
+	console.log('a', another);
 	const setRoleUI = (index: any, status: any) => {
 		let temp: any = Array.from(order);
 		temp[index] = {
