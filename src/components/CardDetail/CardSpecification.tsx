@@ -38,7 +38,6 @@ export default function CardSpecification(props: any) {
 		asyncFetchDailyData();
 	}, []);
 
-	console.log(specification);
 	return (
 		<>
 			<div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded z-0">

@@ -216,7 +216,7 @@ const MenuBar = ({ editor }: any) => {
 };
 
 const Tiptap = ({ setContent, content }: any) => {
-	console.log('cont', `${content}`);
+	// console.log('cont', `${content}`);
 	const editor: any = useEditor({
 		extensions: [
 			StarterKit,

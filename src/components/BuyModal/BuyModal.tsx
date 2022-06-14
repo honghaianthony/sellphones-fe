@@ -87,8 +87,6 @@ const BuyModal = (props: any) => {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 	}
 
-	console.log(user);
-
 	return (
 		<>
 			{counter > 0 ? (

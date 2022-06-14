@@ -370,7 +370,6 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 				</span>
 				<div className="grid grid-cols-1 gap-4 mx-5 md:grid-cols-3 lg:grid-cols-5">
 					{visibleData.map((item: any, index) => {
-						console.log(item);
 						return (
 							<CardDetail
 								key={index}
