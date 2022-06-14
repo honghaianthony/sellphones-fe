@@ -151,7 +151,7 @@ const HistoryPurchase: NextPage = () => {
 															{item2.product.name} {item2.specification.storage}{' '}
 															{item2.specification.color}
 														</span>
-														{item.orderStatus === 1 ? (
+														{item.orderStatus === 3 ? (
 															<button
 																className="px-8 py-3 text-white bg-blue-600 rounded focus:outline-none"
 																id={item2.product._id}
