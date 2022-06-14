@@ -108,8 +108,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 
 	const product = await getProductById(productId._id);
-	const recommendProduct = await getRecomendProduct(productId._id);
-
+	let recommendProduct: any = await getRecomendProduct(productId._id);
+	if (recommendProduct === -1) {
+		recommendProduct = allProducts;
+	}
 	return {
 		props: {
 			product,
