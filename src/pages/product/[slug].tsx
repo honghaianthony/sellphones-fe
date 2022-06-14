@@ -14,7 +14,11 @@ import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { getProductById, getAllProducts, getRecomendProduct } from '@/pages/api/productApi';
+import {
+	getProductById,
+	getAllProducts,
+	getRecomendProduct,
+} from '@/pages/api/productApi';
 import { PageSEO } from '@/components/SEO';
 import { toast } from 'react-toastify';
 import { addCart } from '../api/cartApi';
@@ -122,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	};
 };
 
-const productData = [
+const productId = [
 	{
 		images: '/images/product/hinh1.png',
 	},
@@ -137,7 +141,7 @@ const productData = [
 	},
 ];
 
-const productData2 = [
+const productId2 = [
 	{
 		images: '/images/product/tronghop.webp',
 	},
@@ -202,7 +206,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 	const [photoIndex, setPhotoIndex] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpen2, setIsOpen2] = useState(false);
-	const [mainImage, setMainImage] = useState(productData[0]);
+	const [mainImage, setMainImage] = useState(productId[0]);
 	const [visible, setVisible] = useState(false);
 	const [authState] = useAuth();
 	const handler = () => {
@@ -285,30 +289,28 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 									<button type="button" onClick={() => setIsOpen(true)}>
 										<Icon icon="bi:images" className="text-5xl" />
 									</button>
-									<span>Xem thêm {productData.length} ảnh</span>
+									<span>Xem thêm {productId.image.length} ảnh</span>
 								</div>
 
 								{isOpen && (
 									<Lightbox
-										mainSrc={productData[photoIndex].images}
+										mainSrc={productId.image[photoIndex]}
 										nextSrc={
-											productData[(photoIndex + 1) % productData.length].images
+											productId.image[(photoIndex + 1) % productId.length]
 										}
 										prevSrc={
-											productData[
-												(photoIndex + productData.length - 1) %
-													productData.length
-											].images
+											productId.image[
+												(photoIndex + productId.length - 1) % productId.length
+											]
 										}
 										onCloseRequest={() => setIsOpen(false)}
 										onMovePrevRequest={() =>
 											setPhotoIndex(
-												(photoIndex + productData.length - 1) %
-													productData.length
+												(photoIndex + productId.length - 1) % productId.length
 											)
 										}
 										onMoveNextRequest={() =>
-											setPhotoIndex((photoIndex + 1) % productData.length)
+											setPhotoIndex((photoIndex + 1) % productId.length)
 										}
 									/>
 								)}
@@ -609,7 +611,11 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 				</div>
 
 				<div className="container max-w-7xl mx-auto px-4 my-16">
-					<Rating name={productId.name} productId={productId._id} rating={productId.rating}/>
+					<Rating
+						name={productId.name}
+						productId={productId._id}
+						rating={productId.rating}
+					/>
 				</div>
 				<div className="container max-w-7xl mx-auto px-4 my-16">
 					<Comment name={productId.name} productId={productId._id} />
