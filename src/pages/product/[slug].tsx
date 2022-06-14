@@ -14,7 +14,7 @@ import Rating from '@/components/Rating';
 import Comment from '@/components/Comment';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { getProductById, getAllProducts } from '@/pages/api/productApi';
+import { getProductById, getAllProducts, getRecomendProduct } from '@/pages/api/productApi';
 import { PageSEO } from '@/components/SEO';
 import { toast } from 'react-toastify';
 import { addCart } from '../api/cartApi';
@@ -108,12 +108,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 
 	const product = await getProductById(productId._id);
+	const recommendProduct = await getRecomendProduct(productId._id);
 
 	return {
 		props: {
 			product,
 			productId,
 			allProducts,
+			recommendProduct,
 		},
 	};
 };
@@ -150,12 +152,14 @@ interface ProductDetailProps {
 	product: any;
 	productId: any;
 	allProducts: [];
+	recommendProduct: [];
 }
 
 const ProductDetail: NextPage<ProductDetailProps> = ({
 	product,
 	productId,
 	allProducts,
+	recommendProduct,
 }) => {
 	const [choosedItem, setChoosedItem] = useState<any>(product[0]);
 	const settings = {
@@ -577,11 +581,11 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 				</div>
 				<div className="container max-w-7xl mx-auto px-4 my-16">
 					<h1 className="font-bold my-3 text-xl px-3">
-						Xem thêm điện thoại khác
+						Xem thêm điện thoại tương tự
 					</h1>
 					<div>
 						<Slider {...settings}>
-							{allProducts.map((item: any, index) => {
+							{recommendProduct.map((item: any, index: any) => {
 								return (
 									<div
 										className="grid grid-cols-1 gap-3 px-3 md:grid-cols-3 lg:grid-cols-5"

@@ -49,7 +49,6 @@ const Rating = (props: IRatingProps) => {
 	};
 	useEffect(() => {
 		getFeedback();
-		console.log(maxStar);
 	}, []);
 
 	const mapFeedback = () => {
@@ -80,6 +79,12 @@ const Rating = (props: IRatingProps) => {
 							</label>
 						);
 					})}
+					<div className="mx-4">
+						Kết quả phân tích đánh giá:
+						<div className="rounded-sm bg-gradient-to-r from-[#f0cd9b] to-[#f4a186]">
+							{item.sentimentResult.res}
+						</div>
+					</div>
 				</div>
 			);
 		});

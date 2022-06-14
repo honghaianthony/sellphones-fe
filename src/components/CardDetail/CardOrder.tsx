@@ -125,14 +125,14 @@ export default function CardOrder(props: any) {
 		asyncFetchDailyData();
 	}, []);
 
-	console.log('a', another);
+	// console.log('a', another);
 	const setRoleUI = (index: any, status: any) => {
 		let temp: any = Array.from(order);
 		temp[index] = {
 			...temp[index],
 			orderStatus: status,
 		};
-		console.log('temp', temp);
+		// console.log('temp', temp);
 		setOrder(temp);
 	};
 	const updateStatus = async (
@@ -154,7 +154,6 @@ export default function CardOrder(props: any) {
 			toast.error('Cập nhật thất bại!');
 		}
 	};
-	console.log(order);
 
 	return (
 		<>

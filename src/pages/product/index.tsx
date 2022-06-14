@@ -163,7 +163,7 @@ const ProductList: NextPage = () => {
 	const filteredUnits =
 		productInfo.length || productRam.length
 			? product.filter((apartment: any) => {
-					console.log('filtering', apartment);
+					// console.log('filtering', apartment);
 					return (
 						(!productInfo.length ||
 							productInfo.includes(apartment.categoryId)) &&

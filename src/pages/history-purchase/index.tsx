@@ -102,7 +102,6 @@ const HistoryPurchase: NextPage = () => {
 
 	function handleClick(event: any) {
 		const id = event.target.id;
-		console.log(id);
 		setProductId(id);
 	}
 

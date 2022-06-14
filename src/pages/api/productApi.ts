@@ -48,6 +48,12 @@ export const getAllFeedback = async (productId: any)=>{
 		'/api/v1/feedback/get-all-feedback-of-product/' + productId
 	);
 }
+
+export const getRecomendProduct = async (productId: any) => {
+	return await axiosInstance.get(
+		`/api/v1/product/${productId}/recommend`
+	);
+}
 //export default 2 above function
 export {
 	getAllProducts,
