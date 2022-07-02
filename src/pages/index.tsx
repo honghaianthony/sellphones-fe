@@ -13,8 +13,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
-import { loginGoogle } from '@/pages/api/authApi';
-import GoogleLogin from 'react-google-login';
 import { getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
