@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 
-#remove index.ts in firebase folder
-/firebase
 
 # testing
 /coverage
