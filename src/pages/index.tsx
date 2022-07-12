@@ -14,7 +14,6 @@ import Slider from 'react-slick';
 import { Icon } from '@iconify/react';
 import MenuDetail from '@/components/MenuDetail/MenuDetail';
 import { loginGoogle } from '@/pages/api/authApi';
-import GoogleLogin from 'react-google-login';
 import { getAllProducts } from '@/pages/api/productApi';
 
 function SampleNextArrow(props: any) {
@@ -94,7 +93,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	};
 };
 
-function numberWithCommas(x) {
+function numberWithCommas(x: any) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
@@ -102,7 +101,7 @@ interface HomeProps {
 	allProducts: [];
 }
 
-const Home: NextPage<HomeProps> = ({ allProducts }) => {
+const Home: NextPage<HomeProps> = ({ allProducts }: HomeProps) => {
 	const menuList = [
 		{
 			id: 1,
@@ -223,7 +222,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 	useEffect(() => {
 		const numberOfItems = PAGE_SIZE * (index + 1);
 
-		const newArray = [];
+		const newArray: any = [];
 
 		for (let i = 0; i < allProducts.length; i++) {
 			if (i < numberOfItems) newArray.push(allProducts[i]);
@@ -264,7 +263,7 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 												alt={item.title}
 											/>
 										</Card.Body>
-										<Card.Footer justify="flex-start">
+										<Card.Footer css={{ justifyItems: 'flex-start' }}>
 											<Row
 												wrap="wrap"
 												justify="space-between"
@@ -295,12 +294,12 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 						return (
 							<CardDetail
 								key={index}
-								name={allProducts[item].name}
-								price={numberWithCommas(allProducts[item].price)}
-								img={allProducts[item].image[0]}
-								slug={ChangeToSlug(allProducts[item].name)}
-								id={allProducts[item]._id}
-								rating={allProducts[item].rating}
+								name={allProducts[item]['name']}
+								price={numberWithCommas(allProducts[item]['price'])}
+								img={allProducts[item]['image[0]']}
+								slug={ChangeToSlug(allProducts[item]['name'])}
+								id={allProducts[item]['_id']}
+								rating={allProducts[item]['rating']}
 							/>
 						);
 					})}
@@ -344,12 +343,12 @@ const Home: NextPage<HomeProps> = ({ allProducts }) => {
 									key={index}
 								>
 									<CardDetail
-										name={allProducts[item].name}
-										price={numberWithCommas(allProducts[item].price)}
-										img={allProducts[item].image[0]}
-										slug={ChangeToSlug(allProducts[item].name)}
-										id={allProducts[item]._id}
-										rating={allProducts[item].rating}
+										name={allProducts[item]['name']}
+										price={numberWithCommas(allProducts[item]['price'])}
+										img={allProducts[item]['image[0]']}
+										slug={ChangeToSlug(allProducts[item]['name'])}
+										id={allProducts[item]['_id']}
+										rating={allProducts[item]['rating']}
 									/>
 								</div>
 							);
