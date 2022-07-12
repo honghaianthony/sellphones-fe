@@ -280,7 +280,7 @@ const Cart: NextPage = () => {
 								Chọn phương thức thanh toán:
 							</span>
 							<div className="flex flex-col px-4 pb-5">
-								<Radio.Group label="Options" defaultValue="A">
+								<Radio.Group defaultValue="A">
 									<Radio
 										checked={!momoPay}
 										onClick={() => {

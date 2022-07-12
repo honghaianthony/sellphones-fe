@@ -3,9 +3,8 @@ import Router, { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { updatePaymentMethod } from '@/pages/api/orderApi';
 import Image from 'next/image';
-import { Icon } from '@iconify/react';
 
-function payment() {
+function Payment() {
 	const updatePayment = async () => {
 		await updatePaymentMethod({
 			idOrder: orderId,
@@ -75,4 +74,4 @@ function payment() {
 	);
 }
 
-export default payment;
+export default Payment;
