@@ -14,7 +14,7 @@ import { CKEditor } from 'ckeditor4-react';
 
 export default function CardAccessory() {
 	const [product, setProduct] = useState([]);
-	const [selectedProduct, setSelectedProduct] = useState();
+	const [selectedProduct, setSelectedProduct] = useState<string | any>();
 	const [quantity, setQuantity] = useState();
 	const [storage, setStorage] = useState();
 	const [price, setPrice] = useState();
